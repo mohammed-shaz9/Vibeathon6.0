@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { apiGet, apiPost } from '../../shared/api';
 import { useRealtime } from '../../shared/useRealtime';
-
+const itemsFor = (o) => o.order_items || o.items || [];
+const tableFor = (o) => o.tables?.table_number || o.table_number || o.table_id || '-';
+const elapsed = (iso) => { const s = Math.max(0, Math.floor((Date.now() - new Date(iso || Date.now())) / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2,'0')}`; };
 export default function KitchenPage() {
-  const [orders, setOrders] = useState([]);
-  const load = async () => setOrders((await apiGet('/api/orders')).orders || []);
-  useEffect(() => { load().catch(() => {}); }, []);
-  useRealtime((msg) => { if (msg.type === 'new_order' || msg.type === 'order_update' || msg.type === 'poll') load(); });
-  return <div className="app-shell"><main className="ordr-page-wrapper"><div className="container">{orders.map((o) => <div key={o.id} className="ordr-card" style={{ marginBottom: 12 }}><strong>Table {o.table_id || o.tableId}</strong><div>{o.status}</div><button onClick={() => apiPost(`/api/orders/${o.id}/status`, { status: 'received' }, 'PATCH').then(load)}>Accept</button></div>)}</div></main></div>;
+  const [orders, setOrders] = useState([]); const [clock, setClock] = useState(Date.now());
+  const load = async () => setOrders(((await apiGet('/api/orders')).orders || []).filter((o) => ['placed','received','preparing','ready'].includes(o.status)));
+  useEffect(() => { load().catch(() => {}); const t=setInterval(() => setClock(Date.now()),1000); return () => clearInterval(t); }, []);
+  useRealtime((m) => { if (['new_order','order_update','poll'].includes(m.type)) load().catch(()=>{}); });
+  const update = async (id,status) => { await apiPost(`/api/orders/${id}/status`,{status},'PATCH'); load(); };
+  return <div className="portal-page"><header className="portal-header"><b className="portal-title">KITCHEN DISPLAY</b><span className="badge badge-preparing">{orders.length} Active Orders</span><span className="mono muted">{new Date(clock).toLocaleTimeString()}</span></header>{orders.length ? <main className="kds-grid">{orders.map((o) => { const mins=Math.floor((Date.now()-new Date(o.created_at||Date.now()))/60000); const next=o.status==='ready'?'served':o.status==='preparing'?'ready':'preparing'; return <article className={`card order-card ${o.status}`} key={o.id}><div className="order-top"><span className="table-name">Table {tableFor(o)}</span><span className="mono">{elapsed(o.created_at)}</span></div><p className="muted">Placed {mins}m ago {mins>15 && <span className="delayed">DELAYED</span>}</p><div className="divider" />{itemsFor(o).map((i,n) => <div key={i.id||n} className="item-row"><span>{i.name || i.menu_items?.name || 'Menu item'} <span className="mono muted">x{i.quantity||i.qty||1}</span>{i.special_instructions && <small className="instruction">{i.special_instructions}</small>}</span></div>)}<div className="divider" /><span className={`badge badge-${o.status==='ready'?'ready':'preparing'}`}>{o.status.toUpperCase()}</span><button className={`btn btn-full ${next==='ready'?'btn-success':''}`} style={{marginTop:16}} onClick={() => update(o.id,next)}>{o.status==='ready'?'Order Served':o.status==='preparing'?'Mark Ready':'Start Preparing'}</button></article>; })}</main> : <div className="empty-state"><div className="icon">🍳</div><div className="title">No orders in queue</div><div>Orders will appear here in real-time</div></div>}</div>;
 }
