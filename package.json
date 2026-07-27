@@ -1,21 +1,17 @@
 {
-  "name": "azzurro-caffe-ordr",
-  "version": "2.0.0",
-  "private": true,
-  "description": "Azzurro Caffè restaurant operating system",
+  "name": "ordr-smart-restaurant-system",
+  "version": "1.0.0",
+  "description": "ORDR — Smart Restaurant Operating System with Supabase Backend & Google OAuth",
+  "main": "server.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "server": "node server.js"
+    "start": "node server.js",
+    "build": "echo 'No build step required - static HTML project'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.8"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
   }
 }
