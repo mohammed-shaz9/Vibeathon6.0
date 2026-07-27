@@ -1,15 +1,1 @@
-import React, { useState } from 'react';
-import { apiPost } from '../../shared/api';
-
-export default function CustomerReviewPage() {
-  const [dish, setDish] = useState(0);
-  const [chef, setChef] = useState(0);
-  const [waiter, setWaiter] = useState(0);
-  const [comment, setComment] = useState('');
-  const orderId = new URLSearchParams(window.location.search).get('orderId');
-  const submit = async () => {
-    await apiPost('/api/reviews', { order_id: orderId, dish_rating: dish, chef_rating: chef, waiter_rating: waiter, comment, tip_amount: 0, tip_recipient: '' });
-    window.location.href = '/index.html';
-  };
-  return <div className="app-shell"><main className="ordr-page-wrapper"><div className="container"><div className="ordr-card"><h1>How was your experience?</h1><button onClick={submit}>Submit Review</button></div></div></main></div>;
-}
+import React,{useState}from'react';import{apiPost}from'../../shared/api';const Stars=({value,onChange})=><div className="stars">{[1,2,3,4,5].map(n=><button type="button" className={n<=value?'filled':''} key={n} onClick={()=>onChange(n)}>★</button>)}</div>;export default function CustomerReviewPage({nav}){const[dish,setDish]=useState(0),[chef,setChef]=useState(0),[waiter,setWaiter]=useState(0),[comment,setComment]=useState(''),[thanks,setThanks]=useState(false);const id=new URLSearchParams(location.search).get('orderId');const submit=async e=>{e.preventDefault();await apiPost('/api/reviews',{order_id:id,dish_rating:dish,chef_rating:chef,waiter_rating:waiter,comment,tip_chef:0,tip_waiter:0});setThanks(true)};return <div className="customer-page"><main className="tracker">{thanks?<><h1 className="customer-title" style={{color:'#10B981'}}>Thank you!</h1><button className="btn" onClick={()=>nav.go('/')}>Back to home</button></>:<form onSubmit={submit} style={{display:'grid',gap:24,textAlign:'left'}}><h1 className="customer-title" style={{textAlign:'center'}}>How was your experience?</h1><label>Rate the Dish<Stars value={dish} onChange={setDish}/></label><label>Rate the Chef<Stars value={chef} onChange={setChef}/></label><label>Rate the Waiter<Stars value={waiter} onChange={setWaiter}/></label><label className="field">Comment<textarea placeholder="Tell us about your experience..." value={comment} onChange={e=>setComment(e.target.value)}/></label><button className="btn btn-full">Submit Review</button></form>}</main></div>}
