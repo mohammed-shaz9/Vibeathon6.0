@@ -31,7 +31,10 @@ try {
   console.warn('Supabase client initialized in fallback mode', err.message);
 }
 
-// Serve static frontend assets
+// Serve the compiled Vite app first so the browser receives real JS/CSS assets
+const distDir = path.join(__dirname, 'dist');
+app.use(express.static(distDir));
+// Keep the repo root as a fallback for legacy static files that may still be referenced
 app.use(express.static(path.join(__dirname)));
 
 // Health check endpoint
@@ -111,10 +114,10 @@ app.post('/api/orders', (req, res) => {
   });
 });
 
-// Fallback to index.html for unknown routes
+// Fallback to the built frontend for unknown routes
 app.get('*', (req, res) => {
-  const filePath = path.join(__dirname, req.path);
-  res.sendFile(filePath, (err) => {
+  const builtIndex = path.join(distDir, 'index.html');
+  res.sendFile(builtIndex, (err) => {
     if (err) {
       res.sendFile(path.join(__dirname, 'index.html'));
     }

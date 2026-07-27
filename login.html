@@ -1,1 +1,67 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ORDR Login</title><link rel="stylesheet" href="css/style.css"></head><body class="page-dark"><main class="center"><form id="loginForm" class="panel"><h1>Login</h1><input id="email" placeholder="Email"><input id="password" type="password" placeholder="Password"><button>Login</button><button id="googleLoginBtn" type="button">Continue with Google</button><div id="loginError"></div><p>Demo: admin@azzurro.demo / password123</p></form></main><script src="js/auth.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Azzurro Caffè - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      body.page-dark { background:#0F172A; color:#F8FAFC; font-family:Inter, sans-serif; }
+      .login-shell { min-height:100vh; display:grid; place-items:center; padding:24px; }
+      .login-card { width:min(480px,100%); background:linear-gradient(180deg, rgba(30,41,59,.98), rgba(15,23,42,.98)); border:1px solid #334155; border-radius:20px; padding:28px; box-shadow:0 24px 80px rgba(0,0,0,.35); }
+      .login-kicker { margin:0 0 8px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#06B6D4; }
+      .login-title { margin:0; font-family:'Space Grotesk', sans-serif; font-size:34px; }
+      .login-subtitle { margin:8px 0 24px; color:#94A3B8; }
+      .login-form { display:grid; gap:14px; }
+      .field-label { display:grid; gap:8px; color:#94A3B8; font-size:13px; }
+      .field-input { width:100%; padding:14px 16px; border-radius:12px; border:1px solid #334155; background:#0F172A; color:#F8FAFC; }
+      .field-input:focus { outline:0; border-color:#6366F1; }
+      .btn-primary, .btn-google { width:100%; border-radius:12px; padding:14px 16px; font-weight:700; border:0; cursor:pointer; }
+      .btn-primary { background:#6366F1; color:#fff; }
+      .btn-google { background:#fff; color:#0F172A; border:1px solid #E2E8F0; }
+      .login-divider { display:flex; align-items:center; gap:12px; margin:16px 0; color:#94A3B8; font-size:12px; text-transform:uppercase; letter-spacing:.14em; }
+      .login-divider::before, .login-divider::after { content:''; height:1px; flex:1; background:#334155; }
+      .error-text { min-height:20px; color:#F87171; font-size:13px; }
+      .demo-box { margin-top:18px; padding:14px; border:1px solid #334155; border-radius:12px; color:#94A3B8; font-size:13px; }
+      .demo-box summary { color:#F8FAFC; cursor:pointer; }
+      .demo-box ul { margin:12px 0 0; padding-left:18px; line-height:1.7; }
+      .role-chip { display:inline-flex; margin-bottom:16px; padding:6px 12px; border-radius:999px; background:rgba(99,102,241,.16); color:#C7D2FE; font-size:12px; }
+    </style>
+  </head>
+  <body class="page-dark">
+    <main class="login-shell">
+      <section class="login-card">
+        <span class="role-chip" id="roleChip">Role: customer</span>
+        <p class="login-kicker">ORDR Portal</p>
+        <h1 class="login-title">AZZURRO CAFFÈ</h1>
+        <p class="login-subtitle">Sign in to your restaurant dashboard</p>
+
+        <button class="btn-google" id="googleLoginBtn" type="button">Continue with Google</button>
+
+        <div class="login-divider"><span>or</span></div>
+
+        <form id="loginForm" class="login-form">
+          <label class="field-label">Email
+            <input id="email" class="field-input" type="email" placeholder="name@azzurro.demo" required>
+          </label>
+          <label class="field-label">Password
+            <input id="password" class="field-input" type="password" placeholder="password123" required>
+          </label>
+          <div id="loginError" class="error-text"></div>
+          <button class="btn-primary" type="submit">Sign In</button>
+        </form>
+
+        <details class="demo-box">
+          <summary>Demo Credentials</summary>
+          <ul>
+            <li>admin@azzurro.demo / password123</li>
+            <li>kitchen@azzurro.demo / password123</li>
+            <li>waiter@azzurro.demo / password123</li>
+            <li>host@azzurro.demo / password123</li>
+          </ul>
+        </details>
+      </section>
+    </main>
+    <script src="js/auth.js"></script>
+  </body>
+</html>
