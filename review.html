@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Dining Review & Gemini AI | Azzurro Caffè</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/portals.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      font-size: 24px;
+      color: rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+    .star-rating i.active {
+      color: var(--ordr-gold);
+    }
+    .tip-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tip-btn.active, .tip-btn:hover {
+      background: var(--ordr-gold);
+      color: #000;
+      border-color: var(--ordr-gold);
+    }
+  </style>
+</head>
+<body style="background: #0b0d11; color: #fff;">
+
+  <!-- Navbar -->
+  <header>
+    <div class="container">
+      <nav id="navbar">
+        <div class="logo">
+          <i class="fa-solid fa-a" style="color: #fff"></i>
+          <a href="index.html">zzurro <i><b>C</b></i>affè</a>
+        </div>
+        <div id="rightSide">
+          <ul id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="order.html">Order Portal</a></li>
+            <li><a href="about.html">About us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ordr-page-wrapper" style="display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="max-width: 650px;">
+
+      <div class="ordr-card ordr-glass">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color: var(--ordr-gold); margin-bottom: 10px;"></i>
+          <h2 style="margin: 0; color: #fff; font-size: 24px; font-weight: 800;">Post-Dining Guest Review</h2>
+          <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">Powered by Real-time Gemini AI Sentiment Analysis</p>
+        </div>
+
+        <form id="reviewForm" style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px;">Your Name</label>
+            <input type="text" id="guestNameInput" value="Shahbaz Ahmed" placeholder="Guest Name" style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--ordr-border); color: #fff; font-size: 14px;" required />
+          </div>
+
+          <!-- 5-Star Ratings Grid -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 6px;">🍱 Food Quality</label>
+              <div class="star-rating" data-category="foodRating">
+                <i class="fa-solid fa-star active" data-val="1"></i>
+                <i class="fa-solid fa-star active" data-val="2"></i>
+                <i class="fa-solid fa-star active" data-val="3"></i>
+                <i class="fa-solid fa-star active" data-val="4"></i>
+                <i class="fa-solid fa-star active" data-val="5"></i>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 6px;">👨‍🍳 Chef Performance</label>
+              <div class="star-rating" data-category="chefRating">
+                <i class="fa-solid fa-star active" data-val="1"></i>
+                <i class="fa-solid fa-star active" data-val="2"></i>
+                <i class="fa-solid fa-star active" data-val="3"></i>
+                <i class="fa-solid fa-star active" data-val="4"></i>
+                <i class="fa-solid fa-star active" data-val="5"></i>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 6px;">🛎️ Waiter Service</label>
+              <div class="star-rating" data-category="waiterRating">
+                <i class="fa-solid fa-star active" data-val="1"></i>
+                <i class="fa-solid fa-star active" data-val="2"></i>
+                <i class="fa-solid fa-star active" data-val="3"></i>
+                <i class="fa-solid fa-star active" data-val="4"></i>
+                <i class="fa-solid fa-star" data-val="5"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Staff Tip Selection -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px;">Add Gratuity Tip for Waiter & Chef</label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+              <button type="button" class="tip-btn" data-tip="50">₹ 50</button>
+              <button type="button" class="tip-btn active" data-tip="100">₹ 100</button>
+              <button type="button" class="tip-btn" data-tip="200">₹ 200</button>
+              <button type="button" class="tip-btn" data-tip="500">₹ 500</button>
+            </div>
+          </div>
+
+          <!-- Comment area -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px;">Detailed Dining Feedback (Gemini AI Analyzed)</label>
+            <textarea id="commentInput" rows="3" placeholder="Tell us about the dishes, ambiance, or staff..." style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--ordr-border); color: #fff; font-size: 14px;">The Pan-Seared Salmon was exquisite and served piping hot! Waiter was attentive and polite.</textarea>
+          </div>
+
+          <button type="submit" class="ordr-btn" style="width: 100%; padding: 14px; font-size: 16px;">
+            <i class="fa-solid fa-paper-plane"></i> Submit Review & Run Gemini AI Analysis
+          </button>
+        </form>
+
+        <!-- Gemini AI Output Box -->
+        <div id="aiOutputCard" style="display: none; margin-top: 24px; background: rgba(212,175,55,0.08); border: 1.5px solid var(--ordr-gold); border-radius: 14px; padding: 18px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <i class="fa-solid fa-brain" style="color: var(--ordr-gold); font-size: 20px;"></i>
+            <h4 style="margin: 0; color: #fff; font-weight: 800;">Gemini AI Automated Sentiment Report</h4>
+            <span id="aiSentimentBadge" style="margin-left: auto; font-size: 11px; padding: 4px 10px; border-radius: 12px; background: #10b981; color: #fff; font-weight: 800;">POSITIVE</span>
+          </div>
+          <p id="aiSummaryText" style="margin: 0; color: #e2e8f0; font-size: 13px; line-height: 1.5;"></p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/sync.js"></script>
+  <script src="js/portals-drawer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const ratings = { foodRating: 5, chefRating: 5, waiterRating: 4 };
+      let selectedTip = 100;
+
+      // Star rating click handler
+      document.querySelectorAll('.star-rating').forEach(container => {
+        const cat = container.dataset.category;
+        container.querySelectorAll('i').forEach(star => {
+          star.addEventListener('click', function () {
+            const val = parseInt(this.dataset.val);
+            ratings[cat] = val;
+            container.querySelectorAll('i').forEach((s, idx) => {
+              s.classList.toggle('active', idx < val);
+            });
+          });
+        });
+      });
+
+      // Tip selection
+      document.querySelectorAll('.tip-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          selectedTip = parseInt(this.dataset.tip);
+        });
+      });
+
+      // Review Submission
+      document.getElementById('reviewForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('guestNameInput').value;
+        const comment = document.getElementById('commentInput').value;
+
+        const rev = OrdrSync.submitReview({
+          guestName: name,
+          foodRating: ratings.foodRating,
+          chefRating: ratings.chefRating,
+          waiterRating: ratings.waiterRating,
+          tip: selectedTip,
+          comment: comment
+        });
+
+        const aiOutputCard = document.getElementById('aiOutputCard');
+        const aiSentimentBadge = document.getElementById('aiSentimentBadge');
+        const aiSummaryText = document.getElementById('aiSummaryText');
+
+        aiSentimentBadge.textContent = rev.sentiment.toUpperCase();
+        aiSentimentBadge.style.background = rev.sentiment === 'Positive' ? '#10b981' : rev.sentiment === 'Neutral' ? '#f59e0b' : '#ef4444';
+
+        aiSummaryText.innerHTML = `
+          <strong>AI Analysis:</strong> High satisfaction rating (${ratings.foodRating}/5 Stars). Food temperature & prep quality verified.<br/>
+          <strong>Automated Action:</strong> ₹${selectedTip} tip allocated. Executive Head Chef notified in Admin Intelligence Dashboard.
+        `;
+
+        aiOutputCard.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>

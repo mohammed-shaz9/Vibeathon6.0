@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: azzurro-caffe
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: "3000"
+      - key: SUPABASE_URL
+      - key: SUPABASE_ANON_KEY
+      - key: GEMINI_API_KEY
+      - key: GROQ_API_KEY

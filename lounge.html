@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The VIP Lounge | Azzurro Caffè</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/portals.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body style="background: #0b0d11; color: #fff;">
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav id="navbar">
+        <div class="logo">
+          <i class="fa-solid fa-a" style="color: #fff"></i>
+          <a href="index.html">zzurro <i><b>Lounge</b></i></a>
+        </div>
+        <div id="rightSide">
+          <ul id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="order.html">Order Portal</a></li>
+            <li><a href="about.html">About us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ordr-page-wrapper">
+    <div class="container" style="max-width: 1000px;">
+
+      <div class="ordr-card ordr-glass" style="margin-bottom: 24px; text-align: center; padding: 40px 20px;">
+        <i class="fa-solid fa-couch fa-3x" style="color: var(--ordr-gold); margin-bottom: 16px;"></i>
+        <h1 style="margin: 0; font-size: 32px; color: #fff; font-weight: 900;">The Azzurro VIP Lounge</h1>
+        <p style="color: #94a3b8; font-size: 16px; max-width: 600px; margin: 10px auto 24px auto;">
+          An exclusive sanctuary for craft cocktails, artisanal tapas, and relaxed evening conversations.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <a href="order.html?table=1" class="ordr-btn" style="padding: 12px 28px;">
+            <i class="fa-solid fa-martini-glass-citrus"></i> Order Lounge Drinks
+          </a>
+          <button id="reserveLoungeBtn" class="ordr-btn ordr-btn-secondary" style="padding: 12px 28px;">
+            <i class="fa-solid fa-calendar-check"></i> Request Lounge Booth
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature showcase grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div class="ordr-card ordr-glass">
+          <img src="assets/bev2.jpg" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 14px;" />
+          <h3 style="margin: 0 0 6px 0; color: var(--ordr-gold);">Signature Mixology</h3>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0;">Handcrafted Mojito Cocktails and organic botanical infusions prepared by master bartenders.</p>
+        </div>
+
+        <div class="ordr-card ordr-glass">
+          <img src="assets/app1.jpg" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 14px;" />
+          <h3 style="margin: 0 0 6px 0; color: var(--ordr-gold);">Tapas & Small Plates</h3>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0;">Crispy seasoned chicken wings, truffle bite platters, and international appetizers.</p>
+        </div>
+
+        <div class="ordr-card ordr-glass">
+          <img src="assets/dess1.jpg" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 14px;" />
+          <h3 style="margin: 0 0 6px 0; color: var(--ordr-gold);">Midnight Desserts</h3>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0;">Fluffy Belgian fruit waffles paired with dark chocolate glaze and vanilla espresso pairings.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/sync.js"></script>
+  <script src="js/portals-drawer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('reserveLoungeBtn').addEventListener('click', function () {
+        OrdrSync.addToWaitlist('VIP Lounge Guest', '+91 99999 88888', 2, 'VIP Lounge Booth Request');
+        alert('VIP Lounge Booth request added to Host Stand waitlist queue!');
+      });
+    });
+  </script>
+</body>
+</html>

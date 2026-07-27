@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:wght@700&display=swap");
+* { font-family: "Open Sans", sans-serif; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; }
+body { margin: 0; position: relative; }
+.container { width: 80%; margin: 0 auto; }
+header { background-color: #000000e8; top: 0; padding: 20px 0; z-index: 50; position: fixed; width: 100%; }
+#navbar .logo { width: 30%; }
+#rightSide { width: 50%; }
+#navbar { display: flex; justify-content: space-between; align-items: center; }
+#navbar a { color: gold; font-size: 18px; font-weight: 600; text-decoration: none; }
+#rightSide a:hover { font-size: 20px; color: white; }
+.fa-a { border: 1px white solid; font-size: x-large; }
+.logo a { text-decoration: none; color: gold; }
+header img { height: 50px; vertical-align: middle; }
+#navLinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: space-evenly; }
+#menuToggle { color: #fff; margin-left: 70px; display: none; }
+.sectionOne::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.47); z-index: 1; }
+.bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+.sectionOne { color: white; position: relative; background: url("../assets/Restaur.mp4") repeat center center fixed; background-size: cover; background-position-y: bottom; height: 100%; margin-top: 66px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; z-index: 2; }
+.sectionOne h1 { width: 37%; font-size: 70px; font-weight: 900; margin-top: 0; margin: 45px; z-index: 3; }
+.sectionOne p { font-size: 22px; z-index: 3; width: 50%; margin: 50px; }
+.menu-category { display: none; }
+.menu-category.active { display: block; }
+.search-container { position: relative; }
+#menuSearch { padding-right: 30px; width: 90px; border: none; height: 39px; border-radius: 12px 20px; }
+.search-icon { cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: purple; }
+.menu { padding: 1px 0; background-color: #1b1b1b; color: beige; }
+.menu h2 { font-weight: 700; text-align: center; font-size: 40px; text-shadow: 4px 2px #a757a7; margin-top: 70px; }
+.menu button { background-color: #f4bbff; border: 0; border-radius: 12px 20px; }
+.menu button:hover { background-color: beige; border-radius: 20px 12px; cursor: pointer; }
+.menu-items { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 35px; text-align: center; row-gap: 16px; }
+.menu-items h3 { margin: 0; }
+.menu-category { margin-bottom: 30px; }
+.menu-category h3 { text-align: center; margin: 30px; font-size: 30px; text-decoration: underline; text-decoration-color: gold; }
+span { color: gold; text-decoration: underline; border: 1px white dotted; }
+.menu-category ul { list-style: none; padding: 0; }
+.menu-category img { border-radius: 50%; width: 150px; height: 150px; }
+.itemsUl { display: flex; justify-content: space-around; }
+.itemsUl p { width: 90%; text-align: center; }
+.appItem, .mainItem, .dessItem, .bevItem { display: flex; flex-direction: column; cursor: pointer; row-gap: 10px; justify-content: center; align-items: center; padding: 10px; width: 30%; box-shadow: 37px 25px 24px -21px rgb(0 0 0 / 52%); background-color: #00000075; border-radius: 15px; }
+.scroll-to-top-btn { position: fixed; bottom: 60px; right: 80px; background-color: #ffd700e8; color: black; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 25px; cursor: pointer; z-index: 3; display: none; }
+.scroll-to-top-btn:hover { background-color: #fff; }
+footer { background-color: #0b0f19; color: #fff; padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer-content { display: flex; justify-content: space-between; align-items: center; }
+.footer-logo img { height: 50px; }
+.footer-logo h3 { color: #fff; font-size: 1.5rem; margin-bottom: 10px; }
+.footer-logo a { font-size: large; font-weight: 700; }
+.footer-links ul { list-style: none; padding: 0; }
+.footer-links ul li { margin-bottom: 10px; }
+.footer-links ul li a:hover { color: gold; }
+.footer-links ul li a { text-decoration: none; color: #fff; }
+.footer-contact p { margin: 0; }
+.footer-social { margin-top: 20px; }
+.footer-social a { margin-right: 10px; color: gold; cursor: pointer; }
+.footer-social img { height: 30px; }
+.popupOverlay { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; padding: 20px; border-radius: 10px; z-index: 1000; justify-content: center; align-items: center; }
+.popup-content { background-color: #fff; padding: 20px; width: 35%; height: 35%; border-radius: 10px; }
+.close { position: absolute; cursor: pointer; color: black; text-decoration: unset; top: 37%; right: 34%; width: 30px; background-color: gold; text-align: center; border-radius: 20px; }
+#ingredients-list { margin-top: 10px; }
+.contactUs { padding: 50px 0; text-align: center; background-color: #111827; color: #fff; }
+.contactUs h2 { font-size: xx-large; text-decoration: underline; }
+.contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.contact-item { background-color: rgba(255,255,255,0.04); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); }
+.contactWrapper { display: flex; justify-content: space-evenly; width: 100%; height: 100%; margin-top: 20px; }
+.mapLeftSide { width: 50%; }
+iframe { height: 100%; border: 0; width: 100%; }
+.formRightSide { height: 100%; width: 47%; }
+.nameAndEmailWrapper { display: flex; justify-content: space-between; }
+.nameAndEmailWrapper .form-item { width: 47%; }
+form { height: inherit; }
+.form-flex { height: inherit; row-gap: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.form-floating { position: relative; }
+.form-floating input, .form-floating textarea { width: 100%; }
+.form-floating label { position: absolute; top: 0; left: 5px; transition: all 0.3s ease; }
+.form-floating input:focus + label, .form-floating textarea:focus + label, .form-floating input:not(:placeholder-shown) + label, .form-floating textarea:not(:placeholder-shown) + label { top: -20px; font-size: 12px; color: #333; }
+.contactBtn { border: unset; background-color: gold; font-size: x-large; width: 100%; height: fit-content; cursor: pointer; }
