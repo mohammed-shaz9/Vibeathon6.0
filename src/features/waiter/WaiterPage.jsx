@@ -29,82 +29,104 @@ export default function WaiterPage() {
   };
 
   return (
-    <div className="portal-page" style={{ background: '#090b0e', minHeight: '100vh', color: '#F8FAFC', paddingTop: '100px', paddingLeft: '32px', paddingRight: '32px' }}>
-      <header className="portal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', borderBottom: '1px solid rgba(212,175,55,0.2)', paddingBottom: '16px' }}>
-        <div>
-          <b className="portal-title" style={{ fontFamily: 'Space Grotesk, sans-serif', color: 'gold', fontSize: '24px' }}>🛎️ WAITER DISPATCH PANEL</b>
-          <div style={{ color: '#94a3b8', fontSize: '13px', marginTop: '2px' }}>Azzurro Caffè Real-time Table Service</div>
-        </div>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <span className="badge" style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', border: '1px solid rgba(16,185,129,0.3)', padding: '8px 16px', fontSize: '14px' }}>
-            ✓ Delivered Today: {count} Tables
-          </span>
-        </div>
-      </header>
+    <div className="portal-page" style={{ background: '#090b0e', minHeight: '100vh', color: '#F8FAFC', padding: '120px 24px 48px' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        
+        {/* Aligned Staff Portal Hero Header */}
+        <header style={{
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid rgba(212, 175, 55, 0.25)',
+          borderRadius: '18px',
+          padding: '24px 32px',
+          marginBottom: '32px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backdropFilter: 'blur(16px)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)'
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ fontSize: '26px' }}>🛎️</span>
+              <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'gold', margin: 0, fontSize: '24px', letterSpacing: '0.04em' }}>WAITER DISPATCH PANEL</h1>
+            </div>
+            <p style={{ color: '#94A3B8', margin: '4px 0 0 38px', fontSize: '14px' }}>Azzurro Caffè Real-time Table Delivery & Service Management</p>
+          </div>
 
-      <main className="waiter-main" style={{ maxWidth: '900px', margin: 'auto' }}>
-        <h1 className="section-title" style={{ color: 'gold', fontFamily: 'Space Grotesk, sans-serif', fontSize: '26px', marginBottom: '8px' }}>Orders Ready for Delivery</h1>
-        <p style={{ color: '#94A3B8', marginBottom: '28px', fontSize: '15px' }}>Orders marked ready by the kitchen display system</p>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.4)', padding: '10px 18px', borderRadius: '20px', fontWeight: '700', fontSize: '14px' }}>
+              ✓ Delivered Today: {count} Tables
+            </span>
+          </div>
+        </header>
 
         {orders.length ? (
-          <div className="delivery-list" style={{ display: 'grid', gap: '20px' }}>
+          <main style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '24px' }}>
             {orders.map(o => (
               <article
-                className="card order-card ready"
                 key={o.id}
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
+                  background: 'rgba(255, 255, 255, 0.03)',
                   border: '2px solid #10B981',
-                  borderRadius: '16px',
-                  padding: '24px',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.3)',
-                  backdropFilter: 'blur(12px)'
+                  borderRadius: '20px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 12px 36px rgba(0,0,0,0.4)',
+                  backdropFilter: 'blur(16px)'
                 }}
               >
-                <div className="delivery-top" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <b className="table-name" style={{ font: "700 24px 'Space Grotesk', sans-serif", color: 'gold' }}>Table {tableFor(o)}</b>
-                  <span className="badge" style={{ background: 'rgba(16,185,129,0.2)', color: '#10B981', padding: '6px 14px', fontWeight: '700' }}>READY FOR SERVING</span>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                    <span style={{ font: "700 26px 'Space Grotesk', sans-serif", color: 'gold' }}>Table {tableFor(o)}</span>
+                    <span style={{ background: 'rgba(16,185,129,0.2)', color: '#10B981', border: '1px solid rgba(16,185,129,0.4)', padding: '6px 14px', borderRadius: '20px', fontWeight: '700', fontSize: '12px' }}>
+                      READY FOR SERVING
+                    </span>
+                  </div>
+
+                  <div style={{ color: '#F8FAFC', fontSize: '15px', fontWeight: '600', marginBottom: '14px' }}>
+                    Guest Name: {o.customer_name || 'Guest'}
+                  </div>
+
+                  <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '14px 0' }} />
+
+                  <div style={{ display: 'grid', gap: '10px', margin: '16px 0' }}>
+                    {itemsFor(o).map((i, n) => (
+                      <div key={i.id || n} style={{ color: '#94A3B8', fontSize: '15px' }}>
+                        • <strong style={{ color: '#fff' }}>{i.name || i.menu_items?.name || 'Menu item'}</strong> <span className="mono" style={{ color: 'gold', marginLeft: '6px' }}>x{i.quantity || i.qty || 1}</span>
+                        {i.special_instructions && <small style={{ display: 'block', color: '#F59E0B', fontStyle: 'italic', marginTop: '2px' }}>Note: {i.special_instructions}</small>}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div style={{ color: '#F8FAFC', fontSize: '15px', fontWeight: '600', marginBottom: '12px' }}>
-                  Guest: {o.customer_name || 'Guest'}
+                <div>
+                  <button
+                    className="btn btn-full"
+                    style={{ marginTop: 16, background: '#10B981', color: '#fff', fontWeight: '700', fontSize: '16px', padding: '14px', borderRadius: '12px' }}
+                    onClick={() => deliver(o)}
+                  >
+                    🚀 Confirm Table Delivery & Mark Served
+                  </button>
                 </div>
-
-                <div className="divider" style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '12px 0' }} />
-
-                <div style={{ display: 'grid', gap: '8px', margin: '16px 0' }}>
-                  {itemsFor(o).map((i, n) => (
-                    <div key={i.id || n} style={{ color: '#94A3B8', fontSize: '14px' }}>
-                      • <strong>{i.name || i.menu_items?.name || 'Menu item'}</strong> <span className="mono" style={{ color: 'gold' }}>x{i.quantity || i.qty || 1}</span>
-                      {i.special_instructions && <small style={{ display: 'block', color: '#F59E0B', fontStyle: 'italic', marginTop: '2px' }}>{i.special_instructions}</small>}
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  className="btn btn-full"
-                  style={{ marginTop: 16, background: '#10B981', color: '#fff', fontWeight: '700', fontSize: '16px', padding: '14px' }}
-                  onClick={() => deliver(o)}
-                >
-                  🚀 Confirm Table Delivery & Mark Served
-                </button>
               </article>
             ))}
-          </div>
+          </main>
         ) : (
-          <div className="empty-state" style={{ textAlign: 'center', padding: '80px 20px', color: '#94a3b8' }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛎️</div>
-            <div style={{ fontSize: '20px', fontWeight: '700', color: 'gold', fontFamily: 'Space Grotesk, sans-serif' }}>All ready orders delivered</div>
-            <div style={{ marginTop: '8px' }}>Orders ready for serving will appear here automatically.</div>
+          <div style={{ textAlign: 'center', padding: '100px 20px', background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(212,175,55,0.3)', borderRadius: '24px', color: '#94a3b8' }}>
+            <div style={{ fontSize: '56px', marginBottom: '16px' }}>🛎️</div>
+            <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'gold', fontFamily: "'Space Grotesk', sans-serif", margin: '0 0 8px' }}>All ready orders delivered</h2>
+            <p style={{ margin: 0 }}>Orders marked ready by the kitchen display system will appear here for waiter dispatch.</p>
           </div>
         )}
-      </main>
 
-      {toast && (
-        <div className="toast" style={{ position: 'fixed', right: '24px', bottom: '24px', background: '#10B981', color: '#fff', padding: '16px 28px', borderRadius: '12px', fontWeight: '700', boxShadow: '0 8px 30px rgba(0,0,0,0.5)', zIndex: 1000 }}>
-          {toast}
-        </div>
-      )}
+        {toast && (
+          <div style={{ position: 'fixed', right: '24px', bottom: '24px', background: '#10B981', color: '#fff', padding: '16px 28px', borderRadius: '12px', fontWeight: '700', boxShadow: '0 8px 30px rgba(0,0,0,0.5)', zIndex: 1000 }}>
+            {toast}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
