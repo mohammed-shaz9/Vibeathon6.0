@@ -440,23 +440,33 @@ ${aiInsightsText}`,
   }
 });
 
-// Dedicated Customer Jarvis AI Chat Endpoint with Groq LLM Multi-Key Fallback
+// Dedicated Customer Jarvis AI Chat Endpoint with Groq LLM Multi-Key Fallback & Memory
 app.post('/api/ai/chat', async (req, res) => {
-  const { userPrompt = 'Hi' } = req.body;
+  const { userPrompt = 'Hi', history = [] } = req.body;
   
-  const systemPrompt = `You are Jarvis, the friendly, intelligent AI Culinary Concierge at Azzurro Caffè.
-Your goal is to assist restaurant guests with menu recommendations, ingredient & allergen details, table QR ordering, and dining inquiries.
+  const systemPrompt = `You are Jarvis, the expert AI Culinary Concierge at Azzurro Caffè.
+Your task is to assist dining guests with menu recommendations, dietary preferences, and order choices.
 
-Key Knowledge Base for Azzurro Caffè:
-- Signature Main Courses: Hyderabadi Dum Biryani (₹349), Paneer Tikka Multani (₹249), Butter Chicken Deluxe (₹349), Dal Makhani Royal (₹229).
-- Desserts: Classic Tiramisu (₹249), Molten Lava Cake (₹279), Kesari Rasmalai (₹149), Fudge Brownie Sizzler (₹229).
-- Beverages: Classic Virgin Mojito (₹139), Mango Lassi (₹119), Cutting Masala Chai (₹69), Cold Coffee with Ice Cream (₹149).
-- System Features: QR Table Ordering, Live Order Tracker, Kitchen KDS, Waiter Dispatch, Host Stand Waitlist.
+CRITICAL RESPONSE RULES:
+1. ALWAYS structure your answer directly in 2 to 5 concise bullet points (use • for bullets). No long intro paragraphs or fluff.
+2. ACCURATELY RESPECT DIETARY REQUESTS:
+   - If the guest requests VEGETARIAN (or "veg", "4 veg dishes", etc.), suggest ONLY vegetarian dishes (e.g. Paneer Tikka ₹249, Veg Dum Biryani ₹279, Dal Makhani ₹249, Truffle Mushroom Risotto ₹389, Palak Paneer ₹269, Paneer Lababdar ₹289). NEVER include chicken, mutton, lamb, fish, or prawns.
+   - If the guest requests NON-VEGETARIAN, suggest non-veg items (Hyderabadi Chicken Biryani ₹349, Butter Chicken ₹349, Mutton Rogan Josh ₹429, Amritsari Fish Fry ₹379).
+   - If the guest requests VEGAN, suggest strictly vegan items (Mushroom Bruschetta ₹219, Crispy Corn ₹199, Veg Spring Rolls ₹189, Thai Green Curry Veg ₹299).
+3. If the user asks for a specific count (e.g., "4 veg dishes"), give EXACTLY that number of recommendations as bullet points.
+4. Keep prices and brief 1-line taste descriptions included in each bullet.`;
 
-Rules for your responses:
-- Keep your response warm, conversational, concise, and helpful (1 to 3 short paragraphs max).
-- Do NOT output 50-line telemetry reports or code blocks.
-- If the user greets you with 'Hi', 'Hello', or similar, greet them warmly, welcome them to Azzurro Caffè, and ask how you can help them choose their meal today.`;
+  // Format conversation history for Groq OpenAI compatible format
+  const formattedHistory = (Array.isArray(history) ? history : []).map(m => ({
+    role: m.sender === 'user' ? 'user' : 'assistant',
+    content: m.text || ''
+  })).filter(m => m.content.trim().length > 0);
+
+  const apiMessages = [
+    { role: 'system', content: systemPrompt },
+    ...formattedHistory,
+    { role: 'user', content: userPrompt }
+  ];
 
   let aiReplyText = null;
 
@@ -472,12 +482,9 @@ Rules for your responses:
           },
           body: JSON.stringify({
             model,
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: userPrompt }
-            ],
-            temperature: 0.7,
-            max_tokens: 300
+            messages: apiMessages,
+            temperature: 0.6,
+            max_tokens: 400
           })
         });
 
@@ -491,12 +498,19 @@ Rules for your responses:
     if (aiReplyText) break;
   }
 
+  // Context-aware dynamic fallback in case Groq API is offline or throttled
   if (!aiReplyText) {
     const lower = userPrompt.toLowerCase();
-    if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
-      aiReplyText = "Hello! Welcome to Azzurro Caffè. I'm Jarvis, your AI Culinary Concierge. How may I assist your dining experience today? I can recommend biryanis, desserts, or signature mocktails!";
+    if (lower.includes('4 veg') || (lower.includes('veg') && lower.includes('4'))) {
+      aiReplyText = "Here are 4 of our top-rated Vegetarian specialties:\n\n• **Paneer Tikka** (₹249): Char-grilled cottage cheese with spiced yogurt glaze\n• **Veg Dum Biryani** (₹279): Fragrant basmati rice dum-cooked with fresh garden veggies\n• **Dal Makhani Royal** (₹249): Overnight slow-cooked black lentils in churned butter\n• **Truffle Mushroom Risotto** (₹389): Arborio rice simmered with wild mushrooms & black truffle butter";
+    } else if (lower.includes('veg') && !lower.includes('non')) {
+      aiReplyText = "Here are our finest Vegetarian recommendations:\n\n• **Paneer Tikka** (₹249): Tender cottage cheese charred in tandoor glaze\n• **Palak Paneer** (₹269): Fresh cottage cheese in silky garlic spinach puree\n• **Paneer Lababdar** (₹289): Rich cottage cheese in tomato cashew gravy";
+    } else if (lower.includes('non') || lower.includes('chicken') || lower.includes('mutton') || lower.includes('meat')) {
+      aiReplyText = "Here are our signature Non-Vegetarian favorites:\n\n• **Hyderabadi Chicken Biryani** (₹349): Layered saffron basmati rice with tender marinated chicken\n• **Butter Chicken Deluxe** (₹349): Tender chicken in rich creamy tomato butter gravy\n• **Mutton Rogan Josh** (₹429): Traditional Kashmiri lamb curry braised with chilies";
+    } else if (lower.includes('vegan')) {
+      aiReplyText = "Here are our 100% Plant-Based Vegan delights:\n\n• **Mushroom Bruschetta** (₹219): Toasted sourdough with garlic mushrooms & truffle oil\n• **Crispy Corn Chili Pepper** (₹199): Sweet corn wok-tossed with green chili\n• **Thai Green Curry Veg** (₹299): Coconut milk curry with kaffir lime & tofu";
     } else {
-      aiReplyText = "I'm delighted to assist you at Azzurro Caffè! Our Chef recommends trying our Hyderabadi Dum Biryani or Classic Tiramisu today.";
+      aiReplyText = "Welcome to Azzurro Caffè! Here are our chef recommendations:\n\n• **Hyderabadi Dum Biryani** (₹349): Fragrant saffron rice with signature spices\n• **Paneer Tikka Multani** (₹249): Char-grilled cottage cheese in savory glaze\n• **Classic Tiramisu** (₹249): Italian ladyfingers layered with mascarpone cream";
     }
   }
 
