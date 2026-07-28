@@ -187,34 +187,72 @@ export default function CustomerMenuPage({ nav }) {
 
   // Step 2: Table Allotted & Virtual QR Code Display
   if (simStep === 2) {
-    const virtualQrUrl = `http://${lanConfig.lanIp || window.location.hostname}:${lanConfig.port || 5173}/order.html?table=${allottedTable}&name=${encodeURIComponent(guestName)}`;
+    const liveProductionQrUrl = `https://vibeathon6-0.vercel.app/order.html?table=${allottedTable}&name=${encodeURIComponent(guestName)}`;
     return (
-      <div className="app-shell" style={{ minHeight: '100vh', background: '#0b0d11', color: '#fff', paddingTop: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div className="ordr-card ordr-glass" style={{ width: 'min(520px, 90%)', padding: '30px', borderRadius: '20px' }}>
-          <i className="fa-solid fa-circle-check fa-3x" style={{ color: '#10b981', marginBottom: '16px' }}></i>
-          <h2 style={{ color: '#fff', margin: '0 0 8px 0' }}>Table Allotted!</h2>
-          <p style={{ color: 'gold', fontSize: '20px', fontWeight: '800', margin: '0 0 16px 0' }}>
-            Dining Table {allottedTable} is assigned to you
+      <div className="app-shell" style={{ minHeight: '100vh', background: '#090b0e', color: '#fff', paddingTop: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{
+          width: 'min(640px, 92%)',
+          background: 'rgba(15, 17, 21, 0.95)',
+          border: '2px solid rgba(212, 175, 55, 0.6)',
+          borderRadius: '24px',
+          padding: '36px',
+          backdropFilter: 'blur(24px)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 175, 55, 0.25)',
+          textAlign: 'center'
+        }}>
+          <span style={{ background: 'rgba(212,175,55,0.15)', color: 'gold', border: '1px solid rgba(212,175,55,0.4)', padding: '8px 18px', borderRadius: '20px', fontWeight: '700', fontSize: '13px', display: 'inline-block', marginBottom: '16px' }}>
+            📱 INSTANT PHONE DEMO FOR JUDGES
+          </span>
+
+          <h2 style={{ color: '#fff', fontFamily: "'Space Grotesk', sans-serif", fontSize: '28px', margin: '0 0 8px' }}>
+            Scan Table QR with Your Phone
+          </h2>
+          <p style={{ color: 'gold', fontSize: '20px', fontWeight: '800', margin: '0 0 16px' }}>
+            ✓ Dining Table #{allottedTable} Assigned to {guestName}
           </p>
-          <p style={{ color: '#94a3b8', fontSize: '13px', marginBottom: '20px' }}>
-            Please scan this table QR code with your mobile phone to begin ordering directly, or click below to proceed in this window.
+          <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' }}>
+            Point your mobile phone camera at the QR code below to open the live <strong>Azzurro Caffè Digital Menu & Ordering System</strong> directly on your smartphone in real-time!
           </p>
-          
-          {/* Mock QR display container */}
-          <div style={{ background: '#fff', padding: '16px', borderRadius: '12px', display: 'inline-block', marginBottom: '24px', boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}>
+
+          {/* QR Code Container */}
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: '20px',
+            padding: '20px',
+            display: 'inline-block',
+            marginBottom: '24px',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.6)'
+          }}>
             <img 
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(virtualQrUrl)}`} 
-              alt="Table QR Code"
-              style={{ display: 'block' }}
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(liveProductionQrUrl)}`} 
+              alt={`Table ${allottedTable} QR Code`}
+              style={{ display: 'block', width: '220px', height: '220px', borderRadius: '12px' }}
             />
+            <div style={{ color: '#000', fontWeight: '800', fontSize: '15px', marginTop: '12px', fontFamily: "'Space Grotesk', sans-serif" }}>
+              TABLE #{allottedTable} QR CODE
+            </div>
+            <small style={{ color: '#64748B', fontSize: '12px', fontWeight: '600' }}>Scan with Phone Camera</small>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <button onClick={handleProceedToMenu} style={{ background: 'gold', color: '#000', fontWeight: '700', padding: '14px', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '15px' }}>
-              Proceed to Menu on Laptop
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <button
+              onClick={handleProceedToMenu}
+              style={{
+                background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
+                color: '#000',
+                fontWeight: '800',
+                padding: '16px',
+                border: 'none',
+                borderRadius: '14px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                boxShadow: '0 4px 20px rgba(212,175,55,0.4)'
+              }}
+            >
+              Proceed to Menu on Screen →
             </button>
-            <a href={virtualQrUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'gold', fontSize: '13px', textDecoration: 'none', marginTop: '6px' }}>
-              Open in new browser tab (simulated phone scan) →
+            <a href={liveProductionQrUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'gold', fontSize: '13px', textDecoration: 'none', marginTop: '4px' }}>
+              Open in new browser tab (Simulate Phone Scan) →
             </a>
           </div>
         </div>
