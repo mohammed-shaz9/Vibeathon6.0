@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function LandingPage({ nav }) {
+  // 1: intro1.mp4, 2: intro2.mp4, 3: completed landing page UI
+  const [introStep, setIntroStep] = useState(1);
+
   useEffect(() => {
     const handleScroll = () => {
       const btn = document.getElementById('scrollToTopButton');
@@ -14,6 +17,62 @@ export default function LandingPage({ nav }) {
 
   return (
     <div className="app-shell">
+      {/* Sequential Intro Videos Overlay */}
+      {introStep < 3 && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 99999,
+          background: '#000',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {introStep === 1 && (
+            <video
+              src="/assets/intro1.mp4"
+              autoPlay
+              muted
+              playsInline
+              onEnded={() => setIntroStep(2)}
+              style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
+            />
+          )}
+
+          {introStep === 2 && (
+            <video
+              src="/assets/intro2.mp4"
+              autoPlay
+              muted
+              playsInline
+              onEnded={() => setIntroStep(3)}
+              style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
+            />
+          )}
+
+          {/* Skip Intro Button */}
+          <button
+            onClick={() => setIntroStep(3)}
+            style={{
+              position: 'absolute',
+              top: '30px',
+              right: '30px',
+              background: 'rgba(0, 0, 0, 0.6)',
+              border: '1px solid rgba(212, 175, 55, 0.6)',
+              color: 'gold',
+              padding: '10px 22px',
+              borderRadius: '20px',
+              fontWeight: '700',
+              cursor: 'pointer',
+              fontSize: '14px',
+              backdropFilter: 'blur(10px)',
+              letterSpacing: '0.05em'
+            }}
+          >
+            Skip Intro →
+          </button>
+        </div>
+      )}
       <button id="scrollToTopButton" className="scroll-to-top-btn" onClick={scrollToTop}>
         <i className="fas fa-arrow-up"></i>
       </button>
