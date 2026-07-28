@@ -100,9 +100,8 @@ export default function LoginPage({ nav }) {
     if (supabase) {
       setLoading(true);
       try {
-        const prodOrigin = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
-          ? 'https://vibeathon6-0.vercel.app'
-          : window.location.origin;
+        const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const prodOrigin = isLocalHost ? window.location.origin : 'https://vibeathon6-0.vercel.app';
 
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
