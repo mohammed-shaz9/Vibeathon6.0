@@ -4,6 +4,41 @@ import { supabase } from '../../shared/supabase';
 import JarvisChat from '../../shared/JarvisChat';
 import { safeStorage } from '../../shared/storage';
 
+function MenuCardImage({ item }) {
+  const [error, setError] = React.useState(false);
+  
+  if (error || !item.image_url) {
+    return (
+      <div style={{
+        width: '100%',
+        height: '160px',
+        borderRadius: '10px',
+        marginBottom: '12px',
+        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(212, 175, 55, 0.06))',
+        border: '1px solid rgba(255, 255, 255, 0.06)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '48px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{ position: 'absolute', top: '-10px', right: '-10px', width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(212, 175, 55, 0.12)', filter: 'blur(15px)' }} />
+        <span>{item.is_veg ? '🥬' : '🍗'}</span>
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      src={item.image_url} 
+      alt={item.name} 
+      style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '10px', marginBottom: '12px', display: 'block' }}
+      onError={() => setError(true)}
+    />
+  );
+}
+
 export default function CustomerMenuPage({ nav }) {
   const [menu, setMenu] = useState([]);
   const [cart, setCart] = useState([]);
@@ -403,14 +438,7 @@ export default function CustomerMenuPage({ nav }) {
                 opacity: i.is_available ? 1 : 0.5
               }}
             >
-              {i.image_url && (
-                <img 
-                  src={i.image_url} 
-                  alt={i.name} 
-                  style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '10px', marginBottom: '12px' }}
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-              )}
+              <MenuCardImage item={i} />
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                 <h3 style={{ margin: 0, color: '#fff', fontSize: '16px' }}>{i.name}</h3>
                 {i.is_chef_special && (
