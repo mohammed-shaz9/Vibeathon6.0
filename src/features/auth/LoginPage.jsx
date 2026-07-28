@@ -100,10 +100,14 @@ export default function LoginPage({ nav }) {
     if (supabase) {
       setLoading(true);
       try {
+        const prodOrigin = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+          ? 'https://vibeathon6-0.vercel.app'
+          : window.location.origin;
+
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + '/order.html'
+            redirectTo: `${prodOrigin}/order.html`
           }
         });
         if (error) throw error;
