@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { apiGet, apiPost } from '../../shared/api';
 import { supabase } from '../../shared/supabase';
 import JarvisChat from '../../shared/JarvisChat';
+import { safeStorage } from '../../shared/storage';
 
 export default function CustomerMenuPage({ nav }) {
   const [menu, setMenu] = useState([]);
@@ -14,7 +15,7 @@ export default function CustomerMenuPage({ nav }) {
 
   // Simulation steps for Judge Walkthrough
   const [simStep, setSimStep] = useState(0); // 0: Welcome, 1: Checking Tables (5s animation), 2: Allotted Table, 3: Menu Active
-  const [guestName, setGuestName] = useState(localStorage.getItem('azzurro_customer_name') || 'Alex');
+  const [guestName, setGuestName] = useState(safeStorage.getItem('azzurro_customer_name') || 'Alex');
   const [partySize, setPartySize] = useState(2);
   const [preference, setPreference] = useState('veg');
   const [allottedTable, setAllottedTable] = useState(null);
@@ -29,7 +30,7 @@ export default function CustomerMenuPage({ nav }) {
         if (session?.user) {
           const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
           setGuestName(name);
-          localStorage.setItem('azzurro_customer_name', name);
+          safeStorage.setItem('azzurro_customer_name', name);
         }
       });
     }
@@ -39,8 +40,8 @@ export default function CustomerMenuPage({ nav }) {
     if (supabase) {
       try { await supabase.auth.signOut(); } catch {}
     }
-    localStorage.removeItem('azzurro_customer_name');
-    localStorage.removeItem('azzurro_customer_email');
+    safeStorage.removeItem('azzurro_customer_name');
+    safeStorage.removeItem('azzurro_customer_email');
     nav.go('/login.html');
   };
 
@@ -56,7 +57,7 @@ export default function CustomerMenuPage({ nav }) {
   };
 
   const handleProceedToMenu = () => {
-    localStorage.setItem('azzurro_table_id', allottedTable);
+    safeStorage.setItem('azzurro_table_id', allottedTable);
     setFood(preference);
     setSimStep(3);
   };

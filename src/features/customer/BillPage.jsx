@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { apiGet } from '../../shared/api';
+import { safeStorage } from '../../shared/storage';
 
 export default function BillPage({ nav }) {
   const id = new URLSearchParams(location.search).get('orderId');
   const [order, setOrder] = useState(null);
   const [paid, setPaid] = useState(false);
   const [method, setMethod] = useState('card');
-  const guestName = localStorage.getItem('azzurro_customer_name') || 'Guest';
+  const guestName = safeStorage.getItem('azzurro_customer_name') || 'Guest';
 
   useEffect(() => {
     if (id) apiGet(`/api/orders/${id}`).then(d => setOrder(d.order)).catch(() => {});

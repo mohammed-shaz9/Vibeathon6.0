@@ -13,6 +13,7 @@ import AdminPage from './features/admin/AdminPage';
 import ScanPage from './features/scan/ScanPage';
 import JarvisChat from './shared/JarvisChat';
 import { supabase } from './shared/supabase';
+import { safeStorage } from './shared/storage';
 
 function parseUserFromHash(hash) {
   try {
@@ -22,8 +23,14 @@ function parseUserFromHash(hash) {
     if (token) {
       const parts = token.split('.');
       if (parts.length >= 2) {
-        const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
-        const payloadStr = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        let base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+        // Add manual padding to base64 string if necessary
+        const pad = base64.length % 4;
+        if (pad) {
+          base64 += '='.repeat(4 - pad);
+        }
+        const decoded = atob(base64);
+        const payloadStr = decodeURIComponent(decoded.split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
         const payload = JSON.parse(payloadStr);
         const meta = payload.user_metadata || {};
         const fullName = meta.full_name || meta.name || payload.email?.split('@')[0] || 'Guest';
@@ -31,7 +38,9 @@ function parseUserFromHash(hash) {
         return { fullName, email };
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    console.error('Failed to parse user from hash:', err);
+  }
   return null;
 }
 
@@ -64,8 +73,8 @@ export default function App() {
     const hash = window.location.hash;
     const parsedUser = parseUserFromHash(hash);
     if (parsedUser) {
-      localStorage.setItem('azzurro_customer_name', parsedUser.fullName);
-      localStorage.setItem('azzurro_customer_email', parsedUser.email);
+      safeStorage.setItem('azzurro_customer_name', parsedUser.fullName);
+      safeStorage.setItem('azzurro_customer_email', parsedUser.email);
       window.history.replaceState({}, document.title, '/order.html');
       setRoute({ view: 'customer-menu', search: '' });
     } else if (hash && hash.includes('access_token=')) {
@@ -75,8 +84,8 @@ export default function App() {
             const meta = session.user.user_metadata || {};
             const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
             const email = session.user.email;
-            localStorage.setItem('azzurro_customer_name', fullName);
-            localStorage.setItem('azzurro_customer_email', email);
+            safeStorage.setItem('azzurro_customer_name', fullName);
+            safeStorage.setItem('azzurro_customer_email', email);
           }
           window.history.replaceState({}, document.title, '/order.html');
           setRoute({ view: 'customer-menu', search: '' });
@@ -90,8 +99,8 @@ export default function App() {
           const meta = session.user.user_metadata || {};
           const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
           const email = session.user.email;
-          localStorage.setItem('azzurro_customer_name', fullName);
-          localStorage.setItem('azzurro_customer_email', email);
+          safeStorage.setItem('azzurro_customer_name', fullName);
+          safeStorage.setItem('azzurro_customer_email', email);
         }
       });
       return () => subscription.unsubscribe();

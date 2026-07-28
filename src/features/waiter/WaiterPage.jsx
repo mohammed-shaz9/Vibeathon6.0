@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { apiGet, apiPost } from '../../shared/api';
 import { useRealtime } from '../../shared/useRealtime';
+import { safeStorage } from '../../shared/storage';
 
 const tableFor = (o) => o.tables?.table_number || o.table_number || o.table_id || '-';
 const itemsFor = (o) => o.order_items || o.items || [];
 
 export default function WaiterPage() {
   const [orders, setOrders] = useState([]);
-  const [count, setCount] = useState(Number(localStorage.getItem('deliveryCount') || 0));
+  const [count, setCount] = useState(Number(safeStorage.getItem('deliveryCount') || 0));
   const [toast, setToast] = useState('');
 
   const load = async () => setOrders(((await apiGet('/api/orders')).orders || []).filter(o => o.status === 'ready'));
@@ -22,7 +23,7 @@ export default function WaiterPage() {
     await apiPost(`/api/orders/${o.id}/status`, { status: 'served' }, 'PATCH');
     const next = count + 1;
     setCount(next);
-    localStorage.setItem('deliveryCount', next);
+    safeStorage.setItem('deliveryCount', next);
     setToast(`Order delivered to Table ${tableFor(o)}!`);
     setTimeout(() => setToast(''), 3000);
     load();

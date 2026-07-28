@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiPost } from '../../shared/api';
 import { supabase } from '../../shared/supabase';
+import { safeStorage } from '../../shared/storage';
 
 export default function LoginPage({ nav }) {
   const [email, setEmail] = useState('');
@@ -20,8 +21,8 @@ export default function LoginPage({ nav }) {
   ];
 
   const handleSelectGoogleAccount = (name, email) => {
-    localStorage.setItem('azzurro_customer_name', name);
-    localStorage.setItem('azzurro_customer_email', email);
+    safeStorage.setItem('azzurro_customer_name', name);
+    safeStorage.setItem('azzurro_customer_email', email);
     setToast('Authenticated as Google Account');
     setTimeout(() => {
       setToast('');
@@ -37,16 +38,16 @@ export default function LoginPage({ nav }) {
         if (session?.user) {
           setGoogleUser(session.user);
           // Set demo customer info to trigger the simulator workflow
-          localStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.email.split('@')[0]);
-          localStorage.setItem('azzurro_customer_email', session.user.email);
+          safeStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0]);
+          safeStorage.setItem('azzurro_customer_email', session.user.email);
         }
       });
 
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
         if (session?.user) {
           setGoogleUser(session.user);
-          localStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.email.split('@')[0]);
-          localStorage.setItem('azzurro_customer_email', session.user.email);
+          safeStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0]);
+          safeStorage.setItem('azzurro_customer_email', session.user.email);
         } else {
           setGoogleUser(null);
         }
