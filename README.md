@@ -1,139 +1,145 @@
 <div align="center">
-  <h1>ORDR — Smart Restaurant Operating System</h1>
-  <p><em>The Next-Generation Digital Nervous System for Premium Dining Experiences</em></p>
-  
-  <h3>🧙‍♂️ Team: <strong>Code Wizards</strong> &nbsp;|&nbsp; 🏛️ Institution: <strong>IIT Mandi</strong></h3>
 
-  [![Team](https://img.shields.io/badge/Team-Code_Wizards-gold?style=for-the-badge&logo=codeforces&logoColor=white)](#)
-  [![Institution](https://img.shields.io/badge/College-IIT_Mandi-blue?style=for-the-badge&logo=education&logoColor=white)](#)
-  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
-  [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](#)
-  [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](#)
-  [![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](#)
-  [![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=socketdotio&logoColor=white)](#)
-  [![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)](#)
-  [![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white)](#)
+  <!-- 3D Glow Hero Banner -->
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=220&section=header&text=ORDR%20Smart%20OS&fontSize=65&fontColor=D4AF37&animation=twinkling&desc=Next-Gen%20Digital%20Nervous%20System%20for%20Azzurro%20Caffè&descSize=20&descAlign=50&descAlignY=70" width="100%" alt="ORDR Banner" />
+
+  <br />
+
+  <h1>✨ ORDR — Smart Restaurant Operating System</h1>
+  <p><strong>Azzurro Caffè Flagship Digital Ecosystem & Real-Time POS Engine</strong></p>
+
+  <br />
+
+  <!-- Team & Institution Spotlight -->
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        🧙‍♂️ <strong>Team Name</strong><br />
+        <a href="#"><img src="https://img.shields.io/badge/TEAM-CODE_WIZARDS-FFD700?style=for-the-badge&logo=codeforces&logoColor=000" alt="Code Wizards" /></a>
+      </td>
+      <td align="center" width="50%">
+        🏛️ <strong>Institution</strong><br />
+        <a href="#"><img src="https://img.shields.io/badge/COLLEGE-IIT_MANDI-0066CC?style=for-the-badge&logo=academic-tree&logoColor=white" alt="IIT Mandi" /></a>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <!-- Animated Tech Badges -->
+  <div>
+    <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+    <img src="https://img.shields.io/badge/Vite_5-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" />
+    <img src="https://img.shields.io/badge/Node.js_20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+    <img src="https://img.shields.io/badge/Express_API-000000?style=for-the-badge&logo=express&logoColor=gold" />
+    <img src="https://img.shields.io/badge/Redis_Cache-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+    <img src="https://img.shields.io/badge/Supabase_OAuth-181818?style=for-the-badge&logo=supabase&logoColor=3ECF8E" />
+    <img src="https://img.shields.io/badge/Vercel_Deploys-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  </div>
+
 </div>
 
----
-
-## 📖 Executive Summary
-
-**ORDR** is a full-scale, real-time operating system for premium restaurants. Designed with a dark-gold aesthetic, it seamlessly connects customers, waitstaff, and kitchen operations into a unified, high-performance ecosystem. 
-
-By eliminating friction from table allotment to final payment, ORDR accelerates table turnover, reduces ordering errors, and provides deep operational analytics.
+<br />
 
 ---
 
-## 🏗️ Architectural Flow
+## 💎 Executive Summary
+
+> [!IMPORTANT]
+> **ORDR** is an enterprise-grade, real-time operating system engineered for fine-dining restaurants. Built with a bespoke dark-gold glassmorphism aesthetic, it integrates table booking, LAN IP mobile QR scanning, Kitchen KDS ticket dispatching, Waiter delivery routing, and live Redis analytics into a zero-latency digital pipeline.
+
+---
+
+## 🔐 Staff Portal Quick-Access & Demo Credentials
+
+| Portal | Demo Login Email | Primary Role & Capabilities | Access Route |
+| :--- | :--- | :--- | :---: |
+| 👑 **Admin / Manager** | `admin@azzurro.demo` | Real-time revenue telemetry, menu pricing, inventory thresholds, ETL sales velocity | `/login.html` |
+| 🍳 **Kitchen KDS** | `kitchen@azzurro.demo` | Real-time order queue bump system, prep timer countdowns, itemized order tickets | `/login.html` |
+| 🛎️ **Waiter Panel** | `waiter@azzurro.demo` | Ready order dispatching, table delivery status updates, customer waiter call alerts | `/login.html` |
+| 🪑 **Host Stand** | `host@azzurro.demo` | 12-table floor plan status grid, automated queue allotment, waitlist management | `/login.html` |
+
+---
+
+## 🏗️ 3D Architectural Pipeline & Flow
 
 ```mermaid
-graph TD
-    A[Landing Page / Booking] -->|Google Auth| B(Table Allotment System)
-    B --> C{QR Code Scanning}
-    C -->|Table Specific| D[Customer Ordering Portal]
-    D -->|Real-time Socket| E((Central Core / Redis))
-    E -->|Dispatch| F[Kitchen Display System - KDS]
-    F -->|Status: Ready| G[Waiter Dispatch Portal]
-    G -->|Serve| D
-    D -->|Request Bill| H[Billing & Payment Gateway]
-    H -->|Complete| I[Admin Analytics Dashboard]
+sequenceDiagram
+    autonumber
+    actor Customer as 📱 Customer Phone
+    participant Auth as 🔑 Supabase / Google OAuth
+    participant Core as ⚡ Express + Redis Engine
+    participant KDS as 🍳 Kitchen Display (KDS)
+    participant Waiter as 🛎️ Waiter Dispatch
+    participant Admin as 📊 Admin Telemetry
+
+    Customer->>Auth: 1-Click Google Sign-In
+    Auth-->>Customer: Authenticated Session Token
+    Customer->>Core: Scan Table QR & Submit Order
+    Core->>Core: Persist to Disk DB & Warm Redis Cache
+    Core->>KDS: Dispatch Order Ticket via Real-Time Socket
+    KDS->>Core: Update Status ➔ "Ready"
+    Core->>Waiter: Alert Waiter for Table Delivery
+    Waiter->>Customer: Order Served & Generate Itemized GST Bill
+    Core->>Admin: Recompute Real-Time ETL Pipeline Metrics
 ```
 
 ---
 
-## ✨ Feature Matrices
+## 🌟 Modern UI/UX Feature Showcase
 
-### 🛒 Customer Portal
-| Feature | Description | Status |
-| :--- | :--- | :---: |
-| **QR Table Sync** | Auto-detects table number via scanned QR parameters | ✅ |
-| **Real-time Cart** | Synchronized state across multiple devices at the same table | ✅ |
-| **Live Tracking** | Visual progression from `Preparing` ➔ `Ready` ➔ `Served` | ✅ |
-| **Waiter Paging** | 1-click requests for water, cutlery, or immediate assistance | ✅ |
+### 🎨 Design System Tokens
+- **Theme Palette**: Deep Space Obsidian (`#0F172A`), Onyx Black (`#0b0d11`), Metallic Gold (`#D4AF37`), Emerald Green (`#10B981`), Radiant Ruby (`#EF4444`).
+- **Typography**: Space Grotesk (Headers), JetBrains Mono (Prices & Quantities), Times New Roman (Cinematic Intro Overlay).
+- **Micro-Animations**: Shimmering CTAs, card lift hover effects, 5-second floor plan scanning overlay, floating Swiggy/Zomato style marketing side toasts.
 
-### 👨‍🍳 Staff Portals (KDS & Waiter)
-| Feature | Description | Status |
-| :--- | :--- | :---: |
-| **Ticket Triage** | Prioritize orders based on VIP status, time waited, or complexity | ✅ |
-| **Bump System** | Kitchen staff can 'bump' items as completed to notify waiters | ✅ |
-| **Zone Mapping** | Waiters assigned to specific floor zones for optimized routing | 🚧 |
-| **Inventory Alert** | Auto-disable menu items when ingredients run low | 🚧 |
-
-### ⚙️ Engine Infrastructure
-| Feature | Description | Status |
-| :--- | :--- | :---: |
-| **WebSocket Core** | Sub-100ms latency for all inter-portal state updates | ✅ |
-| **Redis Caching** | High-speed ephemeral state for carts and active sessions | ✅ |
-| **Supabase DB** | Persistent storage for users, order history, and analytics | ✅ |
-| **JWT RBAC** | Role-based access control (Admin, Waiter, Chef, Customer) | ✅ |
+### 🍃 Strict Dietary Filter Engine
+- **Pure Vegetarian (100% Pure Veg)**: Guaranteed non-veg item exclusion with custom sourcing assurances.
+- **Pure Non-Veg**: High-protein seafood, poultry, and meat selections.
+- **Vegan**: 100% plant-based dairy-free dishes.
 
 ---
 
-## 🗄️ System Architecture & Endpoints
+## ⚡ Technical Infrastructure & Performance
 
-| Layer | Technology | Primary Role |
+| Architecture Layer | Technology Stack | Operational Advantage |
 | :--- | :--- | :--- |
-| **Frontend** | React 18, Vite, Custom CSS (Dark/Gold) | UI/UX, Component State, Socket Handlers |
-| **Backend** | Node.js, Express, Socket.io | API Routes, WebSocket Orchestration |
-| **Cache** | Redis | Session state, Cart synchronization, Rate Limiting |
-| **Database** | Supabase (PostgreSQL) | Persistent records, Auth, Row Level Security |
-
-### Core API Endpoints
-
-```http
-POST   /api/v1/auth/google        # Authenticate users / staff
-GET    /api/v1/menu               # Retrieve active menu items & categories
-POST   /api/v1/orders             # Submit a new table order
-PATCH  /api/v1/orders/:id/status  # Update order status (KDS/Waiter)
-GET    /api/v1/analytics/daily    # Retrieve daily revenue & performance metrics
-```
+| **Frontend Framework** | React 18 + Vite | Lightning fast HMR & 2-second Vercel serverless builds |
+| **Styling Architecture** | Custom CSS3 + Design Tokens | Pure CSS flexibility with zero runtime CSS-in-JS overhead |
+| **Caching Layer** | Redis + Memory TTL LRU | Ephemeral cart state & sub-5ms query response times |
+| **Persistence Storage** | Disk JSON + Supabase Postgres | Dual disk fallback durability on server reboots |
+| **ETL Analytics** | Custom Pipeline Engine | Computes peak hourly velocity, dish popularity, low-stock alerts |
 
 ---
 
-## 🚀 Setup & Local Run Guide
+## 🚀 Quick Start Guide
 
-### 1. Prerequisites
-- Node.js (v18+)
-- Redis Server (Running locally or via Docker)
-- Supabase Project (URL & Anon Key)
-
-### 2. Environment Variables
-Create a `.env` file in the root directory:
-```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_API_URL=http://localhost:3000/api/v1
-REDIS_URL=redis://localhost:6379
-```
-
-### 3. Installation
+### 1. Repository Setup
 ```bash
-# Clone the repository
-git clone https://github.com/your-org/ordr-restaurant-os.git
-cd ordr-restaurant-os
-
-# Install dependencies
+git clone https://github.com/mohammed-shaz9/Vibeathon6.0.git
+cd Vibeathon6.0
 npm install
 ```
 
-### 4. Running the Ecosystem
+### 2. Environment Configuration
+Create a `.env` file in the root folder:
+```env
+VITE_SUPABASE_URL=https://zfxsekabuepovpcaqkyz.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_GOOGLE_CLIENT_ID=20077486817-9jmnutqdia6icck1q2p8utto6e9qngl3.apps.googleusercontent.com
+REDIS_URL=redis://localhost:6379
+```
 
-You will need to start both the frontend Vite server and the backend Node server.
-
-**Start the Development Server (Frontend):**
+### 3. Launch Development Server
 ```bash
+# Start Vite Frontend (Port 5173) & Express Backend (Port 3000)
 npm run dev
 ```
-*Vite will start on `http://localhost:5173`*
-
-**Start the Backend Server (Engine):**
-```bash
-npm run server:dev
-```
-*Express API & WebSocket server will start on `http://localhost:3000`*
 
 ---
+
 <div align="center">
-  <p>Built with precision for the modern restaurateur.</p>
+  <br />
+  <p><strong>Crafted with passion by Team Code Wizards — IIT Mandi</strong></p>
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=auto&height=4&section=footer" width="100%" />
 </div>
