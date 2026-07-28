@@ -91,7 +91,7 @@ export default function JarvisChat({ onAddToCart }) {
         style={{
           position: 'fixed',
           right: '28px',
-          bottom: '28px',
+          bottom: '100px',
           width: '64px',
           height: '64px',
           borderRadius: '50%',
@@ -116,7 +116,7 @@ export default function JarvisChat({ onAddToCart }) {
         <div style={{
           position: 'fixed',
           right: '28px',
-          bottom: '104px',
+          bottom: '176px',
           width: 'min(440px, 94vw)',
           height: 'min(600px, 80vh)',
           background: '#090b0e',
