@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { apiPost, apiGet } from './api';
+import { apiPost } from './api';
 
 export default function JarvisChat({ onAddToCart }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function JarvisChat({ onAddToCart }) {
 
   useEffect(() => {
     if (isOpen) scrollToBottom();
-  }, [messages, isOpen]);
+  }, [messages, isOpen, loading]);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ export default function JarvisChat({ onAddToCart }) {
 
   return (
     <>
-      {/* Floating AI Button */}
+      {/* Floating AI Launcher Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -82,18 +82,18 @@ export default function JarvisChat({ onAddToCart }) {
           borderRadius: '50%',
           background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
           color: '#000',
-          border: '2px solid rgba(255,255,255,0.4)',
+          border: '2px solid rgba(255,255,255,0.6)',
           fontSize: '28px',
           display: 'grid',
           placeItems: 'center',
           cursor: 'pointer',
-          boxShadow: '0 8px 32px rgba(212, 175, 55, 0.5), 0 0 20px rgba(0,0,0,0.8)',
-          zIndex: 99999,
+          boxShadow: '0 8px 32px rgba(212, 175, 55, 0.6), 0 0 25px rgba(0,0,0,0.9)',
+          zIndex: 999999,
           transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
         }}
         title="Chat with Jarvis AI Waiter"
       >
-        🤖
+        {isOpen ? '✕' : '🤖'}
       </button>
 
       {/* Floating Chatbot Widget Window */}
@@ -102,75 +102,92 @@ export default function JarvisChat({ onAddToCart }) {
           position: 'fixed',
           right: '28px',
           bottom: '104px',
-          width: 'min(420px, 92vw)',
-          height: '560px',
-          background: 'rgba(9, 11, 14, 0.95)',
-          border: '2px solid rgba(212, 175, 55, 0.6)',
+          width: 'min(440px, 94vw)',
+          height: '600px',
+          background: '#090b0e',
+          border: '2px solid rgba(212, 175, 55, 0.8)',
           borderRadius: '24px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 175, 55, 0.25)',
-          backdropFilter: 'blur(24px)',
+          boxShadow: '0 24px 70px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 175, 55, 0.3)',
+          backdropFilter: 'blur(28px)',
           display: 'flex',
           flexDirection: 'column',
-          zIndex: 99999,
+          zIndex: 999999,
           overflow: 'hidden',
-          animation: 'fadeIn 0.3s ease-out'
+          animation: 'fadeIn 0.25s ease-out'
         }}>
           
           {/* Header */}
           <div style={{
-            background: 'rgba(212, 175, 55, 0.1)',
-            borderBottom: '1px solid rgba(212, 175, 55, 0.25)',
+            background: 'rgba(212, 175, 55, 0.12)',
+            borderBottom: '1px solid rgba(212, 175, 55, 0.3)',
             padding: '16px 20px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'gold', display: 'grid', placeItems: 'center', fontSize: '20px', color: '#000', fontWeight: '700' }}>
+              <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'linear-gradient(135deg, #D4AF37, #F59E0B)', display: 'grid', placeItems: 'center', fontSize: '22px', color: '#000', fontWeight: '700', boxShadow: '0 0 15px rgba(212, 175, 55, 0.4)' }}>
                 🤖
               </div>
               <div>
-                <strong style={{ color: 'gold', fontFamily: "'Space Grotesk', sans-serif", fontSize: '16px', display: 'block' }}>Jarvis AI Waiter</strong>
-                <span style={{ color: '#10B981', fontSize: '11px', fontWeight: '600' }}>⚡ Powered by Groq AI Engine</span>
+                <strong style={{ color: 'gold', fontFamily: "'Space Grotesk', sans-serif", fontSize: '17px', display: 'block', letterSpacing: '0.02em' }}>Jarvis AI Concierge</strong>
+                <span style={{ color: '#10B981', fontSize: '12px', fontWeight: '700' }}>⚡ Groq LLM Active</span>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} style={{ background: 'transparent', border: 0, color: '#94A3B8', fontSize: '20px', cursor: 'pointer' }}>
+            <button onClick={() => setIsOpen(false)} style={{ background: 'transparent', border: 0, color: '#94A3B8', fontSize: '22px', cursor: 'pointer', padding: '4px 8px' }}>
               ✕
             </button>
           </div>
 
-          {/* Messages Area */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {/* Messages Scroll Area */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 18px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'rgba(0,0,0,0.4)' }}>
             {messages.map((m, i) => (
-              <div key={i} style={{ alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '85%' }}>
+              <div key={i} style={{ alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
+                
+                {/* Sender Badge */}
                 <div style={{
-                  background: m.sender === 'user' ? 'gold' : 'rgba(255,255,255,0.06)',
-                  color: m.sender === 'user' ? '#000' : '#F8FAFC',
-                  border: m.sender === 'user' ? 'none' : '1px solid rgba(255,255,255,0.1)',
-                  padding: '12px 16px',
-                  borderRadius: m.sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  color: m.sender === 'user' ? 'gold' : '#94A3B8',
+                  marginBottom: '4px',
+                  textAlign: m.sender === 'user' ? 'right' : 'left',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  {m.sender === 'user' ? '👤 You' : '🤖 Jarvis AI'}
+                </div>
+
+                {/* Message Bubble */}
+                <div style={{
+                  background: m.sender === 'user' ? 'linear-gradient(135deg, #D4AF37, #F59E0B)' : 'rgba(255, 255, 255, 0.06)',
+                  color: m.sender === 'user' ? '#000000' : '#F8FAFC',
+                  border: m.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.12)',
+                  padding: '14px 18px',
+                  borderRadius: m.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
                   fontSize: '14px',
-                  lineHeight: '1.5',
-                  fontWeight: m.sender === 'user' ? '600' : '400'
+                  lineHeight: '1.6',
+                  fontWeight: m.sender === 'user' ? '700' : '400',
+                  boxShadow: m.sender === 'user' ? '0 4px 16px rgba(212, 175, 55, 0.3)' : '0 4px 16px rgba(0,0,0,0.3)',
+                  wordBreak: 'break-word'
                 }}>
                   {m.text}
                 </div>
 
                 {/* AI Item Recommendation Cards */}
                 {m.recommendations && m.recommendations.length > 0 && (
-                  <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
+                  <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
                     {m.recommendations.map((rec, rIdx) => (
-                      <div key={rIdx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.3)', padding: '10px', borderRadius: '12px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <img src={rec.image} alt={rec.name} style={{ width: '42px', height: '42px', borderRadius: '8px', objectFit: 'cover' }} />
+                      <div key={rIdx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(212, 175, 55, 0.08)', border: '1px solid rgba(212, 175, 55, 0.4)', padding: '12px 14px', borderRadius: '14px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <img src={rec.image} alt={rec.name} style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover' }} />
                           <div>
-                            <div style={{ color: '#fff', fontSize: '13px', fontWeight: '700' }}>{rec.name}</div>
-                            <div className="mono" style={{ color: 'gold', fontSize: '12px' }}>₹{rec.price}</div>
+                            <div style={{ color: '#fff', fontSize: '14px', fontWeight: '700' }}>{rec.name}</div>
+                            <div className="mono" style={{ color: 'gold', fontSize: '13px', fontWeight: '700' }}>₹{rec.price}</div>
                           </div>
                         </div>
                         <button
                           onClick={() => onAddToCart && onAddToCart(rec)}
-                          style={{ background: 'gold', color: '#000', border: 0, padding: '6px 12px', borderRadius: '8px', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+                          style={{ background: 'gold', color: '#000', border: 0, padding: '8px 14px', borderRadius: '10px', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
                         >
                           + Add
                         </button>
@@ -180,46 +197,56 @@ export default function JarvisChat({ onAddToCart }) {
                 )}
               </div>
             ))}
+
             {loading && (
-              <div style={{ alignSelf: 'flex-start', color: '#94A3B8', fontSize: '13px', fontStyle: 'italic' }}>
-                Jarvis is analyzing menu pairings...
+              <div style={{ alignSelf: 'flex-start', color: '#94A3B8', fontSize: '13px', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ animation: 'spin 1s linear infinite' }}>⏳</span> Jarvis is thinking...
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
-          <form onSubmit={handleSend} style={{ padding: '14px 16px', borderTop: '1px solid rgba(255,255,255,0.08)', background: 'rgba(0,0,0,0.4)', display: 'flex', gap: '10px' }}>
+          {/* Redesigned Sleek Input Form */}
+          <form onSubmit={handleSend} style={{ padding: '16px', borderTop: '1px solid rgba(212, 175, 55, 0.25)', background: '#0b0d11', display: 'flex', gap: '12px', alignItems: 'center' }}>
             <input
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Ask Jarvis for dish recommendations..."
+              placeholder="Type your question to Jarvis AI..."
               style={{
                 flex: 1,
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(212,175,55,0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: '#fff',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(212, 175, 55, 0.4)',
+                borderRadius: '14px',
+                padding: '14px 18px',
+                color: '#FFFFFF',
                 fontSize: '14px',
-                outline: 'none'
+                outline: 'none',
+                boxSizing: 'border-box'
               }}
             />
             <button
               type="submit"
               disabled={loading}
               style={{
-                background: 'gold',
-                color: '#000',
+                height: '48px',
+                padding: '0 22px',
+                background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
+                color: '#000000',
                 border: 0,
-                padding: '12px 18px',
-                borderRadius: '12px',
-                fontWeight: '700',
-                cursor: 'pointer'
+                borderRadius: '14px',
+                fontWeight: '800',
+                fontSize: '15px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                boxShadow: '0 4px 16px rgba(212, 175, 55, 0.4)',
+                whiteSpace: 'nowrap'
               }}
             >
-              Send
+              <span>Send</span> ✈️
             </button>
           </form>
 
