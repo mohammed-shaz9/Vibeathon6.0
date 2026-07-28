@@ -465,7 +465,7 @@ npm run build
 ║                                                          ║
 ║              🏆  VIBEATHON 6.0  🏆                      ║
 ║                                                          ║
-║   Team:     Mohammed Shaz + Crew                         ║
+║   Team:     CODE WIZARDS                         ║
 ║   Project:  ORDR by Azzurro Caffè                        ║
 ║   Theme:    Real-world SaaS that Dominates               ║
 ║   Stack:    Full-stack · AI · Real-time · Cloud          ║
