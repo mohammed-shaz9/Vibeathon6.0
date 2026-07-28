@@ -59,6 +59,7 @@ export default function LandingPage({ nav }) {
                   marginBottom: '8px',
                   animation: 'logoRoll3D 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
                 }}>
+                  <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '13px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(212,175,55,0.8)', display: 'block', marginBottom: '6px' }}>POWERED BY ORDR AI ENGINE v2.0</span>
                   👑
                 </div>
 
@@ -73,7 +74,7 @@ export default function LandingPage({ nav }) {
                   textShadow: '0 2px 14px rgba(0,0,0,0.9), 0 0 12px rgba(212,175,55,0.7)',
                   lineHeight: '1.4'
                 }}>
-                  WELCOME TO AZZURRO CAFFÈ, A SMART MANAGEMENT SYSTEM
+                  <span style={{ color: 'gold' }}>AZZURRO CAFFÈ</span> — WHERE CULINARY EXCELLENCE MEETS INTELLIGENT OPERATIONS
                 </div>
               </div>
 
@@ -123,7 +124,7 @@ export default function LandingPage({ nav }) {
               zIndex: 100001
             }}
           >
-            Skip Intro →
+            Enter the Experience →
           </button>
         </div>
       )}
@@ -158,21 +159,21 @@ export default function LandingPage({ nav }) {
           <video autoPlay muted loop playsInline preload="auto" className="bg-video">
             <source src={restaurVideo} type="video/mp4" />
           </video>
-          <h1>Experience Fine Dining, Reimagined</h1>
-          <p>Savor the perfect blend of flavors crafted to satisfy your taste buds. Our dishes are prepared with the utmost care, bringing together quality ingredients and culinary excellence.</p>
+          <h1>Ignite Every Sense. Command Every Moment.</h1>
+          <p>Indulge in masterfully crafted dishes that captivate your palate. Every plate is engineered with premium ingredients, executed with culinary precision — and delivered to your table faster than ever before.</p>
           <div style={{ zIndex: 3, display: 'flex', gap: '16px', margin: '0 50px' }}>
             <button
               onClick={() => nav.go('/login.html')}
               style={{ background: 'gold', color: '#000', border: 'none', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer', letterSpacing: '0.02em' }}
             >
-              Reserve a Table
+              Claim Your Table →
             </button>
             <button
               className="btn"
               onClick={() => nav.go('/order.html')}
               style={{ background: 'transparent', color: '#fff', border: '2px solid gold', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}
             >
-              View Menu
+              Explore Menu
             </button>
           </div>
         </div>
@@ -181,16 +182,16 @@ export default function LandingPage({ nav }) {
       {/* Features Section */}
       <section style={{ background: '#0b0d11', padding: '80px 0' }}>
         <div className="container">
-          <h2 style={{ color: 'gold', textAlign: 'center', fontSize: '36px', fontFamily: 'Space Grotesk, sans-serif', marginBottom: '12px' }}>Powered by ORDR</h2>
-          <p style={{ color: '#94a3b8', textAlign: 'center', fontSize: '16px', marginBottom: '48px', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>Our Smart Restaurant Operating System streamlines every aspect of your dining experience</p>
+          <h2 style={{ color: 'gold', textAlign: 'center', fontSize: '36px', fontFamily: 'Space Grotesk, sans-serif', marginBottom: '12px' }}>Engineered to Dominate Restaurant Operations</h2>
+          <p style={{ color: '#94a3b8', textAlign: 'center', fontSize: '16px', marginBottom: '48px', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>ORDR orchestrates every touchpoint — from the moment a guest scans to the instant their dish is served. Zero friction. Maximum impact.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
             {[
-              ['fa-qrcode', 'QR Table Ordering', 'Scan, browse, and order directly from your phone. No waiting for menus.'],
-              ['fa-fire-burner', 'Live Kitchen Display', 'Real-time order tracking from kitchen to your table.'],
-              ['fa-bell-concierge', 'Smart Waiter Alerts', 'Instant notifications when your food is ready for delivery.'],
-              ['fa-chart-line', 'AI-Powered Insights', 'Revenue analytics, demand forecasting, and smart inventory management.'],
-              ['fa-clipboard-user', 'Digital Host Stand', 'Automated table assignment, waitlist management, and seating optimization.'],
-              ['fa-star', 'Guest Reviews', 'Rate your meal, chef, and waiter. Tips included.']
+              ['fa-qrcode', 'Instant QR Ordering', 'Scan. Browse. Fire your order — straight from your phone in seconds. No menus, no waiting, no friction.'],
+              ['fa-fire-burner', 'Live Kitchen Command', 'Orders ignite on the KDS the instant they are placed. Chefs execute, bump, and dispatch with laser precision.'],
+              ['fa-bell-concierge', 'Waiter Dispatch Engine', 'The moment a dish is ready, waiters are triggered instantly. Service delivered at peak velocity.'],
+              ['fa-chart-line', 'AI Revenue Intelligence', 'Unlock 30-month financial telemetry, demand forecasting, and predictive inventory alerts — powered by Groq AI.'],
+              ['fa-clipboard-user', 'Smart Host Command', 'Dynamically assign tables, manage the waitlist queue, and optimize your dining floor in real time.'],
+              ['fa-star', 'Verified Guest Ratings', 'Guests rate every dish, every chef, every waiter. Accountability drives excellence.']
             ].map(([icon, title, desc]) => (
               <div key={title} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', transition: 'transform 0.2s, border-color 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)'; }}
@@ -225,7 +226,7 @@ export default function LandingPage({ nav }) {
           <div className="footer-content" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '32px' }}>
             <div>
               <h3 style={{ color: 'gold', fontFamily: 'Space Grotesk, sans-serif' }}>Azzurro Caffè</h3>
-              <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.7' }}>Premium dining experience in the heart of the city. Powered by ORDR Smart Restaurant OS.</p>
+              <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.7' }}>Redefining premium dining at the heart of the city. Powered by ORDR — the AI engine that orchestrates every order, every table, every moment.</p>
             </div>
             <div>
               <h4 style={{ color: '#fff', marginBottom: '16px' }}>Quick Links</h4>
@@ -246,7 +247,7 @@ export default function LandingPage({ nav }) {
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '32px', paddingTop: '20px', textAlign: 'center', color: '#64748b', fontSize: '13px' }}>
-            © 2024 Azzurro Caffè. All rights reserved. Powered by ORDR.
+            © 2025 Azzurro Caffè. All rights reserved. Engineered with precision by ORDR AI Engine v2.0.
           </div>
         </div>
       </footer>

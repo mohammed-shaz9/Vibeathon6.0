@@ -52,7 +52,7 @@ export default function KitchenPage() {
               <span style={{ fontSize: '26px' }}>🍳</span>
               <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'gold', margin: 0, fontSize: '24px', letterSpacing: '0.04em' }}>KITCHEN DISPLAY SYSTEM (KDS)</h1>
             </div>
-            <p style={{ color: '#94A3B8', margin: '4px 0 0 38px', fontSize: '14px' }}>Azzurro Caffè Live Culinary Queue & Order Bumping</p>
+            <p style={{ color: '#94A3B8', margin: '4px 0 0 38px', fontSize: '14px' }}>Azzurro Caffè — Real-Time Culinary Execution Command Center</p>
           </div>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -97,7 +97,7 @@ export default function KitchenPage() {
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#94A3B8', fontSize: '13px', marginBottom: '16px' }}>
-                      <span>Received {mins} mins ago</span>
+                      <span>Fired {mins} mins ago</span>
                       {isUrgent && <span style={{ background: 'rgba(239,68,68,0.2)', color: '#EF4444', border: '1px solid #EF4444', padding: '3px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', letterSpacing: '0.05em' }}>URGENT</span>}
                     </div>
 
@@ -150,7 +150,7 @@ export default function KitchenPage() {
                       }}
                       onClick={() => update(o.id, next)}
                     >
-                      {o.status === 'ready' ? 'Mark Order Served' : o.status === 'preparing' ? 'Mark Order Ready' : 'Start Preparing'}
+                      {o.status === 'ready' ? '⚡ Dispatch to Waiter' : o.status === 'preparing' ? 'Expedite — Mark Ready' : '🔥 Fire Order'}
                     </button>
                   </div>
                 </article>
@@ -160,8 +160,8 @@ export default function KitchenPage() {
         ) : (
           <div style={{ textAlign: 'center', padding: '100px 20px', background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(212,175,55,0.3)', borderRadius: '24px', color: '#94a3b8' }}>
             <div style={{ fontSize: '56px', marginBottom: '16px' }}>🍳</div>
-            <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'gold', fontFamily: "'Space Grotesk', sans-serif", margin: '0 0 8px' }}>No active orders in kitchen queue</h2>
-            <p style={{ margin: 0 }}>Real-time customer orders placed via QR scanning will appear here automatically.</p>
+            <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'gold', fontFamily: "'Space Grotesk', sans-serif", margin: '0 0 8px' }}>Kitchen Queue Clear — Standing By</h2>
+            <p style={{ margin: 0 }}>Incoming orders fired via QR scan will ignite here automatically. Stay sharp.</p>
           </div>
         )}
       </div>

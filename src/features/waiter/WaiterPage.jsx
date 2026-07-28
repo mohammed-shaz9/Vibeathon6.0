@@ -51,12 +51,12 @@ export default function WaiterPage() {
               <span style={{ fontSize: '26px' }}>🛎️</span>
               <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'gold', margin: 0, fontSize: '24px', letterSpacing: '0.04em' }}>WAITER DISPATCH PANEL</h1>
             </div>
-            <p style={{ color: '#94A3B8', margin: '4px 0 0 38px', fontSize: '14px' }}>Azzurro Caffè Real-time Table Delivery & Service Management</p>
+            <p style={{ color: '#94A3B8', margin: '4px 0 0 38px', fontSize: '14px' }}>Azzurro Caffè — Expedite & Deliver Every Order with Precision</p>
           </div>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
             <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.4)', padding: '10px 18px', borderRadius: '20px', fontWeight: '700', fontSize: '14px' }}>
-              ✓ Delivered Today: {count} Tables
+              ⚡ Dispatched Today: {count} Tables
             </span>
           </div>
         </header>
@@ -82,12 +82,12 @@ export default function WaiterPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                     <span style={{ font: "700 26px 'Space Grotesk', sans-serif", color: 'gold' }}>Table {tableFor(o)}</span>
                     <span style={{ background: 'rgba(16,185,129,0.2)', color: '#10B981', border: '1px solid rgba(16,185,129,0.4)', padding: '6px 14px', borderRadius: '20px', fontWeight: '700', fontSize: '12px' }}>
-                      READY FOR SERVING
+                      ⚡ EXPEDITE — DELIVER NOW
                     </span>
                   </div>
 
                   <div style={{ color: '#F8FAFC', fontSize: '15px', fontWeight: '600', marginBottom: '14px' }}>
-                    Guest Name: {o.customer_name || 'Guest'}
+                    Serving Guest: {o.customer_name || 'Valued Guest'}
                   </div>
 
                   <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '14px 0' }} />
@@ -108,7 +108,7 @@ export default function WaiterPage() {
                     style={{ marginTop: 16, background: '#10B981', color: '#fff', fontWeight: '700', fontSize: '16px', padding: '14px', borderRadius: '12px' }}
                     onClick={() => deliver(o)}
                   >
-                    🚀 Confirm Table Delivery & Mark Served
+                    🚀 Execute Delivery — Mark Table Served
                   </button>
                 </div>
               </article>
@@ -117,8 +117,8 @@ export default function WaiterPage() {
         ) : (
           <div style={{ textAlign: 'center', padding: '100px 20px', background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(212,175,55,0.3)', borderRadius: '24px', color: '#94a3b8' }}>
             <div style={{ fontSize: '56px', marginBottom: '16px' }}>🛎️</div>
-            <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'gold', fontFamily: "'Space Grotesk', sans-serif", margin: '0 0 8px' }}>All ready orders delivered</h2>
-            <p style={{ margin: 0 }}>Orders marked ready by the kitchen display system will appear here for waiter dispatch.</p>
+            <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'gold', fontFamily: "'Space Grotesk', sans-serif", margin: '0 0 8px' }}>All Dispatched — Outstanding Service Delivered</h2>
+            <p style={{ margin: 0 }}>New orders reaching READY status in the kitchen will instantly appear here for waiter dispatch. Stay ready to execute.</p>
           </div>
         )}
 

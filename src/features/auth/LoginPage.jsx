@@ -147,8 +147,8 @@ export default function LoginPage({ nav }) {
         
         {/* Left Side - Quick Demo Select */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <h2 style={{ color: 'gold', margin: '0 0 10px 0', fontFamily: 'Raleway, sans-serif' }}>Select Staff Role</h2>
-          <p style={{ color: '#94a3b8', margin: '0 0 10px 0', fontSize: '14px' }}>Choose a staff portal to log in instantly, or log in as a Customer on the right:</p>
+          <h2 style={{ color: 'gold', margin: '0 0 10px 0', fontFamily: 'Raleway, sans-serif' }}>Command Your Portal</h2>
+          <p style={{ color: '#94a3b8', margin: '0 0 10px 0', fontSize: '14px' }}>Select your staff role to instantly access your dedicated command panel:</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {roles.map((r) => (
               <button 
@@ -183,8 +183,8 @@ export default function LoginPage({ nav }) {
           
           {/* Google Auth for Judges / Customers */}
           <div className="ordr-card ordr-glass" style={{ padding: '30px', borderRadius: '20px', textAlign: 'center' }}>
-            <h3 style={{ margin: '0 0 10px 0', color: 'gold' }}>Judge & Guest Login</h3>
-            <p style={{ color: '#94a3b8', fontSize: '13px', marginBottom: '20px' }}>Authenticate with your real Gmail account to run the Interactive Table Allotment and QR Dining flow.</p>
+            <h3 style={{ margin: '0 0 10px 0', color: 'gold' }}>Judge & Guest Access</h3>
+            <p style={{ color: '#94a3b8', fontSize: '13px', marginBottom: '20px' }}>Authenticate with your real Gmail to experience the full Interactive Table Allotment, QR Menu Ordering, and Dining flow — end to end.</p>
             <button 
               onClick={handleGoogleOAuth}
               disabled={loading}
@@ -205,7 +205,7 @@ export default function LoginPage({ nav }) {
               }}
             >
               <i className="fa-brands fa-google" style={{ color: '#4285F4' }}></i>
-              Continue with Google Account
+              Sign In with Google — Enter as Guest
             </button>
           </div>
 
@@ -215,7 +215,7 @@ export default function LoginPage({ nav }) {
           <div className="ordr-card ordr-glass" style={{ padding: '30px', borderRadius: '20px' }}>
             <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '12px', color: '#94a3b8' }}>Selected Email Address</label>
+                <label style={{ fontSize: '12px', color: '#94a3b8' }}>Staff Email Address</label>
                 <input 
                   type="email" 
                   value={email} 
@@ -233,7 +233,7 @@ export default function LoginPage({ nav }) {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '12px', color: '#94a3b8' }}>Access Password</label>
+                <label style={{ fontSize: '12px', color: '#94a3b8' }}>Access Code</label>
                 <input 
                   type="password" 
                   value={password} 
@@ -265,7 +265,7 @@ export default function LoginPage({ nav }) {
                   marginTop: '10px'
                 }}
               >
-                {loading ? 'Verifying...' : 'Access Portal'}
+                {loading ? 'Authenticating...' : 'Launch Portal →'}
               </button>
             </form>
           </div>
