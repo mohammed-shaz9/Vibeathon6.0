@@ -326,7 +326,7 @@ export default function CustomerMenuPage({ nav }) {
         {/* Floating Side Popup Banner (Swiggy/Zomato Style) */}
         <div style={{
           position: 'fixed',
-          bottom: '24px',
+          top: '86px',
           right: '24px',
           maxWidth: '380px',
           zIndex: 9999,
