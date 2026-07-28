@@ -14,6 +14,27 @@ import ScanPage from './features/scan/ScanPage';
 import JarvisChat from './shared/JarvisChat';
 import { supabase } from './shared/supabase';
 
+function parseUserFromHash(hash) {
+  try {
+    if (!hash || !hash.includes('access_token=')) return null;
+    const params = new URLSearchParams(hash.replace(/^#/, '?'));
+    const token = params.get('access_token');
+    if (token) {
+      const parts = token.split('.');
+      if (parts.length >= 2) {
+        const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+        const payloadStr = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        const payload = JSON.parse(payloadStr);
+        const meta = payload.user_metadata || {};
+        const fullName = meta.full_name || meta.name || payload.email?.split('@')[0] || 'Guest';
+        const email = payload.email || '';
+        return { fullName, email };
+      }
+    }
+  } catch (err) {}
+  return null;
+}
+
 function routeFromLocation() {
   const { pathname, hash, search } = window.location;
   if (hash && hash.includes('access_token=')) return { view: 'customer-menu', search };
@@ -39,12 +60,17 @@ export default function App() {
   const [route, setRoute] = useState(routeFromLocation());
 
   useEffect(() => {
-    // Intercept Google OAuth access_token hash from Supabase redirect
-    const handleHashAuth = async () => {
-      const hash = window.location.hash;
-      if (hash && hash.includes('access_token=')) {
-        if (supabase) {
-          const { data: { session } } = await supabase.auth.getSession();
+    // Intercept Google OAuth access_token hash from Supabase redirect immediately
+    const hash = window.location.hash;
+    const parsedUser = parseUserFromHash(hash);
+    if (parsedUser) {
+      localStorage.setItem('azzurro_customer_name', parsedUser.fullName);
+      localStorage.setItem('azzurro_customer_email', parsedUser.email);
+      window.history.replaceState({}, document.title, '/order.html');
+      setRoute({ view: 'customer-menu', search: '' });
+    } else if (hash && hash.includes('access_token=')) {
+      if (supabase) {
+        supabase.auth.getSession().then(({ data: { session } }) => {
           if (session?.user) {
             const meta = session.user.user_metadata || {};
             const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
@@ -52,14 +78,11 @@ export default function App() {
             localStorage.setItem('azzurro_customer_name', fullName);
             localStorage.setItem('azzurro_customer_email', email);
           }
-        }
-        // Clean hash from URL and route directly to Customer Order page!
-        window.history.replaceState({}, document.title, '/order.html');
-        setRoute({ view: 'customer-menu', search: '' });
+          window.history.replaceState({}, document.title, '/order.html');
+          setRoute({ view: 'customer-menu', search: '' });
+        });
       }
-    };
-
-    handleHashAuth();
+    }
 
     if (supabase) {
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
