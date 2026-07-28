@@ -12,7 +12,8 @@
 ██║   ██║██╔══██╗██║  ██║██╔══██╗
 ╚██████╔╝██║  ██║██████╔╝██║  ██║
  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
-     by  A Z Z U R R O  C A F F È
+     by  TEAM: CODE WIZARDS
+          COLLEGE: IIT MANDI
 ```
 
 ### 🔥 The Full-Stack Restaurant Command Center That **Ignites** Every Order
