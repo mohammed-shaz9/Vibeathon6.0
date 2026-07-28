@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import LandingPage from './features/landing/LandingPage';
+import AboutPage from './features/landing/AboutPage';
 import LoginPage from './features/auth/LoginPage';
 import CustomerMenuPage from './features/customer/CustomerMenuPage';
 import CustomerTrackerPage from './features/customer/CustomerTrackerPage';
@@ -11,6 +12,7 @@ import AdminPage from './features/admin/AdminPage';
 
 function routeFromLocation() {
   const { pathname, hash, search } = window.location;
+  if (pathname === '/about.html') return { view: 'about', search };
   if (pathname === '/order.html') return { view: 'customer-menu', search };
   if (pathname === '/tracker.html' || pathname === '/order-tracker.html') return { view: 'customer-tracker', search };
   if (pathname === '/review.html') return { view: 'customer-review', search };
@@ -65,6 +67,8 @@ export default function App() {
       return <HostPage {...pageProps} />;
     case 'admin':
       return <AdminPage {...pageProps} />;
+    case 'about':
+      return <AboutPage {...pageProps} />;
     default:
       return <LandingPage {...pageProps} />;
   }
