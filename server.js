@@ -435,7 +435,10 @@ ${aiInsightsText}`,
 
 ⚠️ INVENTORY & SUPPLY CHAIN TELEMETRY:
 • Low Stock Alert Items: ${low_stock_items.length ? low_stock_items.join(', ') : 'All core ingredients currently within optimal safety threshold'}
-• Projected Reorder Requirement: Basmati Rice & Amul Butter within 48 hours.
+• Projected Reorder Requirement: Basmati Rice & Amul Butter within 48 hours.`
+    });
+  }
+});
 
 // Dedicated Customer Jarvis AI Chat Endpoint with Groq LLM Multi-Key Fallback
 app.post('/api/ai/chat', async (req, res) => {
