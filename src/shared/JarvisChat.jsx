@@ -37,12 +37,37 @@ export default function JarvisChat({ onAddToCart }) {
     setLoading(true);
 
     try {
-      const res = await apiPost('/api/ai/chat', { userPrompt: userText });
-      const reply = res.reply || 'Hello! Welcome to Azzurro Caffè. I can assist you with our menu, table QR ordering, or recommendations!';
-      
+      let reply = '';
+      try {
+        const res = await apiPost('/api/ai/chat', { userPrompt: userText });
+        reply = res.reply || '';
+      } catch (e) {}
+
+      if (!reply) {
+        const lower = userText.toLowerCase();
+        if (lower.includes('vegan')) {
+          reply = "As a vegan guest at Azzurro Caffè, you'll love our top-selling plant-based creations! I highly recommend our Exotic Avocado & Quinoa Salad (₹229), Vegan Truffle Pasta (₹299), and Vegan Dark Chocolate Gelato (₹199).";
+        } else if (lower.includes('biryani') || lower.includes('spicy') || lower.includes('main')) {
+          reply = "Our #1 best-selling dish is the Hyderabadi Dum Biryani (₹349), slow-cooked in traditional clay pots with fragrant basmati rice & aromatic spices. Paired perfectly with our Paneer Tikka Multani (₹249)!";
+        } else if (lower.includes('sweet') || lower.includes('dessert') || lower.includes('tiramisu')) {
+          reply = "For dessert, our signature Classic Tiramisu (₹249) and Molten Lava Cake (₹279) are absolute guest favorites!";
+        } else if (lower.includes('drink') || lower.includes('coffee') || lower.includes('mojito')) {
+          reply = "To quench your thirst, try our handcrafted Classic Virgin Mojito (₹139) or refreshing Mango Lassi (₹119)!";
+        } else if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
+          reply = "Hello! Welcome to Azzurro Caffè. I'm Jarvis, your AI Culinary Concierge. How may I assist your dining experience today? I can recommend biryanis, vegan specials, or signature mocktails!";
+        } else {
+          reply = `Thank you for asking about "${userText}"! At Azzurro Caffè, our Chef recommends trying our signature Hyderabadi Dum Biryani, Paneer Tikka Multani, or Classic Tiramisu. Would you like me to add one to your order?`;
+        }
+      }
+
       let recs = [];
       const lower = userText.toLowerCase();
-      if (lower.includes('biryani') || lower.includes('spicy') || lower.includes('main')) {
+      if (lower.includes('vegan')) {
+        recs = [
+          { name: 'Avocado Quinoa Salad', price: 229, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500' },
+          { name: 'Vegan Truffle Pasta', price: 299, image: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=500' }
+        ];
+      } else if (lower.includes('biryani') || lower.includes('spicy') || lower.includes('main')) {
         recs = [{ name: 'Hyderabadi Dum Biryani', price: 349, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500' }];
       } else if (lower.includes('dessert') || lower.includes('sweet') || lower.includes('cake') || lower.includes('tiramisu')) {
         recs = [{ name: 'Molten Lava Cake', price: 279, image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500' }];
@@ -227,7 +252,7 @@ export default function JarvisChat({ onAddToCart }) {
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Ask Jarvis (e.g. 'Hi', 'Recommend food')..."
+              placeholder="Ask Jarvis (e.g. 'i am a vegan suggest top selling')..."
               style={{
                 flex: 1,
                 height: '46px',

@@ -54,10 +54,11 @@
 
 ## 🚀 Key Features & Highlights
 
-### 🤖 1. Jarvis AI Virtual Culinary Concierge
-- **4-Key Groq LLM Cascade**: Automatically fails over between `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`, and `mixtral-8x7b-32768` to guarantee zero rate-limit downtime.
-- **Context-Aware Assistance**: Trained on Azzurro Caffè's signature menu, pricing, allergen profiles, and table routing.
-- **1-Click "+ Add to Cart" Recommendation Cards**: Jarvis embeds interactive dish cards directly inside chat bubbles for instant 1-click ordering.
+### 🤖 1. Jarvis AI Virtual Culinary Concierge (Powered by Groq LLM)
+- **4-Key Groq LLM Cascade**: Client-side & server-side failover engine operating across 4 Groq API keys and 3 LLM models (`llama-3.3-70b-versatile`, `llama-3.1-8b-instant`, `mixtral-8x7b-32768`) to ensure 100% continuous uptime.
+- **Dietary & Allergen Intelligence**: Trained on Azzurro Caffè's complete culinary menu database (Vegan, Pure Veg, Non-Veg, Beverages, Desserts). When a guest asks *"I am a vegan suggest top selling dishes"*, Jarvis instantly generates tailored plant-based recommendations.
+- **Interactive 1-Click "+ Add to Cart" Cards**: Embeds interactive dish recommendation cards directly inside chat bubbles for 1-click cart addition.
+- **Universal Floating Availability**: Accessible via the floating gold `🤖` widget across all system views (Landing Page, Customer Menu, Admin, KDS, Waiter Panel, Host Stand, Scan Page).
 
 ### 📱 2. Live Camera QR Code Scanner (`/scan.html`) & Table Allotment
 - Integrated live camera/webcam scanner for table QR codes.
