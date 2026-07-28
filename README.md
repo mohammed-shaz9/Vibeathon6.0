@@ -1,8 +1,11 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150/0F172A/d4af37?text=ORDR" alt="ORDR Logo" width="120" />
-  <h1>ORDR Smart Restaurant Operating System</h1>
+  <h1>ORDR — Smart Restaurant Operating System</h1>
   <p><em>The Next-Generation Digital Nervous System for Premium Dining Experiences</em></p>
   
+  <h3>🧙‍♂️ Team: <strong>Code Wizards</strong> &nbsp;|&nbsp; 🏛️ Institution: <strong>IIT Mandi</strong></h3>
+
+  [![Team](https://img.shields.io/badge/Team-Code_Wizards-gold?style=for-the-badge&logo=codeforces&logoColor=white)](#)
+  [![Institution](https://img.shields.io/badge/College-IIT_Mandi-blue?style=for-the-badge&logo=education&logoColor=white)](#)
   [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
   [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](#)
   [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](#)
@@ -10,7 +13,6 @@
   [![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=socketdotio&logoColor=white)](#)
   [![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)](#)
   [![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white)](#)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](#)
 </div>
 
 ---
