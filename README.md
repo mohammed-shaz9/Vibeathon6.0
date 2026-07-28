@@ -1,12 +1,12 @@
 <div align="center">
 
-  <!-- 3D Glow Hero Banner -->
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=220&section=header&text=ORDR%20Smart%20OS&fontSize=65&fontColor=D4AF37&animation=twinkling&desc=Next-Gen%20Digital%20Nervous%20System%20for%20Azzurro%20Caffè&descSize=20&descAlign=50&descAlignY=70" width="100%" alt="ORDR Banner" />
+  <!-- 3D Gold Waving Hero Header -->
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=220&section=header&text=Azzurro%20Caffè%20—%20ORDR%20Smart%20OS&fontSize=55&fontColor=D4AF37&animation=twinkling&desc=Next-Gen%20Autonomous%20Restaurant%20Ecosystem%20%7C%20Jarvis%20AI%20Concierge&descSize=18&descAlign=50&descAlignY=70" width="100%" alt="Azzurro Caffè Banner" />
 
   <br />
 
-  <h1>✨ ORDR — Smart Restaurant Operating System</h1>
-  <p><strong>Azzurro Caffè Flagship Digital Ecosystem & Real-Time POS Engine</strong></p>
+  <h1>✨ AZZURRO CAFFÈ — SMART MANAGEMENT SYSTEM</h1>
+  <p><strong>Enterprise Digital Nervous System & AI Culinary Concierge Engine</strong></p>
 
   <br />
 
@@ -28,13 +28,15 @@
 
   <!-- Animated Tech Badges -->
   <div>
+    <img src="https://img.shields.io/badge/Groq_AI_Engine-F59E0B?style=for-the-badge&logo=openai&logoColor=black" />
+    <img src="https://img.shields.io/badge/LLaMA_3.3_70B-000000?style=for-the-badge&logo=meta&logoColor=gold" />
     <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
     <img src="https://img.shields.io/badge/Vite_5-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" />
     <img src="https://img.shields.io/badge/Node.js_20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
     <img src="https://img.shields.io/badge/Express_API-000000?style=for-the-badge&logo=express&logoColor=gold" />
     <img src="https://img.shields.io/badge/Redis_Cache-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
     <img src="https://img.shields.io/badge/Supabase_OAuth-181818?style=for-the-badge&logo=supabase&logoColor=3ECF8E" />
-    <img src="https://img.shields.io/badge/Vercel_Deploys-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+    <img src="https://img.shields.io/badge/Vercel_Live-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   </div>
 
 </div>
@@ -43,10 +45,29 @@
 
 ---
 
-## 💎 Executive Summary
+## 💎 Executive Overview
 
 > [!IMPORTANT]
-> **ORDR** is an enterprise-grade, real-time operating system engineered for fine-dining restaurants. Built with a bespoke dark-gold glassmorphism aesthetic, it integrates table booking, LAN IP mobile QR scanning, Kitchen KDS ticket dispatching, Waiter delivery routing, and live Redis analytics into a zero-latency digital pipeline.
+> **Azzurro Caffè (Powered by ORDR Smart OS)** is a flag-ship fine-dining management system built with a gold glassmorphic design system. It combines a 4-Key Groq AI Assistant (*Jarvis*), camera QR table scanner, sub-50ms Kitchen Display System (KDS), waiter mobile dispatching, host stand queue manager, and 30-Month historical revenue analytics into an autonomous restaurant ecosystem.
+
+---
+
+## 🚀 Key Features & Highlights
+
+### 🤖 1. Jarvis AI Virtual Culinary Concierge
+- **4-Key Groq LLM Cascade**: Automatically fails over between `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`, and `mixtral-8x7b-32768` to guarantee zero rate-limit downtime.
+- **Context-Aware Assistance**: Trained on Azzurro Caffè's signature menu, pricing, allergen profiles, and table routing.
+- **1-Click "+ Add to Cart" Recommendation Cards**: Jarvis embeds interactive dish cards directly inside chat bubbles for instant 1-click ordering.
+
+### 📱 2. Live Camera QR Code Scanner (`/scan.html`) & Table Allotment
+- Integrated live camera/webcam scanner for table QR codes.
+- **Hackathon Judge Phone Demo**: Displays a scannable Table #1 QR code on screen encoding `https://vibeathon6-0.vercel.app/order.html?table=1` for instant smartphone menu ordering.
+
+### 📊 3. 30-Month Financial Telemetry & AI Analytics
+- Visual 6-month revenue trend bar graphs, top selling dish velocity leaderboards, 30-month collections tracking, and live ingredient stock progress bars.
+
+### 🎬 4. 3D Rolling Crown Emblem & Circular Clip-Path Reveal
+- Features a 3D rolling logo roll keyframe animation and a smooth expanding `clip-path: circle()` mask reveal for `"WELCOME TO AZZURRO CAFFÈ, A SMART MANAGEMENT SYSTEM"`.
 
 ---
 
@@ -54,61 +75,48 @@
 
 | Portal | Demo Login Email | Primary Role & Capabilities | Access Route |
 | :--- | :--- | :--- | :---: |
-| 👑 **Admin / Manager** | `admin@azzurro.demo` | Real-time revenue telemetry, menu pricing, inventory thresholds, ETL sales velocity | `/login.html` |
-| 🍳 **Kitchen KDS** | `kitchen@azzurro.demo` | Real-time order queue bump system, prep timer countdowns, itemized order tickets | `/login.html` |
-| 🛎️ **Waiter Panel** | `waiter@azzurro.demo` | Ready order dispatching, table delivery status updates, customer waiter call alerts | `/login.html` |
-| 🪑 **Host Stand** | `host@azzurro.demo` | 12-table floor plan status grid, automated queue allotment, waitlist management | `/login.html` |
+| 👑 **Admin / Manager** | `admin@azzurro.demo` | 30-Month revenue bar charts, Groq AI telemetry reports, inventory progress, staff roster | `/login.html` |
+| 🍳 **Kitchen KDS** | `kitchen@azzurro.demo` | Touch KDS bump queue, prep timers, itemized ticket dispatching | `/login.html` |
+| 🛎️ **Waiter Panel** | `waiter@azzurro.demo` | Table delivery status, ready order dispatching, waiter call alerts | `/login.html` |
+| 🪑 **Host Stand** | `host@azzurro.demo` | 12-table floor plan status grid, automated queue allotment, waitlist engine | `/login.html` |
+| 📷 **Camera Scanner** | *Public Access* | Live camera QR scanner & smartphone demo table allotment | `/scan.html` |
 
 ---
 
-## 🏗️ 3D Architectural Pipeline & Flow
+## 🏗️ Architectural Flow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Customer as 📱 Customer Phone
-    participant Auth as 🔑 Supabase / Google OAuth
-    participant Core as ⚡ Express + Redis Engine
-    participant KDS as 🍳 Kitchen Display (KDS)
+    actor Guest as 📱 Guest Smartphone
+    participant Jarvis as 🤖 Jarvis AI Concierge
+    participant Core as ⚡ Express + Groq AI Pool
+    participant KDS as 🍳 Kitchen KDS
     participant Waiter as 🛎️ Waiter Dispatch
-    participant Admin as 📊 Admin Telemetry
+    participant Admin as 📊 Admin Analytics
 
-    Customer->>Auth: 1-Click Google Sign-In
-    Auth-->>Customer: Authenticated Session Token
-    Customer->>Core: Scan Table QR & Submit Order
-    Core->>Core: Persist to Disk DB & Warm Redis Cache
+    Guest->>Jarvis: Ask dish recommendation or scan QR
+    Jarvis->>Core: Query Groq API (llama-3.3-70b-versatile)
+    Core-->>Jarvis: Structured AI reply + 1-Click +Add Cards
+    Guest->>Core: Confirm Order for Table #1
     Core->>KDS: Dispatch Order Ticket via Real-Time Socket
-    KDS->>Core: Update Status ➔ "Ready"
+    KDS->>Core: Update Ticket Status ➔ "Ready"
     Core->>Waiter: Alert Waiter for Table Delivery
-    Waiter->>Customer: Order Served & Generate Itemized GST Bill
-    Core->>Admin: Recompute Real-Time ETL Pipeline Metrics
+    Waiter->>Guest: Serve Order & Issue GST Invoice
+    Core->>Admin: Update 30-Month Sales Telemetry & Stock Progress
 ```
 
 ---
 
-## 🌟 Modern UI/UX Feature Showcase
-
-### 🎨 Design System Tokens
-- **Theme Palette**: Deep Space Obsidian (`#0F172A`), Onyx Black (`#0b0d11`), Metallic Gold (`#D4AF37`), Emerald Green (`#10B981`), Radiant Ruby (`#EF4444`).
-- **Typography**: Space Grotesk (Headers), JetBrains Mono (Prices & Quantities), Times New Roman (Cinematic Intro Overlay).
-- **Micro-Animations**: Shimmering CTAs, card lift hover effects, 5-second floor plan scanning overlay, floating Swiggy/Zomato style marketing side toasts.
-
-### 🍃 Strict Dietary Filter Engine
-- **Pure Vegetarian (100% Pure Veg)**: Guaranteed non-veg item exclusion with custom sourcing assurances.
-- **Pure Non-Veg**: High-protein seafood, poultry, and meat selections.
-- **Vegan**: 100% plant-based dairy-free dishes.
-
----
-
-## ⚡ Technical Infrastructure & Performance
+## ⚡ Technical Infrastructure & Stack
 
 | Architecture Layer | Technology Stack | Operational Advantage |
 | :--- | :--- | :--- |
-| **Frontend Framework** | React 18 + Vite | Lightning fast HMR & 2-second Vercel serverless builds |
-| **Styling Architecture** | Custom CSS3 + Design Tokens | Pure CSS flexibility with zero runtime CSS-in-JS overhead |
+| **AI LLM Engine** | Groq API (4-Key Fallback Cascade) | Instant 200ms LLM inferences & continuous availability |
+| **Frontend Framework** | React 18 + Vite | Lightning fast HMR & sub-3s production builds |
+| **Design System** | Gold Glassmorphism + CSS Tokens | High-contrast luxury theme with micro-animations |
 | **Caching Layer** | Redis + Memory TTL LRU | Ephemeral cart state & sub-5ms query response times |
-| **Persistence Storage** | Disk JSON + Supabase Postgres | Dual disk fallback durability on server reboots |
-| **ETL Analytics** | Custom Pipeline Engine | Computes peak hourly velocity, dish popularity, low-stock alerts |
+| **Persistence Storage** | Disk JSON + Supabase Postgres | Dual disk fallback durability on server restarts |
 
 ---
 
@@ -122,7 +130,7 @@ npm install
 ```
 
 ### 2. Environment Configuration
-Create a `.env` file in the root folder:
+Create a `.env` file in the root directory:
 ```env
 VITE_SUPABASE_URL=https://zfxsekabuepovpcaqkyz.supabase.co
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -132,7 +140,6 @@ REDIS_URL=redis://localhost:6379
 
 ### 3. Launch Development Server
 ```bash
-# Start Vite Frontend (Port 5173) & Express Backend (Port 3000)
 npm run dev
 ```
 
