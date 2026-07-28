@@ -72,7 +72,7 @@ export default function JarvisChat({ onAddToCart }) {
           borderRadius: '50%',
           background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
           color: '#000',
-          border: '2px solid rgba(255,255,255,0.7)',
+          border: '2px solid rgba(255,255,255,0.8)',
           fontSize: '28px',
           display: 'grid',
           placeItems: 'center',
@@ -93,36 +93,40 @@ export default function JarvisChat({ onAddToCart }) {
           right: '28px',
           bottom: '104px',
           width: 'min(440px, 94vw)',
-          height: '580px',
-          background: '#080a0d',
+          height: 'min(600px, 80vh)',
+          background: '#090b0e',
           border: '2px solid rgba(212, 175, 55, 0.8)',
           borderRadius: '24px',
           boxShadow: '0 24px 70px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 175, 55, 0.35)',
           backdropFilter: 'blur(28px)',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'space-between',
           zIndex: 999999,
           overflow: 'hidden',
+          boxSizing: 'border-box',
           animation: 'fadeIn 0.25s ease-out'
         }}>
           
-          {/* Header */}
+          {/* Header (Strict Sticky Top Row) */}
           <div style={{
-            background: 'rgba(212, 175, 55, 0.15)',
-            borderBottom: '1px solid rgba(212, 175, 55, 0.3)',
-            padding: '16px 20px',
+            height: '64px',
+            flexShrink: 0,
+            background: '#0f1115',
+            borderBottom: '2px solid rgba(212, 175, 55, 0.4)',
+            padding: '0 20px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            flexShrink: 0
+            boxSizing: 'border-box'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'linear-gradient(135deg, #D4AF37, #F59E0B)', display: 'grid', placeItems: 'center', fontSize: '22px', color: '#000', fontWeight: '700', boxShadow: '0 0 15px rgba(212, 175, 55, 0.4)' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, #D4AF37, #F59E0B)', display: 'grid', placeItems: 'center', fontSize: '20px', color: '#000', fontWeight: '800' }}>
                 🤖
               </div>
               <div>
-                <strong style={{ color: 'gold', fontFamily: "'Space Grotesk', sans-serif", fontSize: '17px', display: 'block', letterSpacing: '0.02em' }}>Jarvis AI Concierge</strong>
-                <span style={{ color: '#10B981', fontSize: '12px', fontWeight: '700' }}>⚡ Groq LLM Active</span>
+                <strong style={{ color: 'gold', fontFamily: "'Space Grotesk', sans-serif", fontSize: '16px', display: 'block', margin: 0 }}>Jarvis AI Assistant</strong>
+                <span style={{ color: '#10B981', fontSize: '11px', fontWeight: '700', display: 'block' }}>⚡ Groq LLM Active</span>
               </div>
             </div>
             <button onClick={() => setIsOpen(false)} style={{ background: 'transparent', border: 0, color: '#94A3B8', fontSize: '22px', cursor: 'pointer', padding: '4px 8px' }}>
@@ -130,15 +134,17 @@ export default function JarvisChat({ onAddToCart }) {
             </button>
           </div>
 
-          {/* Messages Scroll Area */}
+          {/* Messages Scroll Area (Strict Middle Scrollable Row) */}
           <div style={{
-            flex: 1,
+            flex: '1 1 auto',
             overflowY: 'auto',
-            padding: '20px 18px',
+            minHeight: '0',
+            padding: '16px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
-            background: 'rgba(0,0,0,0.5)'
+            gap: '14px',
+            background: 'rgba(0,0,0,0.6)',
+            boxSizing: 'border-box'
           }}>
             {messages.map((m, i) => (
               <div key={i} style={{ alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%', display: 'flex', flexDirection: 'column' }}>
@@ -161,10 +167,10 @@ export default function JarvisChat({ onAddToCart }) {
                   background: m.sender === 'user' ? 'linear-gradient(135deg, #D4AF37, #F59E0B)' : 'rgba(255, 255, 255, 0.08)',
                   color: m.sender === 'user' ? '#000000' : '#FFFFFF',
                   border: m.sender === 'user' ? 'none' : '1px solid rgba(212, 175, 55, 0.3)',
-                  padding: '14px 18px',
-                  borderRadius: m.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
+                  padding: '12px 16px',
+                  borderRadius: m.sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                   fontSize: '14px',
-                  lineHeight: '1.6',
+                  lineHeight: '1.5',
                   fontWeight: m.sender === 'user' ? '700' : '400',
                   boxShadow: m.sender === 'user' ? '0 4px 16px rgba(212, 175, 55, 0.4)' : '0 4px 16px rgba(0,0,0,0.4)',
                   wordBreak: 'break-word'
@@ -174,19 +180,19 @@ export default function JarvisChat({ onAddToCart }) {
 
                 {/* AI Item Recommendation Cards */}
                 {m.recommendations && m.recommendations.length > 0 && (
-                  <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+                  <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
                     {m.recommendations.map((rec, rIdx) => (
-                      <div key={rIdx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(212, 175, 55, 0.08)', border: '1px solid rgba(212, 175, 55, 0.4)', padding: '12px 14px', borderRadius: '14px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <img src={rec.image} alt={rec.name} style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover' }} />
+                      <div key={rIdx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(212, 175, 55, 0.1)', border: '1px solid rgba(212, 175, 55, 0.4)', padding: '10px 12px', borderRadius: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <img src={rec.image} alt={rec.name} style={{ width: '42px', height: '42px', borderRadius: '8px', objectFit: 'cover' }} />
                           <div>
-                            <div style={{ color: '#fff', fontSize: '14px', fontWeight: '700' }}>{rec.name}</div>
-                            <div className="mono" style={{ color: 'gold', fontSize: '13px', fontWeight: '700' }}>₹{rec.price}</div>
+                            <div style={{ color: '#fff', fontSize: '13px', fontWeight: '700' }}>{rec.name}</div>
+                            <div className="mono" style={{ color: 'gold', fontSize: '12px', fontWeight: '700' }}>₹{rec.price}</div>
                           </div>
                         </div>
                         <button
                           onClick={() => onAddToCart && onAddToCart(rec)}
-                          style={{ background: 'gold', color: '#000', border: 0, padding: '8px 14px', borderRadius: '10px', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
+                          style={{ background: 'gold', color: '#000', border: 0, padding: '6px 12px', borderRadius: '8px', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
                         >
                           + Add
                         </button>
@@ -198,26 +204,37 @@ export default function JarvisChat({ onAddToCart }) {
             ))}
 
             {loading && (
-              <div style={{ alignSelf: 'flex-start', color: 'gold', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(212, 175, 55, 0.1)', padding: '10px 16px', borderRadius: '14px' }}>
-                <span style={{ animation: 'pulse 1s infinite' }}>⏳</span> Jarvis is typing a reply...
+              <div style={{ alignSelf: 'flex-start', color: 'gold', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(212, 175, 55, 0.1)', padding: '8px 14px', borderRadius: '12px' }}>
+                <span style={{ animation: 'pulse 1s infinite' }}>⏳</span> Jarvis is typing...
               </div>
             )}
-            <div ref={messagesEndRef} style={{ float: 'left', clear: 'both' }} />
+            <div ref={messagesEndRef} />
           </div>
 
-          {/* Redesigned Sleek Input Form */}
-          <form onSubmit={handleSend} style={{ padding: '16px', borderTop: '1px solid rgba(212, 175, 55, 0.3)', background: '#0b0d11', display: 'flex', gap: '12px', alignItems: 'center', flexShrink: 0 }}>
+          {/* Input Form (Strict Bottom Row) */}
+          <form onSubmit={handleSend} style={{
+            height: '72px',
+            flexShrink: 0,
+            background: '#07080b',
+            borderTop: '2px solid rgba(212, 175, 55, 0.4)',
+            padding: '0 16px',
+            display: 'flex',
+            gap: '10px',
+            alignItems: 'center',
+            boxSizing: 'border-box'
+          }}>
             <input
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Ask Jarvis (e.g. 'Hi', 'Recommend Biryani')..."
+              placeholder="Ask Jarvis (e.g. 'Hi', 'Recommend food')..."
               style={{
                 flex: 1,
+                height: '46px',
                 background: 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid rgba(212, 175, 55, 0.4)',
-                borderRadius: '14px',
-                padding: '14px 18px',
+                borderRadius: '12px',
+                padding: '0 16px',
                 color: '#FFFFFF',
                 fontSize: '14px',
                 outline: 'none',
@@ -228,14 +245,14 @@ export default function JarvisChat({ onAddToCart }) {
               type="submit"
               disabled={loading}
               style={{
-                height: '48px',
-                padding: '0 22px',
+                height: '46px',
+                padding: '0 20px',
                 background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
                 color: '#000000',
                 border: 0,
-                borderRadius: '14px',
+                borderRadius: '12px',
                 fontWeight: '800',
-                fontSize: '15px',
+                fontSize: '14px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
