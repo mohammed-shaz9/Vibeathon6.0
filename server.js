@@ -279,6 +279,7 @@ app.patch('/api/orders/:id/status', (req, res) => {
   const order = ORDERS.find(o => o.id === req.params.id);
   if (order) {
     order.status = req.body.status;
+    saveDatabase({ orders: ORDERS, waitlist: WAITLIST, reviews: REVIEWS, inventory: INVENTORY });
     broadcast({ type: 'order_update', orderId: order.id, status: order.status });
     res.json({ success: true, order });
   } else {
@@ -318,6 +319,7 @@ app.post('/api/waitlist', (req, res) => {
     created_at: new Date().toISOString()
   };
   WAITLIST.push(entry);
+  saveDatabase({ orders: ORDERS, waitlist: WAITLIST, reviews: REVIEWS, inventory: INVENTORY });
   res.json({ success: true, waitlistEntry: entry });
 });
 
@@ -329,6 +331,7 @@ app.post('/api/reviews', (req, res) => {
     created_at: new Date().toISOString()
   };
   REVIEWS.push(review);
+  saveDatabase({ orders: ORDERS, waitlist: WAITLIST, reviews: REVIEWS, inventory: INVENTORY });
   res.json({ success: true, review });
 });
 
