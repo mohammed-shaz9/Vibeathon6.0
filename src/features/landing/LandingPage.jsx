@@ -167,11 +167,70 @@ export default function LandingPage({ nav }) {
               Reserve a Table
             </button>
             <button
+              className="btn"
               onClick={() => nav.go('/order.html')}
               style={{ background: 'transparent', color: '#fff', border: '2px solid gold', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}
             >
               View Menu
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Live Table QR Code Scanner Section for Hackathon Judges */}
+      <section style={{ background: '#07080b', borderTop: '1px solid rgba(212,175,55,0.2)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '60px 0' }}>
+        <div className="container" style={{ maxWidth: '1080px', margin: '0 auto' }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.03)',
+            border: '2px solid rgba(212, 175, 55, 0.5)',
+            borderRadius: '24px',
+            padding: '40px',
+            display: 'grid',
+            gridTemplateColumns: '1fr 300px',
+            gap: '32px',
+            alignItems: 'center',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 16px 50px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.2)'
+          }}>
+            <div>
+              <span className="badge" style={{ background: 'rgba(212,175,55,0.15)', color: 'gold', border: '1px solid rgba(212,175,55,0.4)', padding: '8px 16px', borderRadius: '20px', fontWeight: '700', fontSize: '13px' }}>
+                📱 INSTANT PHONE DEMO FOR JUDGES
+              </span>
+              <h2 style={{ color: 'gold', fontFamily: "'Space Grotesk', sans-serif", fontSize: '32px', margin: '14px 0 10px', letterSpacing: '0.02em' }}>
+                Scan Table QR with Your Phone
+              </h2>
+              <p style={{ color: '#94A3B8', fontSize: '16px', lineHeight: '1.7', margin: 0 }}>
+                Point your mobile phone camera at the QR code on the right to open the live <strong>Azzurro Caffè Digital Menu & Ordering System</strong> directly on your smartphone in real-time!
+              </p>
+
+              <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+                <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', border: '1px solid rgba(16,185,129,0.3)', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '600' }}>
+                  ✓ Table #1 Allotment
+                </span>
+                <span style={{ background: 'rgba(99,102,241,0.15)', color: '#818CF8', border: '1px solid rgba(99,102,241,0.3)', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '600' }}>
+                  ⚡ Real-time Order Telemetry
+                </span>
+              </div>
+            </div>
+
+            {/* QR Code Container */}
+            <div style={{
+              background: '#FFFFFF',
+              borderRadius: '20px',
+              padding: '20px',
+              textAlign: 'center',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.5)'
+            }}>
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://vibeathon6-0.vercel.app/order.html?table=1"
+                alt="Scan Table QR Code with Phone"
+                style={{ width: '100%', height: 'auto', borderRadius: '12px' }}
+              />
+              <div style={{ color: '#000', fontWeight: '800', fontSize: '14px', marginTop: '12px', fontFamily: "'Space Grotesk', sans-serif" }}>
+                TABLE #1 QR CODE
+              </div>
+              <small style={{ color: '#64748B', fontSize: '11px' }}>Scan with Phone Camera</small>
+            </div>
           </div>
         </div>
       </section>
