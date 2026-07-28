@@ -12,9 +12,11 @@ import HostPage from './features/host/HostPage';
 import AdminPage from './features/admin/AdminPage';
 import ScanPage from './features/scan/ScanPage';
 import JarvisChat from './shared/JarvisChat';
+import { supabase } from './shared/supabase';
 
 function routeFromLocation() {
   const { pathname, hash, search } = window.location;
+  if (hash && hash.includes('access_token=')) return { view: 'customer-menu', search };
   if (pathname === '/scan.html') return { view: 'scan', search };
   if (pathname === '/about.html') return { view: 'about', search };
   if (pathname === '/order.html') return { view: 'customer-menu', search };
@@ -35,6 +37,43 @@ function routeFromLocation() {
 
 export default function App() {
   const [route, setRoute] = useState(routeFromLocation());
+
+  useEffect(() => {
+    // Intercept Google OAuth access_token hash from Supabase redirect
+    const handleHashAuth = async () => {
+      const hash = window.location.hash;
+      if (hash && hash.includes('access_token=')) {
+        if (supabase) {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) {
+            const meta = session.user.user_metadata || {};
+            const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
+            const email = session.user.email;
+            localStorage.setItem('azzurro_customer_name', fullName);
+            localStorage.setItem('azzurro_customer_email', email);
+          }
+        }
+        // Clean hash from URL and route directly to Customer Order page!
+        window.history.replaceState({}, document.title, '/order.html');
+        setRoute({ view: 'customer-menu', search: '' });
+      }
+    };
+
+    handleHashAuth();
+
+    if (supabase) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session?.user) {
+          const meta = session.user.user_metadata || {};
+          const fullName = meta.full_name || meta.name || session.user.email.split('@')[0];
+          const email = session.user.email;
+          localStorage.setItem('azzurro_customer_name', fullName);
+          localStorage.setItem('azzurro_customer_email', email);
+        }
+      });
+      return () => subscription.unsubscribe();
+    }
+  }, []);
 
   useEffect(() => {
     const onPop = () => setRoute(routeFromLocation());

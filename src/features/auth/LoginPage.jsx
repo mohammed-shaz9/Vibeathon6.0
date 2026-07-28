@@ -103,7 +103,7 @@ export default function LoginPage({ nav }) {
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + '/order.html?simulation=1'
+            redirectTo: window.location.origin + '/order.html'
           }
         });
         if (error) throw error;
