@@ -29,14 +29,46 @@ export default function LandingPage({ nav }) {
           justifyContent: 'center'
         }}>
           {introStep === 1 && (
-            <video
-              src="/assets/intro1.mp4"
-              autoPlay
-              muted
-              playsInline
-              onEnded={() => setIntroStep(2)}
-              style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
-            />
+            <>
+              {/* Top Center Text Overlay on Video 1 */}
+              <div style={{
+                position: 'absolute',
+                top: '40px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'rgba(0, 0, 0, 0.85)',
+                border: '1px solid rgba(212, 175, 55, 0.5)',
+                padding: '14px 32px',
+                borderRadius: '12px',
+                textAlign: 'center',
+                zIndex: 100000,
+                boxShadow: '0 8px 30px rgba(0,0,0,0.8)',
+                maxWidth: '90%'
+              }}>
+                <span style={{
+                  fontFamily: '"Times New Roman", Times, serif',
+                  fontStyle: 'italic',
+                  fontSize: '22px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.9)'
+                }}>
+                  WELCOME TO AZZURRO CAFFÈ, A SMART MANAGEMENT SYSTEM
+                </span>
+              </div>
+
+              <video
+                src="/assets/intro1.mp4"
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                onEnded={() => setIntroStep(2)}
+                style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
+              />
+            </>
           )}
 
           {introStep === 2 && (
@@ -45,6 +77,7 @@ export default function LandingPage({ nav }) {
               autoPlay
               muted
               playsInline
+              preload="auto"
               onEnded={() => setIntroStep(3)}
               style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
             />
@@ -57,7 +90,7 @@ export default function LandingPage({ nav }) {
               position: 'absolute',
               top: '30px',
               right: '30px',
-              background: 'rgba(0, 0, 0, 0.6)',
+              background: 'rgba(0, 0, 0, 0.7)',
               border: '1px solid rgba(212, 175, 55, 0.6)',
               color: 'gold',
               padding: '10px 22px',
@@ -66,7 +99,8 @@ export default function LandingPage({ nav }) {
               cursor: 'pointer',
               fontSize: '14px',
               backdropFilter: 'blur(10px)',
-              letterSpacing: '0.05em'
+              letterSpacing: '0.05em',
+              zIndex: 100001
             }}
           >
             Skip Intro →
@@ -101,7 +135,7 @@ export default function LandingPage({ nav }) {
       {/* Hero Section */}
       <section>
         <div className="sectionOne">
-          <video autoPlay muted loop className="bg-video">
+          <video autoPlay muted loop playsInline preload="auto" className="bg-video">
             <source src="/assets/Restaur.mp4" type="video/mp4" />
           </video>
           <h1>Experience Fine Dining, Reimagined</h1>
