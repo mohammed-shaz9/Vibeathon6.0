@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import intro1Video from '/assets/intro1.mp4';
+import intro2Video from '/assets/intro2.mp4';
+import restaurVideo from '/assets/Restaur.mp4';
 
 export default function LandingPage({ nav }) {
   // 1: intro1.mp4, 2: intro2.mp4, 3: completed landing page UI
@@ -60,12 +63,13 @@ export default function LandingPage({ nav }) {
               </div>
 
               <video
-                src="/assets/intro1.mp4"
+                src={intro1Video}
                 autoPlay
                 muted
                 playsInline
                 preload="auto"
                 onEnded={() => setIntroStep(2)}
+                onError={() => setIntroStep(2)}
                 style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
               />
             </>
@@ -73,12 +77,13 @@ export default function LandingPage({ nav }) {
 
           {introStep === 2 && (
             <video
-              src="/assets/intro2.mp4"
+              src={intro2Video}
               autoPlay
               muted
               playsInline
               preload="auto"
               onEnded={() => setIntroStep(3)}
+              onError={() => setIntroStep(3)}
               style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
             />
           )}
@@ -136,7 +141,7 @@ export default function LandingPage({ nav }) {
       <section>
         <div className="sectionOne">
           <video autoPlay muted loop playsInline preload="auto" className="bg-video">
-            <source src="/assets/Restaur.mp4" type="video/mp4" />
+            <source src={restaurVideo} type="video/mp4" />
           </video>
           <h1>Experience Fine Dining, Reimagined</h1>
           <p>Savor the perfect blend of flavors crafted to satisfy your taste buds. Our dishes are prepared with the utmost care, bringing together quality ingredients and culinary excellence.</p>
