@@ -3,6 +3,14 @@
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/order.html", "destination": "/index.html" },
+    { "source": "/login.html", "destination": "/index.html" },
+    { "source": "/scan.html", "destination": "/index.html" },
+    { "source": "/about.html", "destination": "/index.html" },
+    { "source": "/tracker.html", "destination": "/index.html" },
+    { "source": "/order-tracker.html", "destination": "/index.html" },
+    { "source": "/review.html", "destination": "/index.html" },
+    { "source": "/bill.html", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
