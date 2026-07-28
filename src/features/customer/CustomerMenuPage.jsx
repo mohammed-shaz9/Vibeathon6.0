@@ -36,6 +36,14 @@ export default function CustomerMenuPage({ nav }) {
     }
   }, []);
 
+  // Synchronize name from storage if updated by top-level OAuth interceptor
+  useEffect(() => {
+    const storedName = safeStorage.getItem('azzurro_customer_name');
+    if (storedName && storedName !== guestName) {
+      setGuestName(storedName);
+    }
+  }, [guestName]);
+
   const handleLogout = async () => {
     if (supabase) {
       try { await supabase.auth.signOut(); } catch {}
