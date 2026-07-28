@@ -196,7 +196,7 @@ export default function CustomerMenuPage({ nav }) {
 
   // Step 2: Table Allotted & Virtual QR Code Display
   if (simStep === 2) {
-    const liveProductionQrUrl = `https://vibeathon6-0.vercel.app/order.html?table=${allottedTable}&name=${encodeURIComponent(guestName)}`;
+    const liveProductionQrUrl = `https://vibeathon6-0-one.vercel.app/order.html?table=${allottedTable}&name=${encodeURIComponent(guestName)}`;
     return (
       <div className="app-shell" style={{ minHeight: '100vh', background: '#090b0e', color: '#fff', paddingTop: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{
