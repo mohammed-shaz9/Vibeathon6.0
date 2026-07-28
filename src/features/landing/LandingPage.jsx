@@ -33,30 +33,29 @@ export default function LandingPage({ nav }) {
         }}>
           {introStep === 1 && (
             <>
-              {/* 3D Rolling Opening Curtain Text Overlay on Video 1 */}
+              {/* 3D Rolling & Clip-Path Circle Reveal Opening Text Overlay on Video 1 */}
               <div style={{
                 position: 'absolute',
                 top: '40px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                animation: 'openingReveal3D 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                animation: 'circleClipReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards',
                 background: 'rgba(0, 0, 0, 0.9)',
-                border: '2px solid rgba(212, 175, 55, 0.8)',
-                padding: '18px 36px',
-                borderRadius: '16px',
+                border: '2px solid rgba(212, 175, 55, 0.85)',
+                padding: '20px 40px',
+                borderRadius: '20px',
                 textAlign: 'center',
                 zIndex: 100000,
-                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.3)',
+                boxShadow: '0 16px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.4)',
                 maxWidth: '92%',
-                backdropFilter: 'blur(16px)',
-                perspective: '1000px'
+                backdropFilter: 'blur(20px)'
               }}>
                 {/* 3D Rolling Crown Emblem */}
                 <div style={{
                   display: 'inline-block',
-                  fontSize: '28px',
+                  fontSize: '32px',
                   color: 'gold',
-                  marginBottom: '6px',
+                  marginBottom: '8px',
                   animation: 'logoRoll3D 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
                 }}>
                   👑
@@ -65,12 +64,12 @@ export default function LandingPage({ nav }) {
                 <div style={{
                   fontFamily: '"Times New Roman", Times, serif',
                   fontStyle: 'italic',
-                  fontSize: '25px',
+                  fontSize: '26px',
                   fontWeight: '900',
                   color: '#FFFFFF',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  textShadow: '0 2px 14px rgba(0,0,0,0.9), 0 0 10px rgba(212,175,55,0.6)',
+                  textShadow: '0 2px 14px rgba(0,0,0,0.9), 0 0 12px rgba(212,175,55,0.7)',
                   lineHeight: '1.4'
                 }}>
                   WELCOME TO AZZURRO CAFFÈ, A SMART MANAGEMENT SYSTEM
