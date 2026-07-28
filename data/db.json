@@ -1,6 +1,93 @@
 {
-  "orders": [],
-  "waitlist": [],
-  "reviews": [],
-  "inventory": []
+  "orders": [
+    {
+      "id": "ORD-1001",
+      "tableId": 2,
+      "table_number": 2,
+      "guestName": "Alex Rivera",
+      "customer_name": "Alex Rivera",
+      "items": [
+        { "id": "m-1", "name": "Paneer Tikka", "price": 249, "qty": 2 },
+        { "id": "m-6", "name": "Mango Lassi", "price": 119, "qty": 2 },
+        { "id": "m-13", "name": "Molten Lava Cake", "price": 279, "qty": 1 }
+      ],
+      "total_amount": 1015,
+      "status": "served",
+      "created_at": "2026-07-28T10:15:00.000Z"
+    },
+    {
+      "id": "ORD-1002",
+      "tableId": 4,
+      "table_number": 4,
+      "guestName": "Sam Wilson",
+      "customer_name": "Sam Wilson",
+      "items": [
+        { "id": "m-3", "name": "Butter Chicken", "price": 349, "qty": 1 },
+        { "id": "m-9", "name": "Dal Makhani", "price": 249, "qty": 1 },
+        { "id": "m-15", "name": "Masala Chai", "price": 69, "qty": 2 }
+      ],
+      "total_amount": 736,
+      "status": "ready",
+      "created_at": "2026-07-28T10:30:00.000Z"
+    },
+    {
+      "id": "ORD-1003",
+      "tableId": 6,
+      "table_number": 6,
+      "guestName": "Priya Sharma",
+      "customer_name": "Priya Sharma",
+      "items": [
+        { "id": "m-24", "name": "Hyderabadi Chicken Biryani", "price": 349, "qty": 2 },
+        { "id": "m-21", "name": "Tandoori Jumbo Prawns", "price": 449, "qty": 1 },
+        { "id": "m-43", "name": "Classic Virgin Mojito", "price": 139, "qty": 2 }
+      ],
+      "total_amount": 1425,
+      "status": "preparing",
+      "created_at": "2026-07-28T11:05:00.000Z"
+    },
+    {
+      "id": "ORD-1004",
+      "tableId": 8,
+      "table_number": 8,
+      "guestName": "Anas Khan",
+      "customer_name": "Anas Khan",
+      "items": [
+        { "id": "m-29", "name": "Truffle Mushroom Risotto", "price": 389, "qty": 2 },
+        { "id": "m-34", "name": "New York Cheesecake", "price": 299, "qty": 2 },
+        { "id": "m-50", "name": "Sparkling Passion Fruit Mocktail", "price": 179, "qty": 2 }
+      ],
+      "total_amount": 1734,
+      "status": "placed",
+      "created_at": "2026-07-28T11:20:00.000Z"
+    },
+    {
+      "id": "ORD-1005",
+      "tableId": 1,
+      "table_number": 1,
+      "guestName": "Rahul Verma",
+      "customer_name": "Rahul Verma",
+      "items": [
+        { "id": "m-4", "name": "Veg Dum Biryani", "price": 279, "qty": 2 },
+        { "id": "m-11", "name": "Palak Paneer", "price": 269, "qty": 1 }
+      ],
+      "total_amount": 827,
+      "status": "served",
+      "created_at": "2026-07-28T09:40:00.000Z"
+    }
+  ],
+  "waitlist": [
+    { "id": "w-1", "customer_name": "Vikram Sethi", "party_size": 4, "dietary_preference": "veg", "wait_time_minutes": 15, "status": "waiting" },
+    { "id": "w-2", "customer_name": "Neha Gupta", "party_size": 2, "dietary_preference": "nonveg", "wait_time_minutes": 8, "status": "waiting" },
+    { "id": "w-3", "customer_name": "David Miller", "party_size": 6, "dietary_preference": "vegan", "wait_time_minutes": 20, "status": "waiting" }
+  ],
+  "reviews": [
+    { "id": "r-1", "orderId": "ORD-1001", "guestName": "Alex Rivera", "dish_rating": 5, "chef_rating": 5, "waiter_rating": 5, "comment": "Exceptional Paneer Tikka and Molten Lava Cake! Seamless digital experience." },
+    { "id": "r-2", "orderId": "ORD-1005", "guestName": "Rahul Verma", "dish_rating": 5, "chef_rating": 5, "waiter_rating": 4, "comment": "Fast table allotment and 100% pure veg assurance. Loved the biryani!" }
+  ],
+  "inventory": [
+    { "id": "i-1", "name": "Paneer", "unit": "g", "current_stock": 4500, "min_threshold": 1000, "stock_status": "ok" },
+    { "id": "i-2", "name": "Chicken Wings", "unit": "pcs", "current_stock": 35, "min_threshold": 10, "stock_status": "ok" },
+    { "id": "i-3", "name": "Chicken Breast", "unit": "g", "current_stock": 5200, "min_threshold": 1500, "stock_status": "ok" },
+    { "id": "i-4", "name": "Basmati Rice", "unit": "g", "current_stock": 7100, "min_threshold": 2000, "stock_status": "ok" }
+  ]
 }

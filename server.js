@@ -36,23 +36,7 @@ const TABLES = Array.from({length: 12}, (_, i) => ({id: `t-${i+1}`, table_number
 const WAITLIST = initialDb.waitlist || [];
 const REVIEWS = initialDb.reviews || [];
 
-const INVENTORY = [
-  { id: 'i-1', name: 'Paneer', unit: 'g', current_stock: 5000, min_threshold: 1000, stock_status: 'ok' },
-  { id: 'i-2', name: 'Chicken Wings', unit: 'pcs', current_stock: 40, min_threshold: 10, stock_status: 'ok' },
-  { id: 'i-3', name: 'Chicken Breast', unit: 'g', current_stock: 6000, min_threshold: 1500, stock_status: 'ok' },
-  { id: 'i-4', name: 'Basmati Rice', unit: 'g', current_stock: 8000, min_threshold: 2000, stock_status: 'ok' },
-  { id: 'i-5', name: 'Yogurt', unit: 'ml', current_stock: 3000, min_threshold: 800, stock_status: 'ok' },
-  { id: 'i-6', name: 'Mango Pulp', unit: 'ml', current_stock: 2000, min_threshold: 500, stock_status: 'ok' },
-  { id: 'i-7', name: 'Mushrooms', unit: 'g', current_stock: 3000, min_threshold: 500, stock_status: 'ok' },
-  { id: 'i-8', name: 'Lamb Mince', unit: 'g', current_stock: 4000, min_threshold: 1000, stock_status: 'ok' },
-  { id: 'i-9', name: 'Black Lentils', unit: 'g', current_stock: 5000, min_threshold: 1000, stock_status: 'ok' },
-  { id: 'i-10', name: 'Salmon', unit: 'g', current_stock: 3000, min_threshold: 800, stock_status: 'ok' },
-  { id: 'i-11', name: 'Spinach', unit: 'g', current_stock: 4000, min_threshold: 800, stock_status: 'ok' },
-  { id: 'i-12', name: 'Mascarpone', unit: 'g', current_stock: 2000, min_threshold: 500, stock_status: 'ok' },
-  { id: 'i-13', name: 'Chocolate', unit: 'g', current_stock: 3000, min_threshold: 600, stock_status: 'ok' },
-  { id: 'i-14', name: 'Limes', unit: 'pcs', current_stock: 100, min_threshold: 20, stock_status: 'ok' },
-  { id: 'i-15', name: 'Tea Leaves', unit: 'g', current_stock: 2000, min_threshold: 400, stock_status: 'ok' }
-];
+const INVENTORY = initialDb.inventory || [];
 
 const RECIPES = {
   'm-1': [{ item_id: 'i-1', qty: 150 }],
