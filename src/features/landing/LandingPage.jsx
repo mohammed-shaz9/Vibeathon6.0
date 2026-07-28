@@ -3,10 +3,39 @@ import intro1Video from '/assets/intro1.mp4';
 import intro2Video from '/assets/intro2.mp4';
 import restaurVideo from '/assets/Restaur.mp4';
 import JarvisChat from '../../shared/JarvisChat';
+import { supabase } from '../../shared/supabase';
+import { safeStorage } from '../../shared/storage';
 
 export default function LandingPage({ nav }) {
   // 1: intro1.mp4, 2: intro2.mp4, 3: completed landing page UI
   const [introStep, setIntroStep] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [menuLockToast, setMenuLockToast] = useState(false);
+
+  // Check auth state on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      // Check supabase session
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) { setIsLoggedIn(true); return; }
+      }
+      // Check local demo login (staff portals also count)
+      const name = safeStorage.getItem('azzurro_customer_name');
+      const email = safeStorage.getItem('azzurro_customer_email');
+      if (name || email) setIsLoggedIn(true);
+    };
+    checkAuth();
+  }, []);
+
+  const handleExploreMenu = () => {
+    if (isLoggedIn) {
+      nav.go('/order.html');
+    } else {
+      setMenuLockToast(true);
+      setTimeout(() => setMenuLockToast(false), 2800);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -168,13 +197,50 @@ export default function LandingPage({ nav }) {
             >
               Claim Your Table →
             </button>
-            <button
-              className="btn"
-              onClick={() => nav.go('/order.html')}
-              style={{ background: 'transparent', color: '#fff', border: '2px solid gold', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}
-            >
-              Explore Menu
-            </button>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <button
+                className="btn"
+                onClick={handleExploreMenu}
+                style={{
+                  background: isLoggedIn ? 'transparent' : 'rgba(255,255,255,0.05)',
+                  color: isLoggedIn ? '#fff' : 'rgba(255,255,255,0.5)',
+                  border: `2px solid ${isLoggedIn ? 'gold' : 'rgba(212,175,55,0.3)'}`,
+                  padding: '16px 32px',
+                  borderRadius: '8px',
+                  fontWeight: '700',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                {!isLoggedIn && <span style={{ fontSize: '14px' }}>🔒</span>}
+                Explore Menu
+              </button>
+              {menuLockToast && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: '120%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: '#0f172a',
+                  border: '1px solid rgba(212,175,55,0.6)',
+                  color: '#fff',
+                  padding: '10px 18px',
+                  borderRadius: '10px',
+                  whiteSpace: 'nowrap',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.7)',
+                  zIndex: 9999,
+                  animation: 'fadeInUp 0.3s ease'
+                }}>
+                  🔒 Sign in first to explore the menu
+                  <div style={{ position: 'absolute', bottom: '-6px', left: '50%', width: '10px', height: '10px', background: '#0f172a', border: '1px solid rgba(212,175,55,0.6)', borderTop: 'none', borderLeft: 'none', transform: 'translateX(-50%) rotate(45deg)' }} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
