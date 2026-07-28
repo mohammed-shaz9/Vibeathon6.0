@@ -57,6 +57,38 @@ app.get('/api/config', (req, res) => {
   });
 });
 
+// Email/password auth for role-based portal login
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body || {};
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  const roleMap = {
+    'customer@azzurro.demo': 'customer',
+    'kitchen@azzurro.demo': 'kitchen',
+    'waiter@azzurro.demo': 'waiter',
+    'host@azzurro.demo': 'host',
+    'admin@azzurro.demo': 'admin'
+  };
+
+  if (password !== 'password123') {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  const role = roleMap[normalizedEmail];
+  if (!role) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  return res.json({
+    success: true,
+    user: {
+      id: `demo_${role}`,
+      email: normalizedEmail,
+      role,
+      name: role.charAt(0).toUpperCase() + role.slice(1)
+    }
+  });
+});
+
 // Google OAuth Supabase Auth Endpoint
 app.post('/api/auth/google', async (req, res) => {
   try {
@@ -91,6 +123,24 @@ app.post('/api/auth/google', async (req, res) => {
 });
 
 // Orders API
+app.get('/api/menu', (req, res) => {
+  const categories = [
+    { id: 'c-1', name: 'Starters', display_order: 1 },
+    { id: 'c-2', name: 'Mains', display_order: 2 },
+    { id: 'c-3', name: 'Desserts', display_order: 3 },
+    { id: 'c-4', name: 'Beverages', display_order: 4 }
+  ];
+  const items = [
+    { id: 'm-1', category_id: 'c-1', name: 'Paneer Tikka', description: 'Char-grilled paneer with spices', price: 249, image_url: '', is_veg: true, is_vegan: false, is_chef_special: true, is_available: true, prep_time_minutes: 15 },
+    { id: 'm-2', category_id: 'c-1', name: 'Chicken Wings', description: 'Crispy wings with house glaze', price: 299, image_url: '', is_veg: false, is_vegan: false, is_chef_special: false, is_available: true, prep_time_minutes: 18 },
+    { id: 'm-3', category_id: 'c-2', name: 'Butter Chicken', description: 'Creamy tomato butter gravy', price: 349, image_url: '', is_veg: false, is_vegan: false, is_chef_special: true, is_available: true, prep_time_minutes: 22 },
+    { id: 'm-4', category_id: 'c-2', name: 'Veg Biryani', description: 'Fragrant basmati rice with vegetables', price: 279, image_url: '', is_veg: true, is_vegan: true, is_chef_special: false, is_available: true, prep_time_minutes: 20 },
+    { id: 'm-5', category_id: 'c-3', name: 'Gulab Jamun', description: 'Warm milk-solid dumplings in syrup', price: 129, image_url: '', is_veg: true, is_vegan: false, is_chef_special: false, is_available: true, prep_time_minutes: 10 },
+    { id: 'm-6', category_id: 'c-4', name: 'Mango Lassi', description: 'Chilled yogurt mango drink', price: 119, image_url: '', is_veg: true, is_vegan: false, is_chef_special: false, is_available: true, prep_time_minutes: 5 }
+  ];
+  res.json({ categories, items });
+});
+
 app.get('/api/orders', (req, res) => {
   res.json({ success: true, message: 'Orders retrieved via Supabase channel' });
 });

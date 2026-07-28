@@ -1,0 +1,21 @@
+.portal-shell{min-height:100vh;padding:120px 20px 40px;display:flex;justify-content:center;align-items:flex-start;background:#0b0f19;color:#fff}
+.portal-card{width:min(720px,100%);background:#111827;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,0.35)}
+.portal-card h1{margin:0;font-family:"Space Grotesk",sans-serif;font-size:34px;letter-spacing:.08em}
+.portal-card p{margin:8px 0 20px;color:#94A3B8}
+.portal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.portal-choice{background:#1E293B;border:1px solid #334155;color:#fff;border-radius:12px;padding:18px;text-align:left;cursor:pointer;transition:transform .15s ease,border-color .15s ease,background .15s ease}
+.portal-choice:hover,.portal-choice.active{border-color:#6366F1;transform:translateY(-2px);background:#172033}
+.portal-choice strong{display:block;font-size:18px;margin-bottom:6px}
+.portal-choice span{display:block;color:#94A3B8;font-size:14px;line-height:1.4;border:0;text-decoration:none}
+.portal-form{display:flex;flex-direction:column;gap:12px}
+.portal-form input,.portal-form button{width:100%;padding:14px 16px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff}
+.portal-form input::placeholder{color:#64748B}
+.primary-btn{background:#6366F1!important;border-color:#6366F1!important;font-weight:700}
+.secondary-btn{background:rgba(255,255,255,0.06)!important;border-color:rgba(255,255,255,0.14)!important}
+.divider{display:flex;align-items:center;gap:10px;color:#64748B;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.demo-box{border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;background:rgba(255,255,255,0.03)}
+.demo-box summary{cursor:pointer;color:#fff;font-weight:600}
+.demo-box ul{margin:12px 0 0;padding-left:18px;color:#94A3B8}
+.error-inline{color:#fca5a5;min-height:20px}
+@media (max-width:640px){.portal-grid{grid-template-columns:1fr}.portal-card{padding:22px}}

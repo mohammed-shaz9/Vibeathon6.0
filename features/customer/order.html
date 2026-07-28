@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azzurro Caffè Menu</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/customer.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body class="customer-page">
+  <header class="customer-topbar">
+    <h1>Azzurro Caffè</h1>
+    <div id="dietFilters" class="filter-row"></div>
+  </header>
+  <main class="page">
+    <div id="menuRoot"></div>
+  </main>
+  <div id="cartBar" class="cart-bar" style="display:none">
+    <div><span id="cartCount">0 items</span> • <strong id="cartTotal">₹0</strong></div>
+    <button id="viewCartBtn">View Cart & Order</button>
+  </div>
+  <div id="orderModal" class="modal">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close">×</button>
+      <h2>Confirm Order</h2>
+      <input id="tableNumber" placeholder="Table number">
+      <input id="customerName" placeholder="Customer name">
+      <input id="customerPhone" placeholder="Phone number">
+      <select id="dietaryPreference"><option>Veg</option><option>Non-Veg</option><option>Vegan</option></select>
+      <textarea id="orderInstructions" placeholder="Special instructions"></textarea>
+      <div id="orderError" class="error-inline"></div>
+      <button id="confirmOrderBtn">Confirm Order</button>
+    </div>
+  </div>
+  <script src="/features/customer/customer-menu.js"></script>
+</body>
+</html>
