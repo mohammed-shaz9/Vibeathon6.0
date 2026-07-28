@@ -33,33 +33,48 @@ export default function LandingPage({ nav }) {
         }}>
           {introStep === 1 && (
             <>
-              {/* Top Center Text Overlay on Video 1 */}
+              {/* 3D Rolling Opening Curtain Text Overlay on Video 1 */}
               <div style={{
                 position: 'absolute',
                 top: '40px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                background: 'rgba(0, 0, 0, 0.85)',
-                border: '1px solid rgba(212, 175, 55, 0.5)',
-                padding: '14px 32px',
-                borderRadius: '12px',
+                animation: 'openingReveal3D 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                background: 'rgba(0, 0, 0, 0.9)',
+                border: '2px solid rgba(212, 175, 55, 0.8)',
+                padding: '18px 36px',
+                borderRadius: '16px',
                 textAlign: 'center',
                 zIndex: 100000,
-                boxShadow: '0 8px 30px rgba(0,0,0,0.8)',
-                maxWidth: '90%'
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.3)',
+                maxWidth: '92%',
+                backdropFilter: 'blur(16px)',
+                perspective: '1000px'
               }}>
-                <span style={{
+                {/* 3D Rolling Crown Emblem */}
+                <div style={{
+                  display: 'inline-block',
+                  fontSize: '28px',
+                  color: 'gold',
+                  marginBottom: '6px',
+                  animation: 'logoRoll3D 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
+                }}>
+                  👑
+                </div>
+
+                <div style={{
                   fontFamily: '"Times New Roman", Times, serif',
                   fontStyle: 'italic',
-                  fontSize: '22px',
-                  fontWeight: '700',
-                  color: '#fff',
-                  letterSpacing: '0.1em',
+                  fontSize: '25px',
+                  fontWeight: '900',
+                  color: '#FFFFFF',
+                  letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.9)'
+                  textShadow: '0 2px 14px rgba(0,0,0,0.9), 0 0 10px rgba(212,175,55,0.6)',
+                  lineHeight: '1.4'
                 }}>
                   WELCOME TO AZZURRO CAFFÈ, A SMART MANAGEMENT SYSTEM
-                </span>
+                </div>
               </div>
 
               <video

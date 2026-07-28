@@ -52,9 +52,26 @@ button { cursor: pointer; }
   50% { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
 }
 
-/* Page entrance */
+/* Page entrance & 3D Rolling Animations */
 .app-shell, .portal-page, .customer-page, .admin-layout {
   animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes logoRoll3D {
+  0% { transform: rotateY(-720deg) rotateZ(-180deg) scale(0.2); opacity: 0; filter: drop-shadow(0 0 0px gold); }
+  60% { transform: rotateY(-90deg) rotateZ(-20deg) scale(1.2); opacity: 0.9; filter: drop-shadow(0 0 25px gold); }
+  100% { transform: rotateY(0deg) rotateZ(0deg) scale(1); opacity: 1; filter: drop-shadow(0 0 12px gold); }
+}
+
+@keyframes openingReveal3D {
+  0% { transform: translate(-50%, -100px) rotateX(-90deg) scale(0.7); opacity: 0; }
+  60% { transform: translate(-50%, 12px) rotateX(12deg) scale(1.05); opacity: 0.9; }
+  100% { transform: translate(-50%, 0) rotateX(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes goldShimmerText {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Card hover lift */
