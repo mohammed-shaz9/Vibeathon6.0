@@ -22,7 +22,9 @@ export default function JarvisChat({ onAddToCart }) {
   };
 
   useEffect(() => {
-    if (isOpen) scrollToBottom();
+    if (isOpen) {
+      setTimeout(scrollToBottom, 60);
+    }
   }, [messages, isOpen, loading]);
 
   const handleSend = async (e) => {
@@ -35,34 +37,22 @@ export default function JarvisChat({ onAddToCart }) {
     setLoading(true);
 
     try {
-      const res = await apiPost('/api/ai/insights', {
-        revenue: 14285000,
-        total_orders: 38420,
-        top_dish: 'Hyderabadi Dum Biryani',
-        low_stock_items: [],
-        userPrompt: userText
-      });
-
-      const reply = res.insights || 'I highly recommend our signature Hyderabadi Dum Biryani paired with a refreshing Virgin Mojito!';
+      const res = await apiPost('/api/ai/chat', { userPrompt: userText });
+      const reply = res.reply || 'Hello! Welcome to Azzurro Caffè. I can assist you with our menu, table QR ordering, or recommendations!';
       
       let recs = [];
       const lower = userText.toLowerCase();
       if (lower.includes('biryani') || lower.includes('spicy') || lower.includes('main')) {
         recs = [{ name: 'Hyderabadi Dum Biryani', price: 349, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500' }];
-      } else if (lower.includes('dessert') || lower.includes('sweet') || lower.includes('cake')) {
+      } else if (lower.includes('dessert') || lower.includes('sweet') || lower.includes('cake') || lower.includes('tiramisu')) {
         recs = [{ name: 'Molten Lava Cake', price: 279, image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500' }];
-      } else if (lower.includes('drink') || lower.includes('beverage') || lower.includes('coffee')) {
+      } else if (lower.includes('drink') || lower.includes('beverage') || lower.includes('coffee') || lower.includes('mojito')) {
         recs = [{ name: 'Classic Virgin Mojito', price: 139, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500' }];
-      } else {
-        recs = [
-          { name: 'Paneer Tikka Multani', price: 249, image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500' },
-          { name: 'Butter Chicken Deluxe', price: 349, image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500' }
-        ];
       }
 
       setMessages(prev => [...prev, { sender: 'jarvis', text: reply, recommendations: recs }]);
     } catch (err) {
-      setMessages(prev => [...prev, { sender: 'jarvis', text: 'I am at your service! Try our Chef Special Paneer Tikka or Mango Lassi.' }]);
+      setMessages(prev => [...prev, { sender: 'jarvis', text: 'Hello! I am Jarvis at your service. How may I help you choose your meal today?' }]);
     } finally {
       setLoading(false);
     }
@@ -82,7 +72,7 @@ export default function JarvisChat({ onAddToCart }) {
           borderRadius: '50%',
           background: 'linear-gradient(135deg, #D4AF37, #F59E0B)',
           color: '#000',
-          border: '2px solid rgba(255,255,255,0.6)',
+          border: '2px solid rgba(255,255,255,0.7)',
           fontSize: '28px',
           display: 'grid',
           placeItems: 'center',
@@ -103,11 +93,11 @@ export default function JarvisChat({ onAddToCart }) {
           right: '28px',
           bottom: '104px',
           width: 'min(440px, 94vw)',
-          height: '600px',
-          background: '#090b0e',
+          height: '580px',
+          background: '#080a0d',
           border: '2px solid rgba(212, 175, 55, 0.8)',
           borderRadius: '24px',
-          boxShadow: '0 24px 70px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 175, 55, 0.3)',
+          boxShadow: '0 24px 70px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 175, 55, 0.35)',
           backdropFilter: 'blur(28px)',
           display: 'flex',
           flexDirection: 'column',
@@ -118,12 +108,13 @@ export default function JarvisChat({ onAddToCart }) {
           
           {/* Header */}
           <div style={{
-            background: 'rgba(212, 175, 55, 0.12)',
+            background: 'rgba(212, 175, 55, 0.15)',
             borderBottom: '1px solid rgba(212, 175, 55, 0.3)',
             padding: '16px 20px',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexShrink: 0
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'linear-gradient(135deg, #D4AF37, #F59E0B)', display: 'grid', placeItems: 'center', fontSize: '22px', color: '#000', fontWeight: '700', boxShadow: '0 0 15px rgba(212, 175, 55, 0.4)' }}>
@@ -140,9 +131,17 @@ export default function JarvisChat({ onAddToCart }) {
           </div>
 
           {/* Messages Scroll Area */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 18px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'rgba(0,0,0,0.4)' }}>
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '20px 18px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            background: 'rgba(0,0,0,0.5)'
+          }}>
             {messages.map((m, i) => (
-              <div key={i} style={{ alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
+              <div key={i} style={{ alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%', display: 'flex', flexDirection: 'column' }}>
                 
                 {/* Sender Badge */}
                 <div style={{
@@ -159,15 +158,15 @@ export default function JarvisChat({ onAddToCart }) {
 
                 {/* Message Bubble */}
                 <div style={{
-                  background: m.sender === 'user' ? 'linear-gradient(135deg, #D4AF37, #F59E0B)' : 'rgba(255, 255, 255, 0.06)',
-                  color: m.sender === 'user' ? '#000000' : '#F8FAFC',
-                  border: m.sender === 'user' ? 'none' : '1px solid rgba(255, 255, 255, 0.12)',
+                  background: m.sender === 'user' ? 'linear-gradient(135deg, #D4AF37, #F59E0B)' : 'rgba(255, 255, 255, 0.08)',
+                  color: m.sender === 'user' ? '#000000' : '#FFFFFF',
+                  border: m.sender === 'user' ? 'none' : '1px solid rgba(212, 175, 55, 0.3)',
                   padding: '14px 18px',
                   borderRadius: m.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
                   fontSize: '14px',
                   lineHeight: '1.6',
                   fontWeight: m.sender === 'user' ? '700' : '400',
-                  boxShadow: m.sender === 'user' ? '0 4px 16px rgba(212, 175, 55, 0.3)' : '0 4px 16px rgba(0,0,0,0.3)',
+                  boxShadow: m.sender === 'user' ? '0 4px 16px rgba(212, 175, 55, 0.4)' : '0 4px 16px rgba(0,0,0,0.4)',
                   wordBreak: 'break-word'
                 }}>
                   {m.text}
@@ -199,23 +198,23 @@ export default function JarvisChat({ onAddToCart }) {
             ))}
 
             {loading && (
-              <div style={{ alignSelf: 'flex-start', color: '#94A3B8', fontSize: '13px', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ animation: 'spin 1s linear infinite' }}>⏳</span> Jarvis is thinking...
+              <div style={{ alignSelf: 'flex-start', color: 'gold', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(212, 175, 55, 0.1)', padding: '10px 16px', borderRadius: '14px' }}>
+                <span style={{ animation: 'pulse 1s infinite' }}>⏳</span> Jarvis is typing a reply...
               </div>
             )}
-            <div ref={messagesEndRef} />
+            <div ref={messagesEndRef} style={{ float: 'left', clear: 'both' }} />
           </div>
 
           {/* Redesigned Sleek Input Form */}
-          <form onSubmit={handleSend} style={{ padding: '16px', borderTop: '1px solid rgba(212, 175, 55, 0.25)', background: '#0b0d11', display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <form onSubmit={handleSend} style={{ padding: '16px', borderTop: '1px solid rgba(212, 175, 55, 0.3)', background: '#0b0d11', display: 'flex', gap: '12px', alignItems: 'center', flexShrink: 0 }}>
             <input
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Type your question to Jarvis AI..."
+              placeholder="Ask Jarvis (e.g. 'Hi', 'Recommend Biryani')..."
               style={{
                 flex: 1,
-                background: 'rgba(255, 255, 255, 0.05)',
+                background: 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid rgba(212, 175, 55, 0.4)',
                 borderRadius: '14px',
                 padding: '14px 18px',

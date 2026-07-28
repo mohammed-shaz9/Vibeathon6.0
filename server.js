@@ -437,12 +437,67 @@ ${aiInsightsText}`,
 • Low Stock Alert Items: ${low_stock_items.length ? low_stock_items.join(', ') : 'All core ingredients currently within optimal safety threshold'}
 • Projected Reorder Requirement: Basmati Rice & Amul Butter within 48 hours.
 
-💡 AI DEMAND OPTIMIZATION RECOMMENDATIONS:
-1. Dynamic Pricing: Increase Beverage gross margins during Friday 19:00 - 22:00 peak hours (+12% revenue potential).
-2. Kitchen Prep Efficiency: Pre-portion Biryani spice blends at 17:00 to reduce KDS ticket preparation time from 14m to 9m.
-3. Customer Retention: High repeat QR order frequency detected for Dessert Sizzlers (+22% dessert upsell conversion).`
-    });
+// Dedicated Customer Jarvis AI Chat Endpoint with Groq LLM Multi-Key Fallback
+app.post('/api/ai/chat', async (req, res) => {
+  const { userPrompt = 'Hi' } = req.body;
+  
+  const systemPrompt = `You are Jarvis, the friendly, intelligent AI Culinary Concierge at Azzurro Caffè.
+Your goal is to assist restaurant guests with menu recommendations, ingredient & allergen details, table QR ordering, and dining inquiries.
+
+Key Knowledge Base for Azzurro Caffè:
+- Signature Main Courses: Hyderabadi Dum Biryani (₹349), Paneer Tikka Multani (₹249), Butter Chicken Deluxe (₹349), Dal Makhani Royal (₹229).
+- Desserts: Classic Tiramisu (₹249), Molten Lava Cake (₹279), Kesari Rasmalai (₹149), Fudge Brownie Sizzler (₹229).
+- Beverages: Classic Virgin Mojito (₹139), Mango Lassi (₹119), Cutting Masala Chai (₹69), Cold Coffee with Ice Cream (₹149).
+- System Features: QR Table Ordering, Live Order Tracker, Kitchen KDS, Waiter Dispatch, Host Stand Waitlist.
+
+Rules for your responses:
+- Keep your response warm, conversational, concise, and helpful (1 to 3 short paragraphs max).
+- Do NOT output 50-line telemetry reports or code blocks.
+- If the user greets you with 'Hi', 'Hello', or similar, greet them warmly, welcome them to Azzurro Caffè, and ask how you can help them choose their meal today.`;
+
+  let aiReplyText = null;
+
+  for (let k = 0; k < GROQ_API_KEYS.length; k++) {
+    const apiKey = GROQ_API_KEYS[k];
+    for (const model of GROQ_MODELS) {
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.7,
+            max_tokens: 300
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          aiReplyText = data.choices?.[0]?.message?.content;
+          if (aiReplyText) break;
+        }
+      } catch (err) {}
+    }
+    if (aiReplyText) break;
   }
+
+  if (!aiReplyText) {
+    const lower = userPrompt.toLowerCase();
+    if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
+      aiReplyText = "Hello! Welcome to Azzurro Caffè. I'm Jarvis, your AI Culinary Concierge. How may I assist your dining experience today? I can recommend biryanis, desserts, or signature mocktails!";
+    } else {
+      aiReplyText = "I'm delighted to assist you at Azzurro Caffè! Our Chef recommends trying our Hyderabadi Dum Biryani or Classic Tiramisu today.";
+    }
+  }
+
+  res.json({ reply: aiReplyText });
 });
 
 app.get('*', (req, res) => {
