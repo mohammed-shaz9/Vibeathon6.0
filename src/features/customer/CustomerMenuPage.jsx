@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { apiGet, apiPost } from '../../shared/api';
 import { supabase } from '../../shared/supabase';
+import JarvisChat from '../../shared/JarvisChat';
 
 export default function CustomerMenuPage({ nav }) {
   const [menu, setMenu] = useState([]);
@@ -442,6 +443,13 @@ export default function CustomerMenuPage({ nav }) {
       )}
 
       {toast && <div className="toast" style={{ background: '#0f1115', borderLeft: '3px solid gold', color: '#fff' }}>{toast}</div>}
+
+      {/* Floating Jarvis AI Virtual Waiter Assistant */}
+      <JarvisChat onAddToCart={(rec) => {
+        add({ id: `rec-${Date.now()}`, name: rec.name, price: rec.price, is_veg: true });
+        setToast(`Added ${rec.name} to cart via Jarvis AI!`);
+        setTimeout(() => setToast(''), 3000);
+      }} />
     </div>
   );
 }

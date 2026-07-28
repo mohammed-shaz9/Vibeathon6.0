@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Section 1: Customer / Guest -->
         <div class="ordr-tree-section">
           <div class="ordr-tree-title">📱 Guest Portal</div>
+          <a href="scan.html" class="ordr-tree-node">
+            <i class="fa-solid fa-camera"></i> Camera QR Code Scanner <span class="ordr-badge-mini">Live Scan</span>
+          </a>
           <a href="order.html?table=1" class="ordr-tree-node">
             <i class="fa-solid fa-qrcode"></i> Guest QR Table Ordering <span class="ordr-badge-mini">Table 01-12</span>
           </a>
