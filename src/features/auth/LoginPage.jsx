@@ -107,7 +107,10 @@ export default function LoginPage({ nav }) {
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: `${prodOrigin}/order.html`
+            redirectTo: `${prodOrigin}/order.html`,
+            queryParams: {
+              prompt: 'select_account'
+            }
           }
         });
         if (error) throw error;
