@@ -1,41 +1,97 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function LandingPage({ nav }) {
+  useEffect(() => {
+    const handleScroll = () => {
+      const btn = document.getElementById('scrollToTopButton');
+      if (btn) btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
   return (
     <div className="app-shell">
-      <button id="scrollToTopButton" className="scroll-to-top-btn"><i className="fas fa-arrow-up"></i></button>
-      <div id="menuOverlay"></div>
+      <button id="scrollToTopButton" className="scroll-to-top-btn" onClick={scrollToTop}>
+        <i className="fas fa-arrow-up"></i>
+      </button>
+
       <header>
         <div className="container">
           <nav id="navbar">
             <div className="logo">
               <i className="fa-solid fa-a" style={{ color: '#fff' }}></i>
-              <a href="/index.html">zzurro <i><b>C</b></i>affè</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); nav.go('/'); }}>zzurro <i><b>C</b></i>affè</a>
             </div>
             <div id="rightSide">
               <ul id="navLinks">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/order.html">Menu</a></li>
-                <li><a href="#contactUs">Contact</a></li>
-                <li><a href="/about.html">About us</a></li>
-                <li><a href="/login.html" style={{ color: '#d4af37' }}>ORDR Portal</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/'); }}>Home</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/order.html'); }}>Menu</a></li>
+                <li><a href="#contactUs" onClick={(e) => { e.preventDefault(); document.getElementById('contactUs')?.scrollIntoView({ behavior: 'smooth' }); }}>Contact</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/about.html'); }}>About us</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/login.html'); }} style={{ color: '#d4af37' }}>ORDR Portal</a></li>
               </ul>
               <i className="fa-solid fa-bars" id="menuToggle"></i>
             </div>
           </nav>
         </div>
       </header>
+
+      {/* Hero Section */}
       <section>
         <div className="sectionOne">
           <video autoPlay muted loop className="bg-video">
             <source src="/assets/Restaur.mp4" type="video/mp4" />
           </video>
-          <h1>Enjoy Our Delicious Meal,"Delight in Our Delectable Meals!</h1>
-          <p>
-            Savor the perfect blend of flavors crafted to satisfy your taste buds. Our dishes are prepared with the utmost care, bringing together quality ingredients and culinary excellence. Experience a feast that indulges your senses and leaves you craving for more!
-          </p>
+          <h1>Experience Fine Dining, Reimagined</h1>
+          <p>Savor the perfect blend of flavors crafted to satisfy your taste buds. Our dishes are prepared with the utmost care, bringing together quality ingredients and culinary excellence.</p>
+          <div style={{ zIndex: 3, display: 'flex', gap: '16px', margin: '0 50px' }}>
+            <button
+              onClick={() => nav.go('/login.html')}
+              style={{ background: 'gold', color: '#000', border: 'none', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer', letterSpacing: '0.02em' }}
+            >
+              Reserve a Table
+            </button>
+            <button
+              onClick={() => nav.go('/order.html')}
+              style={{ background: 'transparent', color: '#fff', border: '2px solid gold', padding: '16px 32px', borderRadius: '8px', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}
+            >
+              View Menu
+            </button>
+          </div>
         </div>
       </section>
+
+      {/* Features Section */}
+      <section style={{ background: '#0b0d11', padding: '80px 0' }}>
+        <div className="container">
+          <h2 style={{ color: 'gold', textAlign: 'center', fontSize: '36px', fontFamily: 'Space Grotesk, sans-serif', marginBottom: '12px' }}>Powered by ORDR</h2>
+          <p style={{ color: '#94a3b8', textAlign: 'center', fontSize: '16px', marginBottom: '48px', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>Our Smart Restaurant Operating System streamlines every aspect of your dining experience</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+            {[
+              ['fa-qrcode', 'QR Table Ordering', 'Scan, browse, and order directly from your phone. No waiting for menus.'],
+              ['fa-fire-burner', 'Live Kitchen Display', 'Real-time order tracking from kitchen to your table.'],
+              ['fa-bell-concierge', 'Smart Waiter Alerts', 'Instant notifications when your food is ready for delivery.'],
+              ['fa-chart-line', 'AI-Powered Insights', 'Revenue analytics, demand forecasting, and smart inventory management.'],
+              ['fa-clipboard-user', 'Digital Host Stand', 'Automated table assignment, waitlist management, and seating optimization.'],
+              ['fa-star', 'Guest Reviews', 'Rate your meal, chef, and waiter. Tips included.']
+            ].map(([icon, title, desc]) => (
+              <div key={title} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', transition: 'transform 0.2s, border-color 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+              >
+                <i className={`fa-solid ${icon}`} style={{ fontSize: '28px', color: 'gold', marginBottom: '16px', display: 'block' }}></i>
+                <h3 style={{ color: '#fff', margin: '0 0 8px 0', fontSize: '18px', fontFamily: 'Space Grotesk, sans-serif' }}>{title}</h3>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '14px', lineHeight: '1.6' }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
       <section>
         <div className="contactUs" id="contactUs">
           <div className="container">
@@ -48,6 +104,38 @@ export default function LandingPage({ nav }) {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer>
+        <div className="container">
+          <div className="footer-content" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '32px' }}>
+            <div>
+              <h3 style={{ color: 'gold', fontFamily: 'Space Grotesk, sans-serif' }}>Azzurro Caffè</h3>
+              <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.7' }}>Premium dining experience in the heart of the city. Powered by ORDR Smart Restaurant OS.</p>
+            </div>
+            <div>
+              <h4 style={{ color: '#fff', marginBottom: '16px' }}>Quick Links</h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                <li style={{ marginBottom: '8px' }}><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/'); }} style={{ color: '#94a3b8', textDecoration: 'none' }}>Home</a></li>
+                <li style={{ marginBottom: '8px' }}><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/order.html'); }} style={{ color: '#94a3b8', textDecoration: 'none' }}>Menu</a></li>
+                <li style={{ marginBottom: '8px' }}><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/about.html'); }} style={{ color: '#94a3b8', textDecoration: 'none' }}>About</a></li>
+                <li style={{ marginBottom: '8px' }}><a href="#" onClick={(e) => { e.preventDefault(); nav.go('/login.html'); }} style={{ color: 'gold', textDecoration: 'none' }}>ORDR Portal</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 style={{ color: '#fff', marginBottom: '16px' }}>Connect</h4>
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <a href="#" style={{ color: 'gold', fontSize: '20px' }}><i className="fa-brands fa-instagram"></i></a>
+                <a href="#" style={{ color: 'gold', fontSize: '20px' }}><i className="fa-brands fa-twitter"></i></a>
+                <a href="#" style={{ color: 'gold', fontSize: '20px' }}><i className="fa-brands fa-facebook"></i></a>
+              </div>
+            </div>
+          </div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '32px', paddingTop: '20px', textAlign: 'center', color: '#64748b', fontSize: '13px' }}>
+            © 2024 Azzurro Caffè. All rights reserved. Powered by ORDR.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

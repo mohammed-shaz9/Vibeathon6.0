@@ -1,17 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { apiPost } from '../../shared/api';
+import { supabase } from '../../shared/supabase';
 
 export default function LoginPage({ nav }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('password123');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [googleUser, setGoogleUser] = useState(null);
+  const [showGoogleModal, setShowGoogleModal] = useState(false);
+  const [customGoogleName, setCustomGoogleName] = useState('');
+  const [customGoogleEmail, setCustomGoogleEmail] = useState('');
+  const [toast, setToast] = useState('');
+
+  const mockGoogleAccounts = [
+    { name: 'Anas Khan', email: 'anas.khan@gmail.com', avatar: 'https://ui-avatars.com/api/?name=Anas+Khan&background=4285F4&color=fff' },
+    { name: 'Alex Rivera', email: 'alex.rivera@gmail.com', avatar: 'https://ui-avatars.com/api/?name=Alex+Rivera&background=0F9D58&color=fff' },
+    { name: 'Sam Wilson', email: 'sam.wilson@gmail.com', avatar: 'https://ui-avatars.com/api/?name=Sam+Wilson&background=F4B400&color=fff' }
+  ];
+
+  const handleSelectGoogleAccount = (name, email) => {
+    localStorage.setItem('azzurro_customer_name', name);
+    localStorage.setItem('azzurro_customer_email', email);
+    setToast('Authenticated as Google Account');
+    setTimeout(() => {
+      setToast('');
+      setShowGoogleModal(false);
+      nav.go('/order.html?simulation=1');
+    }, 1500);
+  };
+
+  // Check if we already have a logged in user via OAuth
+  useEffect(() => {
+    if (supabase) {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.user) {
+          setGoogleUser(session.user);
+          // Set demo customer info to trigger the simulator workflow
+          localStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.email.split('@')[0]);
+          localStorage.setItem('azzurro_customer_email', session.user.email);
+        }
+      });
+
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session?.user) {
+          setGoogleUser(session.user);
+          localStorage.setItem('azzurro_customer_name', session.user.user_metadata?.full_name || session.user.email.split('@')[0]);
+          localStorage.setItem('azzurro_customer_email', session.user.email);
+        } else {
+          setGoogleUser(null);
+        }
+      });
+
+      return () => subscription.unsubscribe();
+    }
+  }, []);
 
   const roles = [
     { name: 'Admin / Manager', email: 'admin@azzurro.demo', icon: 'fa-user-tie' },
     { name: 'Kitchen KDS', email: 'kitchen@azzurro.demo', icon: 'fa-fire-burner' },
     { name: 'Waiter Panel', email: 'waiter@azzurro.demo', icon: 'fa-bell-concierge' },
-    { name: 'Host Stand / Door Allotment', email: 'host@azzurro.demo', icon: 'fa-clipboard-user' },
-    { name: 'Guest Ordering Portal', email: 'customer@azzurro.demo', icon: 'fa-utensils' }
+    { name: 'Host Stand / Allotment', email: 'host@azzurro.demo', icon: 'fa-clipboard-user' },
+    { name: 'Guest / Customer Menu', email: 'customer@azzurro.demo', icon: 'fa-utensils' }
   ];
 
   const selectRole = (emailAddr) => {
@@ -35,7 +85,6 @@ export default function LoginPage({ nav }) {
     }
     setError('');
     setLoading(true);
-    // Simulate auth check matching backend
     setTimeout(() => {
       setLoading(false);
       if (password === 'password123') {
@@ -45,6 +94,26 @@ export default function LoginPage({ nav }) {
         setError('Invalid password');
       }
     }, 400);
+  };
+
+  const handleGoogleOAuth = async () => {
+    if (supabase) {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/order.html?simulation=1'
+          }
+        });
+        if (error) throw error;
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    } else {
+      setShowGoogleModal(true);
+    }
   };
 
   return (
@@ -72,7 +141,7 @@ export default function LoginPage({ nav }) {
         {/* Left Side - Quick Demo Select */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h2 style={{ color: 'gold', margin: '0 0 10px 0', fontFamily: 'Raleway, sans-serif' }}>Select Staff Role</h2>
-          <p style={{ color: '#94a3b8', margin: '0 0 10px 0', fontSize: '14px' }}>Choose a portal to log in instantly using built-in restaurant demo credentials:</p>
+          <p style={{ color: '#94a3b8', margin: '0 0 10px 0', fontSize: '14px' }}>Choose a staff portal to log in instantly, or log in as a Customer on the right:</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {roles.map((r) => (
               <button 
@@ -102,10 +171,41 @@ export default function LoginPage({ nav }) {
           </div>
         </section>
 
-        {/* Right Side - Login Form */}
-        <section style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {/* Right Side - Custom Authentication */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          
+          {/* Google Auth for Judges / Customers */}
+          <div className="ordr-card ordr-glass" style={{ padding: '30px', borderRadius: '20px', textAlign: 'center' }}>
+            <h3 style={{ margin: '0 0 10px 0', color: 'gold' }}>Judge & Guest Login</h3>
+            <p style={{ color: '#94a3b8', fontSize: '13px', marginBottom: '20px' }}>Authenticate with your real Gmail account to run the Interactive Table Allotment and QR Dining flow.</p>
+            <button 
+              onClick={handleGoogleOAuth}
+              disabled={loading}
+              style={{
+                background: '#fff',
+                color: '#000',
+                border: '1px solid #ddd',
+                borderRadius: '10px',
+                padding: '14px 20px',
+                width: '100%',
+                fontWeight: '700',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                fontSize: '15px'
+              }}
+            >
+              <i className="fa-brands fa-google" style={{ color: '#4285F4' }}></i>
+              Continue with Google Account
+            </button>
+          </div>
+
+          <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: '12px' }}>— OR STAFF ACCESS —</div>
+
+          {/* Form for Staff Creds */}
           <div className="ordr-card ordr-glass" style={{ padding: '30px', borderRadius: '20px' }}>
-            <h3 style={{ margin: '0 0 20px 0', color: 'gold', textAlign: 'center', fontSize: '22px' }}>ORDR Portal Authentication</h3>
             <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '12px', color: '#94a3b8' }}>Selected Email Address</label>
@@ -155,8 +255,7 @@ export default function LoginPage({ nav }) {
                   border: 'none',
                   cursor: 'pointer',
                   fontSize: '16px',
-                  marginTop: '10px',
-                  transition: 'opacity 0.2s'
+                  marginTop: '10px'
                 }}
               >
                 {loading ? 'Verifying...' : 'Access Portal'}
@@ -166,6 +265,93 @@ export default function LoginPage({ nav }) {
         </section>
 
       </main>
+
+      {/* Google Auth Modal */}
+      {showGoogleModal && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '12px', width: 'min(400px, 90%)', padding: '24px',
+            color: '#202124', fontFamily: 'Roboto, Arial, sans-serif'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <i className="fa-brands fa-google" style={{ color: '#4285F4', fontSize: '32px', marginBottom: '12px' }}></i>
+              <h2 style={{ margin: 0, fontSize: '24px', fontWeight: '400' }}>Sign in with Google</h2>
+              <p style={{ margin: '8px 0 0 0', fontSize: '14px', color: '#5f6368' }}>Choose an account to continue to Azzurro</p>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '16px' }}>
+              {mockGoogleAccounts.map((acc, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => handleSelectGoogleAccount(acc.name, acc.email)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '12px', padding: '12px',
+                    border: 'none', background: 'transparent', cursor: 'pointer',
+                    borderRadius: '8px', borderBottom: '1px solid #f1f3f4', textAlign: 'left',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.background = '#f8f9fa'}
+                  onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <img src={acc.avatar} alt={acc.name} style={{ width: '36px', height: '36px', borderRadius: '50%' }} />
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: '500', color: '#3c4043' }}>{acc.name}</div>
+                    <div style={{ fontSize: '12px', color: '#5f6368' }}>{acc.email}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <div style={{ paddingTop: '16px', borderTop: '1px solid #e8eaed', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <p style={{ margin: 0, fontSize: '14px', color: '#3c4043', fontWeight: '500' }}>Use another Google Account</p>
+              <input 
+                type="text" placeholder="Full Name" value={customGoogleName} onChange={e => setCustomGoogleName(e.target.value)}
+                style={{ padding: '10px 12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px' }}
+              />
+              <input 
+                type="email" placeholder="Email address" value={customGoogleEmail} onChange={e => setCustomGoogleEmail(e.target.value)}
+                style={{ padding: '10px 12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px' }}
+              />
+              <button 
+                onClick={() => {
+                  if (customGoogleName && customGoogleEmail) handleSelectGoogleAccount(customGoogleName, customGoogleEmail);
+                }}
+                style={{
+                  background: '#1a73e8', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px',
+                  fontWeight: '500', cursor: 'pointer'
+                }}
+              >
+                Next
+              </button>
+            </div>
+
+            <button 
+              onClick={() => setShowGoogleModal(false)}
+              style={{
+                marginTop: '16px', width: '100%', background: 'transparent', border: 'none', color: '#5f6368',
+                cursor: 'pointer', fontSize: '14px'
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {toast && (
+        <div style={{
+          position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+          background: '#0f1115', borderLeft: '3px solid #10b981', color: '#fff',
+          padding: '12px 24px', borderRadius: '8px', zIndex: 1100, boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+        }}>
+          <i className="fa-solid fa-circle-check" style={{ color: '#10b981', marginRight: '8px' }}></i>
+          {toast}
+        </div>
+      )}
     </div>
   );
 }

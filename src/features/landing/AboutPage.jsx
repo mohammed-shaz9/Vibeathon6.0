@@ -23,46 +23,45 @@ export default function AboutPage({ nav }) {
         </div>
       </header>
 
-      <div className="aboutContainer" style={{ paddingTop: '100px', paddingBottom: '50px' }}>
-        <div className="aboutWrapper">
-          <div className="aboutImages">
-            <div className="aboutImage firstAboutImage">
-              <img src="/assets/about-1.jpg" alt="About 1" />
+      <div style={{ paddingTop: '120px', paddingBottom: '60px', background: '#0b0d11', minHeight: '100vh' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
+            {/* Image Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <img src="/assets/about-1.jpg" alt="About 1" style={{ width: '100%', borderRadius: '16px', objectFit: 'cover', height: '200px' }} />
+              <img src="/assets/about-2.jpg" alt="About 2" style={{ width: '100%', borderRadius: '16px', objectFit: 'cover', height: '200px', marginTop: '32px' }} />
+              <img src="/assets/about-3.jpg" alt="About 3" style={{ width: '100%', borderRadius: '16px', objectFit: 'cover', height: '200px' }} />
+              <img src="/assets/about-4.jpg" alt="About 4" style={{ width: '100%', borderRadius: '16px', objectFit: 'cover', height: '200px', marginTop: '32px' }} />
             </div>
-            <div className="aboutImage">
-              <img src="/assets/about-2.jpg" alt="About 2" />
-            </div>
-            <div className="aboutImage thirdAboutImage">
-              <img src="/assets/about-3.jpg" alt="About 3" />
-            </div>
-            <div className="aboutImage lastAboutImage">
-              <img src="/assets/about-4.jpg" alt="About 4" />
-            </div>
-          </div>
-          
-          <div className="aboutTextRight" style={{ color: '#fff' }}>
-            <h1 id="welcomeHeader" style={{ color: 'gold' }}>
-              Welcome to <span> <i className="fa-solid fa-a fa-xl" style={{ color: 'gold' }}></i>zzurro Caffè</span>
-            </h1>
-            <p>
-              Welcome to Azzurro Caffè, where we redefine the art of dining. For over 15 years, our restaurant has been a sanctuary for food lovers, blending tradition with innovation to create unforgettable meals. Our chefs are inspired by the rich culinary heritage of cultures from around the world, carefully crafting dishes that tell a story with every bite. From the freshest ingredients to the most exquisite presentation, we ensure that every meal is a celebration of flavor, quality, and passion.
-            </p>
-            <p>
-              Over the years, Azzurro Caffè has grown to become more than just a restaurant—it’s a destination where family, friends, and loved ones come together to share happiness and create lasting memories. From our warm, welcoming ambiance to our attentive staff who prioritize your comfort, every detail is designed to make you feel at home.
-            </p>
-            <div className="experienceAndChefsWrapper" style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-              <div className="experienceWrapper" style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '10px', flex: 1 }}>
-                <h1>15</h1>
-                <p>Years Opening</p>
+
+            {/* Text Content */}
+            <div style={{ color: '#fff' }}>
+              <h1 style={{ color: 'gold', fontFamily: 'Space Grotesk, sans-serif', fontSize: '36px', marginBottom: '20px' }}>
+                Welcome to <span style={{ color: 'gold', textDecoration: 'none', border: 'none' }}>Azzurro Caffè</span>
+              </h1>
+              <p style={{ color: '#94a3b8', fontSize: '16px', lineHeight: '1.8', marginBottom: '16px' }}>
+                Welcome to Azzurro Caffè, where we redefine the art of dining. For over 15 years, our restaurant has been a sanctuary for food lovers, blending tradition with innovation to create unforgettable meals. Our chefs are inspired by the rich culinary heritage of cultures from around the world, carefully crafting dishes that tell a story with every bite.
+              </p>
+              <p style={{ color: '#94a3b8', fontSize: '16px', lineHeight: '1.8', marginBottom: '24px' }}>
+                Over the years, Azzurro Caffè has grown to become more than just a restaurant—it's a destination where family, friends, and loved ones come together to share happiness and create lasting memories.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)', padding: '24px', borderRadius: '12px', flex: 1, textAlign: 'center' }}>
+                  <h2 style={{ color: 'gold', margin: '0 0 4px 0', fontSize: '36px', fontFamily: 'Space Grotesk, sans-serif' }}>15</h2>
+                  <p style={{ color: '#94a3b8', margin: 0, fontSize: '14px' }}>Years of Excellence</p>
+                </div>
+                <div style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)', padding: '24px', borderRadius: '12px', flex: 1, textAlign: 'center' }}>
+                  <h2 style={{ color: 'gold', margin: '0 0 4px 0', fontSize: '36px', fontFamily: 'Space Grotesk, sans-serif' }}>50</h2>
+                  <p style={{ color: '#94a3b8', margin: 0, fontSize: '14px' }}>Expert Chefs</p>
+                </div>
               </div>
-              <div className="chefsWrapper" style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '10px', flex: 1 }}>
-                <h1>50</h1>
-                <p>Popular Chefs</p>
-              </div>
+              <button
+                onClick={() => nav.go('/')}
+                style={{ background: 'gold', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '8px', fontWeight: '700', cursor: 'pointer', fontSize: '15px' }}
+              >
+                Back to Home
+              </button>
             </div>
-            <button className="aboutBtn" style={{ marginTop: '20px', background: 'gold', border: 'none', padding: '10px 20px', cursor: 'pointer' }} onClick={() => nav.go('/')}>
-              Back To Home
-            </button>
           </div>
         </div>
       </div>

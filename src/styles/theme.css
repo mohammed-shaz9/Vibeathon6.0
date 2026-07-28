@@ -29,3 +29,187 @@ button { cursor: pointer; }
 .customer-page { min-height:100vh; background:#fff; color:#0F172A; padding-bottom:100px; }.customer-header { display:flex; justify-content:space-between; padding:18px 32px; border-bottom:1px solid #E2E8F0; }.customer-main { max-width:1080px; margin:auto; padding:24px; }.filter-bar,.category-tabs { display:flex; gap:8px; overflow:auto; margin-bottom:16px; }.filter-bar button { padding:8px 14px; border:1px solid #E2E8F0; background:transparent; border-radius:20px; color:#64748B; white-space:nowrap; }.filter-bar button.active { background:#6366F1; color:#fff; border-color:#6366F1; }.category-tabs button { background:transparent; border:0; border-bottom:2px solid transparent; padding:8px 4px; color:#64748B; white-space:nowrap; }.category-tabs button.active { border-color:#6366F1; color:#0F172A; }.menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }.menu-card { background:#fff; border:1px solid #E2E8F0; border-radius:12px; padding:16px; }.menu-card h3,.customer-title { font-family:'Space Grotesk',sans-serif; }.menu-card p { color:#64748B; font-size:14px; min-height:40px; }.menu-card-footer { display:flex; justify-content:space-between; align-items:center; gap:10px; }.price { color:#6366F1; font:700 16px 'JetBrains Mono',monospace; }.food-tag { font-size:11px; font-weight:600; }.food-tag.veg { color:#10B981; }.food-tag.nonveg { color:#EF4444; }.cart-bar { position:fixed; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:space-between; gap:16px; background:rgb(255 255 255/.94); backdrop-filter:blur(12px); box-shadow:0 -2px 12px rgb(0 0 0/.08); padding:16px 24px; z-index:10; }.cart-modal { position:fixed; inset:0; background:rgb(0 0 0/.4); display:grid; place-items:center; padding:20px; z-index:20; }.cart-modal .card { width:min(480px,100%); background:#fff; color:#0F172A; border-color:#E2E8F0; }.cart-modal .field input,.cart-modal .field select,.cart-modal .field textarea { background:#fff; color:#0F172A; border-color:#E2E8F0; }.tracker { max-width:600px; margin:auto; padding:64px 24px; text-align:center; }.tracker .card { background:#fff; color:#0F172A; border-color:#E2E8F0; text-align:left; }.progress { display:flex; align-items:flex-start; justify-content:center; margin:32px 0; }.step { width:78px; display:grid; justify-items:center; gap:8px; color:#64748B; font-size:12px; }.step-dot { width:44px; height:44px; display:grid; place-items:center; border-radius:50%; background:#E2E8F0; }.step.complete .step-dot { background:#10B981; color:white; }.step.current .step-dot { background:#6366F1; color:white; animation:pulse 1.5s infinite; }.progress-line { width:32px; height:2px; background:#E2E8F0; margin-top:21px; }.progress-line.complete { background:#10B981; }.stars { display:flex; gap:4px; }.stars button { border:0; padding:0; background:transparent; color:#E2E8F0; font-size:32px; }.stars button.filled { color:#F59E0B; }.toast { position:fixed; right:24px; bottom:24px; background:#1E293B; color:#fff; border-left:3px solid #10B981; padding:16px 24px; border-radius:8px; z-index:100; }
 @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgb(99 102 241/.4); } 50% { box-shadow:0 0 0 8px rgb(99 102 241/0); } }
 @media(max-width:768px){ .portal-page{padding:20px}.portal-header{margin:-20px -20px 20px}.kds-grid,.menu-grid,.charts,.stat-cards{grid-template-columns:1fr}.host-layout{flex-direction:column}.host-left{flex:auto}.floor-plan{grid-template-columns:repeat(2,1fr)}.admin-sidebar{display:none}.admin-main{padding:20px}.customer-header{padding:16px}.customer-main{padding:16px}.progress{transform:scale(.86); margin-left:-26px;margin-right:-26px} }
+
+/* === Micro-animations & Polish === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(212,175,55,0.2); }
+  50% { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+}
+
+/* Page entrance */
+.app-shell, .portal-page, .customer-page, .admin-layout {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Card hover lift */
+.card, .menu-card, .order-card, .table-card, .ordr-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover, .menu-card:hover, .order-card:hover, .ordr-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.table-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+}
+
+/* Button animations */
+.btn {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.btn:hover::after {
+  transform: translateX(100%);
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Badge pulse for active status */
+.badge-preparing {
+  animation: pulse 2s infinite;
+}
+
+/* Staggered grid animations */
+.kds-grid > *, .menu-grid > *, .floor-plan > *, .stat-cards > *, .delivery-list > * {
+  animation: fadeInUp 0.4s ease-out backwards;
+}
+.kds-grid > *:nth-child(1), .menu-grid > *:nth-child(1), .floor-plan > *:nth-child(1), .stat-cards > *:nth-child(1) { animation-delay: 0.05s; }
+.kds-grid > *:nth-child(2), .menu-grid > *:nth-child(2), .floor-plan > *:nth-child(2), .stat-cards > *:nth-child(2) { animation-delay: 0.1s; }
+.kds-grid > *:nth-child(3), .menu-grid > *:nth-child(3), .floor-plan > *:nth-child(3), .stat-cards > *:nth-child(3) { animation-delay: 0.15s; }
+.kds-grid > *:nth-child(4), .menu-grid > *:nth-child(4), .floor-plan > *:nth-child(4), .stat-cards > *:nth-child(4) { animation-delay: 0.2s; }
+.kds-grid > *:nth-child(n+5), .menu-grid > *:nth-child(n+5), .floor-plan > *:nth-child(n+5) { animation-delay: 0.25s; }
+
+/* Sidebar nav hover */
+.admin-nav button {
+  transition: all 0.2s ease;
+}
+.admin-nav button:hover {
+  background: rgba(99, 102, 241, 0.05);
+  color: #E2E8F0;
+  padding-left: 28px;
+}
+
+/* Toast entrance */
+.toast {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* Loading skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #1E293B 25%, #334155 50%, #1E293B 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Gold glow on special items */
+.menu-card:has(.chef-special), .order-card.ready {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Filter/tab button transitions */
+.filter-bar button, .category-tabs button {
+  transition: all 0.2s ease;
+}
+.filter-bar button:hover, .category-tabs button:hover {
+  transform: translateY(-1px);
+}
+
+/* Progress step animations */
+.step {
+  transition: all 0.3s ease;
+}
+.step.complete {
+  transform: scale(1.05);
+}
+
+/* Stars hover effect */
+.stars button {
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.stars button:hover {
+  transform: scale(1.3);
+  color: #F59E0B;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0F172A; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* Glass morphism helper */
+.ordr-glass {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Menu card image styling */
+.menu-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Empty state animations */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94A3B8;
+  animation: fadeIn 0.5s ease-out;
+}
+.empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: pulse 2s infinite;
+}
+.empty-state .title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #F8FAFC;
+  margin-bottom: 8px;
+}
+
+/* Additional mobile responsiveness */
+@media(max-width:480px) {
+  .sectionOne h1 { font-size: 32px !important; width: 80% !important; margin: 20px !important; }
+  .sectionOne p { font-size: 16px !important; width: 85% !important; margin: 20px !important; }
+  .login-card { padding: 20px !important; }
+  .filter-bar { flex-wrap: wrap; }
+  .category-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}

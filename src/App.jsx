@@ -5,6 +5,7 @@ import LoginPage from './features/auth/LoginPage';
 import CustomerMenuPage from './features/customer/CustomerMenuPage';
 import CustomerTrackerPage from './features/customer/CustomerTrackerPage';
 import CustomerReviewPage from './features/customer/CustomerReviewPage';
+import BillPage from './features/customer/BillPage';
 import KitchenPage from './features/kitchen/KitchenPage';
 import WaiterPage from './features/waiter/WaiterPage';
 import HostPage from './features/host/HostPage';
@@ -20,6 +21,7 @@ function routeFromLocation() {
   if (pathname === '/features/customer/order.html') return { view: 'customer-menu', search };
   if (pathname === '/features/customer/tracker.html') return { view: 'customer-tracker', search };
   if (pathname === '/features/customer/review.html') return { view: 'customer-review', search };
+  if (pathname === '/bill.html') return { view: 'bill', search };
   if (pathname === '/features/kitchen/kitchen.html') return { view: 'kitchen', search };
   if (pathname === '/features/waiter/waiter.html') return { view: 'waiter', search };
   if (pathname === '/features/host/host.html') return { view: 'host', search };
@@ -59,6 +61,8 @@ export default function App() {
       return <CustomerTrackerPage {...pageProps} />;
     case 'customer-review':
       return <CustomerReviewPage {...pageProps} />;
+    case 'bill':
+      return <BillPage {...pageProps} />;
     case 'kitchen':
       return <KitchenPage {...pageProps} />;
     case 'waiter':
