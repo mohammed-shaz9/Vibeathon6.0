@@ -11,6 +11,7 @@ import WaiterPage from './features/waiter/WaiterPage';
 import HostPage from './features/host/HostPage';
 import AdminPage from './features/admin/AdminPage';
 import ScanPage from './features/scan/ScanPage';
+import JarvisChat from './shared/JarvisChat';
 
 function routeFromLocation() {
   const { pathname, hash, search } = window.location;
@@ -54,30 +55,39 @@ export default function App() {
 
   const pageProps = { nav, route };
 
-  switch (route.view) {
-    case 'login':
-      return <LoginPage {...pageProps} />;
-    case 'customer-menu':
-      return <CustomerMenuPage {...pageProps} />;
-    case 'customer-tracker':
-      return <CustomerTrackerPage {...pageProps} />;
-    case 'customer-review':
-      return <CustomerReviewPage {...pageProps} />;
-    case 'bill':
-      return <BillPage {...pageProps} />;
-    case 'kitchen':
-      return <KitchenPage {...pageProps} />;
-    case 'waiter':
-      return <WaiterPage {...pageProps} />;
-    case 'host':
-      return <HostPage {...pageProps} />;
-    case 'admin':
-      return <AdminPage {...pageProps} />;
-    case 'scan':
-      return <ScanPage {...pageProps} />;
-    case 'about':
-      return <AboutPage {...pageProps} />;
-    default:
-      return <LandingPage {...pageProps} />;
-  }
+  const pageContent = (() => {
+    switch (route.view) {
+      case 'login':
+        return <LoginPage {...pageProps} />;
+      case 'customer-menu':
+        return <CustomerMenuPage {...pageProps} />;
+      case 'customer-tracker':
+        return <CustomerTrackerPage {...pageProps} />;
+      case 'customer-review':
+        return <CustomerReviewPage {...pageProps} />;
+      case 'bill':
+        return <BillPage {...pageProps} />;
+      case 'kitchen':
+        return <KitchenPage {...pageProps} />;
+      case 'waiter':
+        return <WaiterPage {...pageProps} />;
+      case 'host':
+        return <HostPage {...pageProps} />;
+      case 'admin':
+        return <AdminPage {...pageProps} />;
+      case 'scan':
+        return <ScanPage {...pageProps} />;
+      case 'about':
+        return <AboutPage {...pageProps} />;
+      default:
+        return <LandingPage {...pageProps} />;
+    }
+  })();
+
+  return (
+    <>
+      {pageContent}
+      <JarvisChat onAddToCart={() => nav.go('/order.html')} />
+    </>
+  );
 }

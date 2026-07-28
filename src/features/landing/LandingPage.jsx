@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import intro1Video from '/assets/intro1.mp4';
 import intro2Video from '/assets/intro2.mp4';
 import restaurVideo from '/assets/Restaur.mp4';
+import JarvisChat from '../../shared/JarvisChat';
 
 export default function LandingPage({ nav }) {
   // 1: intro1.mp4, 2: intro2.mp4, 3: completed landing page UI
@@ -307,6 +308,9 @@ export default function LandingPage({ nav }) {
           </div>
         </div>
       </footer>
+
+      {/* Floating Jarvis AI Waiter Concierge */}
+      <JarvisChat onAddToCart={(rec) => nav.go('/order.html')} />
     </div>
   );
 }
